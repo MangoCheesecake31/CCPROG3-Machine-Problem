@@ -1,0 +1,5 @@
+Things That I Wish To Implement in the Near Future I Guess...
+
+- Auto Load MasterList.java
+- Citizen Methods (When Record is Finished)
+- 
