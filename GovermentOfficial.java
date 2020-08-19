@@ -1,7 +1,11 @@
 import java.util.Scanner;
 
 public class GovermentOfficial extends Citizen {
-	
+	// Attributes
+	private MasterList list = new MasterList();
+
+
+	// Methods ::::::::::::::::::::
 	public void showCases() {
 
 	}
@@ -12,23 +16,31 @@ public class GovermentOfficial extends Citizen {
 
 	}
 
-	public boolean createGovernmentOfficialAccount() {
+	/**
+		returns true if goverment offical account creation is sucessful
+		undergo registry process if username does not exist in MasterList.txt 
+		@author Steven Castro
+	*/
+	public boolean createGovernmentOfficial() {
 
 		Account newUser = new Account();
 		Scanner sc = new Scanner(System.in);
 		String input;
 
-		// Username Input
+		// Ask User for Desirable Username
 		Visual.cls();
 		Visual.createOfficialMenu();
-
-		// If username is not existing register an government official account
+		
+		// If Username does not Exist in MasterList undergo registry process
 		if(newUser.verifyUsername(input = sc.next())) {
-			// If account is existing update role in MasterList.txt
-			MasterList list = new MasterList();
-			list.loadList();
+			// Check Account Role
+			if(list.getMasterRole(input).equals("official")) {
+				System.out.println("|INVALID: Account already has Goverment Official Role...");
+				return false;
+			}
+
+			// If Account is Existing Update Role of User in MasterList.txt
 			list.updateMaster(input, "official");
-			list.saveList();
 
 		} else if(!(newUser.register("official"))) {
 			return false;
@@ -37,45 +49,56 @@ public class GovermentOfficial extends Citizen {
 		return true;
 	}
 
-	public boolean createContactTracerAccount()
+	/**
+		returns true if contact tracer account creation is sucessful
+		undergo registry process if username does not exist in MasterList.txt 
+		@author Steven Castro
+	*/
+	public boolean createContactTracer()
 	{
 		Account newUser = new Account();
 		Scanner sc = new Scanner(System.in);
 		String input;
 
-		// Username Input
+		// Ask User for Desirable Username
 		Visual.cls();
-		Visual.usernameMenu();
+		Visual.createTracerMenu();
 
-		// If username is not existing register an government official account
-		if(!(newUser.verifyUsername(input = sc.next()))) {
-			if(newUser.register("tracer")) {
-				return true;
-			} else {
+		// If Username does not Exist in MasterList undergo registry process
+		if(newUser.verifyUsername(input = sc.next())) {
+			// Check Account Role
+			if(list.getMasterRole(input).equals("tracer")) {
+				System.out.println("|INVALID: Account already has Contact Tracer Role...");
 				return false;
 			}
-		}
 
-		// If account is already existing update role in masterlist
-		MasterList list = new MasterList();
-		list.loadList();
-		list.updateMaster(input, "tracer");
-		list.saveList();
+			// If Account is Existing Update Role of User in MasterList.txt
+			list.updateMaster(input, "tracer");
+
+		} else if(!(newUser.register("tracer"))) {
+			return false;
+		}
 
 		return true;
 	}
 
+	/**
+		returns true if termination of account is sucessful
+		@author Steven Castro
+		@param username username of the user to be demoted to customer account
+	*/
 	public boolean terminateAccount(String username) {
-
-		MasterList list = new MasterList();
-		list.loadList();
-
+		// Search Username in MasterList
 		if(list.checkMaster(username)) {
+			// Demote User's Role to Customer
 			list.updateMaster(username, "customer");
-			list.saveList();
 			return true;
 		}
 
 		return false;
 	}
 }
+
+/*
+	- Maybe add some error message when account has already have desired account type
+*/

@@ -166,6 +166,17 @@ public class Visual {
 		  System.out.print("|>>> ");
 	}
 
+	public static void createTracerMenu() {
+		System.out.println("| ------------------------ Create Contact Tracer ---------------------- |");
+		System.out.println("|                                                                       |");
+		System.out.println("|    Enter Existing Username:                                           |");
+		System.out.println("|                                                                       |");
+		System.out.println("| --------------------------------------------------------------------- |");
+		  System.out.print("|>>> ");
+	}
+
+
+
 
 
 
