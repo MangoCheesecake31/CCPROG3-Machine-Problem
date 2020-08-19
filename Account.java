@@ -3,10 +3,7 @@ import java.util.Scanner;
 import java.io.*;
 
 public class Account {
-
-	// ::::::::::::::::::::
-	// 		Attributes
-	// ::::::::::::::::::::
+	// Attributes
 
 	// Personal Information
 	public Name fullName;
@@ -18,31 +15,50 @@ public class Account {
 	private String role;
 	private boolean online;
 
-	// ::::::::::::::::::::
-	// 		Methods
-	// ::::::::::::::::::::
+
+	// Methods
 	
 	/** 
 		starts a registry process and returns true if it is successful
 		if successful creates a file containing user personal information and adds user to the Master List file
 		@author Steven Castro
+		@param accountType type of account to be registered 
 	*/
 	public boolean register(String accountType) {
 
+		// Check account type ::::::::::::::::::::
+		boolean valid = false;
+		String[] validTypes = {"customer", "tracer", "official"};
+		
+		for(String x: validTypes) 
+			if(x.equalsIgnoreCase(accountType)) {
+				valid = true;
+				break;
+			}
+
+		if(!valid) {
+			System.out.println("|INVALID: Account Type Parameter...");
+			return false;
+		}
+
+
+		// Registry Process ::::::::::::::::::::
 		int attempt = 3;
 		Scanner sc = new Scanner(System.in);
 		String input, input2;
 
-		// Obtain username input
+		// Ask User for Desirable Username
 		Visual.cls();
 		Visual.usernameMenu();
 
+		// Check Username if it is Unique
 		while(verifyUsername(input = sc.next())) {
 			Visual.cls();
 			System.out.println("|INVALID: Username is already taken...");
 			Visual.usernameMenu();
-		 attempt--;
+			attempt--;
 
+			// Check Number of Attempts
 			if(attempt == 0) {
 				Visual.cls();
 				System.out.println("|INVALID: Too Many Wrong Attempts...");
@@ -53,16 +69,18 @@ public class Account {
 		username = input;
 		attempt = 3;
 
-		// Obtain password input
+		// Ask User for Desirable Password
 		Visual.cls();
 		Visual.passwordMenu();
 
+		// Check Password if it is in Valid Format
 		while(!(validPassword(input = sc.next()))) {
 			Visual.cls();
 			System.out.println("|INVALID: Passwords should contain atleast 6 characters and 1 digit or special character...");
 			Visual.passwordMenu();
 			attempt--;
 
+			// Check Number of Attempts
 			if(attempt == 0) {
 				Visual.cls();
 				System.out.println("|INVALID: Too Many Wrong Attempts...");
@@ -70,68 +88,49 @@ public class Account {
 			}
 		}
 
-		// Obtain user's personal information
 		password = input;
 		role = accountType;
 
-		// Obtain user inputs for Full Name
+
+		// Ask User to Fill Personal Information ::::::::::::::::
 		Visual.cls();
 
-		// First Name
+		// Ask User Fullname
 		Visual.firstNameMenu();
 		input = sc.next();
-
-		// Middle Name
 		Visual.middleNameMenu();
 		input2 = sc.next();
-
-		// Last Name
 		Visual.lastNameMenu();
 		fullName = new Name(input, input2, sc.next());
-
-				
+	
 		// Flush
 		input = sc.nextLine();
 				
-		// Obtain user inputs for Address Informations
+		// // Ask User Address Information
 		addresses = new Address();
-		// Home Address
+
 		Visual.homeAddMenu();
 		addresses.setHomeAddress(sc.nextLine());
-
-		// Office Address
 		Visual.officeAddMenu();
 		addresses.setOfficeAddress(sc.nextLine());
-				
-		// Phone Address
 		Visual.phoneNumMenu();
 		addresses.setPhoneNumber(sc.next());
 
 		// Flush
 		input = sc.nextLine();
 
-		// Email Address
 		Visual.emailAddMenu();
 		addresses.setEmailAddress(sc.nextLine());
 				
 
-		// Summary
-		// System.out.println("| --------------------------------------------------------------------- |");
-		// System.out.println("|Full Name: " + fullName);
-		// System.out.println("|     HOME: " + addresses.getHomeAddress());
-		// System.out.println("|   OFFICE: " + addresses.getOfficeAddress());
-		// System.out.println("|    PHONE: " + addresses.getPhoneNumber());
-		// System.out.println("|    EMAIL: " + addresses.getEmailAddress());
-		// System.out.println("| --------------------------------------------------------------------- |");
+		// Saving User Information ::::::::::::::::::::
 
-
-		// Adds new user to MasterList.txt
+		// Add Registered User to MasterList.txt
 		MasterList list = new MasterList();
 
-		list.loadList();
+		// Add New User to MasterList
 		list.addMaster(username, accountType);
-		list.saveList();
-			
+
 		// Save User Personal and Account Information
 		System.out.println("|> Saving User...");
 		if(saveUserInfo(username)) {				
@@ -150,10 +149,13 @@ public class Account {
 
 		Scanner input = new Scanner(System.in);
 		
-		// Obtain username input
+		// Login Process ::::::::::::::::::::
+
+		// Ask User for Account Username
 		Visual.cls();
 		Visual.usernameMenu();
 
+		// Check Username if Account is Existing
 		if(verifyUsername(input.next())) {
 			
 			Visual.cls();
@@ -162,12 +164,11 @@ public class Account {
 			File fp = new File("./Accounts/" + username + ".act");
 			
 			try {
+				// Scan Account Password
 				Scanner sc = new Scanner(fp);
-
-				// Read user's correct password to Account class attribute password
 				password = sc.next();
 
-				// Obtain password input
+				// Ask User for Password Input
 				Visual.passwordMenu();
 				if(verifyPassword(input.next()) == false) {
 					Visual.cls();
@@ -177,7 +178,7 @@ public class Account {
 
 				input.close();
 
-				// Read and Load User's information
+				// Load User Account and Personal Information
 				loadUserInfo(username);
 	
 				Visual.cls();
@@ -193,6 +194,7 @@ public class Account {
 			}
 		}
 
+		// Login Process Failure Reset
 		username = null;
 		role = null;
 
@@ -202,7 +204,7 @@ public class Account {
 	}
 
 	/** 
-		set all Class Account attributes to null and online attribute to false
+		reset Account class fields to default
 		@author Steven Castro
 	*/
 	public void logOut() {
@@ -214,10 +216,8 @@ public class Account {
 		online = false;
 	}
 
-	// ::::::::::::::::::::::::::::::
-	// 		GETTERS
-	// ::::::::::::::::::::::::::::::
 
+	// Getters ::::::::::::::::::::::::::::::::
 	/** 
 		returns user's role
 		@author Steven Castro
@@ -242,9 +242,7 @@ public class Account {
 		return online;
 	}
 
-	// ::::::::::::::::::::::::::::::
-	// 		DATA VALIDITY
-	// ::::::::::::::::::::::::::::::
+	// Date Validity ::::::::::::::::::::::::
 
 	/**
 		returns true if username exists in the MasterList.txt
@@ -254,15 +252,17 @@ public class Account {
 	*/
 	public boolean verifyUsername(String username) {
 
+		// Master List
 		MasterList list = new MasterList();
 
-		list.loadList();
-
+		// Search Username in MasterList
+		// when true update Account Class username and role
 		if(list.checkMaster(username)) {
 			this.username = username;
 			role = list.getMasterRole(username);
 			return true;
 		}
+
 		return false;	
 	}
 
@@ -273,7 +273,6 @@ public class Account {
 		@param password current user's inputted password
 	*/
 	private boolean verifyPassword(String password) {
-
 		try {
 			if(this.password.equals(password)) {
 				online = true;
@@ -282,6 +281,7 @@ public class Account {
 		} catch (NullPointerException e) {
 			return false;
 		}	
+
 		return false;
 	}
 
@@ -311,12 +311,10 @@ public class Account {
 		return false;
 	}
 
-	// ::::::::::::::::::::::::::::::
-	// 		FILE HANDLING
-	// ::::::::::::::::::::::::::::::
+	// File Handling ::::::::::::::::::::::::
 
 	/**
-		read and loads user's personal and account information
+		scans and loads User's personnal and account information
 		@author Steven Castro
 		@param username current user's username
 	*/
@@ -328,13 +326,13 @@ public class Account {
 		// Scan Password (ignored)
 		String dump = sc.next();
 
-		// Scan User's Full Name
+		// Scan Fullname
 		fullName = new Name((sc.next()).replaceAll(",", ""), (sc.next()).replaceAll(",", ""), sc.next());
 
 		// Flush
 		dump = sc.nextLine();
 
-		// Scan User's Addresses Information
+		// Scan Address Information
 		addresses = new Address();
 		addresses.setHomeAddress((sc.nextLine()).substring(6));
 		addresses.setOfficeAddress((sc.nextLine()).substring(8));
@@ -347,7 +345,7 @@ public class Account {
 	}
 
 	/**
-		saves user's personal and account information
+		write User's personal and account information to respective files
 		@author Steven Castro
 		@param username current user's username
 	*/
@@ -357,9 +355,11 @@ public class Account {
 			File file = new File("./Accounts/" + username + ".act");
 			PrintStream ps = new PrintStream(file);
 
+			// Password & Fullname
 			ps.println(password);
 			ps.println(fullName.getFirstName() + ", " + fullName.getMiddleName() + ", " + fullName.getLastName());
 
+			// Address
 			ps.println("HOME: " + addresses.getHomeAddress());
 			ps.println("OFFICE: " + addresses.getOfficeAddress());
 			ps.println("PHONE: " + addresses.getPhoneNumber());
