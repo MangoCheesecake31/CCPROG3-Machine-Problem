@@ -4,8 +4,8 @@ import java.util.ArrayList;
 public class Record {
     private int numEntries;
     private String username;
-    public ArrayList<Calendar> dateList = new ArrayList<Calendar>(); // TODO: public(?)
-    private ArrayList<Code> codeList = new ArrayList<Code>();
+    public ArrayList<Calendar> dateList = new ArrayList<>(); // public or private (?)
+    private ArrayList<Code> codeList = new ArrayList<>();
 
     public Record(String username) {
         this.username = username;
@@ -15,11 +15,17 @@ public class Record {
         return username;
     }
 
-    // TODO: implement public Calendar getCalendarEntry(int index), public Code getCodeEntry(int index) --> new class
+    public Calendar getCalendarEntry(int index) {
+        return dateList.get(index);
+    }
+
+    public Code getCodeEntry(int index) {
+        return codeList.get(index);
+    }
 
     public void addEntry(Code code, int year, int month, int day, int hour, int minute) {
         month -= 1;
-        // TODO: error checking
+
         Calendar cal = new Calendar.Builder().setFields(Calendar.YEAR, year,
                                                         Calendar.MONTH, month,
                                                         Calendar.DAY_OF_MONTH, day,

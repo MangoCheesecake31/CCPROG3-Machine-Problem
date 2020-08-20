@@ -13,8 +13,8 @@ public class Code {
         code = newCode;
     }
 
-    // TODO: validCode(String newCode);
+    // valid or invalid -> when?
 //    private boolean validCode(String newCode) {
-//        // validate stuff
+//
 //    }
 }
