@@ -7,59 +7,60 @@ public class MachineProject {
 		boolean programIsOn = true;
 		boolean inMainMenu = true;
 
-
 		while(programIsOn) {
 			// New User
-			Account currentUser = new Account();
+			Account accountInfo = new Account();
 
+			// Main Menu
 			while(inMainMenu && programIsOn) {
 
 				Visual.mainMenu();
 
 				switch(sc.next().charAt(0)) {
 					case '1':
-							currentUser.register("customer");
+							accountInfo.register("customer");
 						break;
 					case '2': 
-						if(currentUser.logIn()) 
-							inMainMenu = false;
+							if(accountInfo.logIn()) 
+								inMainMenu = false;
 						break;
 					case '3':
 							programIsOn = false;
 				}
 			}
+						
+			// Account Type Menus and Actions
+			if(accountInfo.getOnline()) {
+				if(accountInfo.getRole().equalsIgnoreCase("official")) {
+					GovermentOfficial currentUser = new GovermentOfficial();
 
-			try {
-				System.out.println(currentUser.fullName);
-				System.out.println(currentUser.addresses.getEmailAddress());
-			} catch (NullPointerException e) {
-				System.out.println("Hotdog!");
+				} else if (accountInfo.getRole().equalsIgnoreCase("tracer")) {
+					ContactTracer currentUser = new ContactTracer();
+
+				} else {
+					Citizen currentUser = new Citizen();
+				}
+
+				currentUser.copyAccountInfo(accountInfo);
 			}
-			
-
-			
-
-			// if(currentUser.getStatus()) {
-				
-			// 	// Goverment Official Menus
-			// 	while(currentUser.getRole().equals("official") && currentUser.getStatus()) {
-
-			// 	}
-
-			// 	// Contact Tracer Menus
-			// 	while(currentUser.getRole().equals("tracer") && currentUser.getStatus()) {
-
-			// 	}
-
-			// 	// Customer Menus
-			// 	while(currentUser.getRole().equals("customer") && currentUser.getStatus()) {
-
-			// 	}
-			// }
-
-			break;
 
 
+			while(currentUser.getOnline()) {
+
+				if(accountInfo.getRole().equalsIgnoreCase("official")) {
+					//officialmethodmenus
+					
+
+				} else if (accountInfo.getRole().equalsIgnoreCase("tracer")) {
+					//tracerslmethodmenus
+
+				} else {
+					//customersmethodmenus
+				}	
+
+			}
+
+			inMainMenu = true;
 		}
 		
 

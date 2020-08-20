@@ -235,6 +235,14 @@ public class Account {
 	}
 
 	/** 
+		returns user's password
+		@author Steven Castro
+	*/
+	public String getPassword() {
+		return password;
+	}
+
+	/** 
 		returns user's online status
 		@author Steven Castro
 	*/
@@ -371,5 +379,21 @@ public class Account {
 		} catch (IOException e) {
 			return false;
 		}	
+	}
+
+
+	// Testing Idea
+
+	public void copyAccountInfo(Account newUser) {
+
+		// Account Information
+		username = newUser.getUsername();
+		password = newUser.getPassword();
+		role = newUser.getRole();
+		online = newUser.getOnline();
+
+		// Personal Information
+		fullName = newUser.fullName;
+		addresses = newUser.addresses;
 	}
 }

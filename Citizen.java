@@ -3,16 +3,20 @@ import java.io.*;
 
 public class Citizen extends Account {
 	
+	/**
+		starts a process to change User's personal information
+		@author Steven Castro
+	*/
 	public void changeUserInfo() throws IOException {
-		
 		boolean inChangeMenu = true;
 		Scanner sc = new Scanner(System.in);
 
 		while(inChangeMenu) {
-			
+			// Prompt User What Personal Info to Change
 			Visual.cls();
 			Visual.changeUserMainMenu();
 
+			// Call Change Info Proccesses (Name, Address)
 			switch(Character.toUpperCase((sc.next().charAt(0)))) {
 				case '1':
 					changeNameInfo();
@@ -38,26 +42,29 @@ public class Citizen extends Account {
 	}
 
 
-
+	/**
+		starts a process to change User's name information
+		@author Steven Castro
+	*/
 	private void changeNameInfo() throws IOException {
-		
 		char input;
 		boolean inEditMenu = true;
 		Scanner sc = new Scanner(System.in);
 
 		while(inEditMenu) {
-
+			// Prompt User What Personal Info to Change (Name)
 			Visual.cls();
 			Visual.changeUserNameMenu(fullName);
 
 			input = sc.next().charAt(0);
 
-			// Check if it is an edit menu
+			// Check Valid Input
 			if('0' < input && input < '4') {
 				Visual.cls();
 				Visual.enterNewNameMenu();
 			}
 
+			// Apply Changes
 			switch(input) {
 				case '1':
 					fullName.setFirstName(sc.next());
@@ -77,28 +84,33 @@ public class Citizen extends Account {
 		super.saveUserInfo(getUsername());
 	}
 
+	/**
+		starts a process to change User's address information
+		@author Steven Castro
+	*/
 	private void changeAddressInfo() throws IOException {
-		
 		char input;
 		boolean inEditMenu = true;
 		String dump;
 		Scanner sc = new Scanner(System.in);
 
 		while(inEditMenu) {
-
+			// Prompt User What Personal Info to Change (Address)
 			Visual.cls();
 			Visual.changeUserAddressMenu(addresses);
 
 			input = sc.next().charAt(0);
 
-			// Check if it is an edit menu
+			// Check Valid Input
 			if('0' < input && input < '5') {
 				Visual.cls();
 				Visual.enterNewAddressMenu();
 			}
 
+			// Flush
 			dump = sc.nextLine();
 
+			// Apply Changes
 			switch(input) {
 				case '1':
 					addresses.setHomeAddress(sc.nextLine());
