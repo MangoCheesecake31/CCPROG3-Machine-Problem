@@ -99,6 +99,3 @@ public class GovermentOfficial extends Citizen {
 	}
 }
 
-/*
-	- Maybe add some error message when account has already have desired account type
-*/
