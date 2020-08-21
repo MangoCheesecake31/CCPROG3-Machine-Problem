@@ -4,25 +4,56 @@ import java.util.ArrayList;
 public class Record {
     private int numEntries;
     private String username;
-    public ArrayList<Calendar> dateList = new ArrayList<>(); // public or private (?)
+    private ArrayList<Calendar> dateList = new ArrayList<>();
     private ArrayList<Code> codeList = new ArrayList<>();
 
+    /**
+        @author Roymaxson Li
+        @param username
+    */
     public Record(String username) {
         this.username = username;
     }
 
+    /**
+        @author Roymaxson Li
+    */
+    public int getNumEntry() {
+        return numEntries;
+    }
+
+    /**
+        @author Roymaxson Li
+    */
     public String getUsername() {
         return username;
     }
 
+    /**
+        @author Roymaxson Li
+        @param index
+    */
     public Calendar getCalendarEntry(int index) {
         return dateList.get(index);
     }
 
+    /**
+        @author Roymaxson Li
+        @param index
+    */
     public Code getCodeEntry(int index) {
         return codeList.get(index);
     }
 
+    /**
+        @author Roymaxson Li
+        @param code
+        @param year
+        @param month
+        @param day
+        @param hour
+        @param minute
+    */
     public void addEntry(Code code, int year, int month, int day, int hour, int minute) {
         month -= 1;
 
