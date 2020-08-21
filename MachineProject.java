@@ -9,7 +9,7 @@ public class MachineProject {
 
 		while(programIsOn) {
 			// New User
-			Account accountInfo = new Account();
+			Account myAccount = new Account();
 
 			// Main Menu
 			while(inMainMenu && programIsOn) {
@@ -18,49 +18,63 @@ public class MachineProject {
 
 				switch(sc.next().charAt(0)) {
 					case '1':
-							accountInfo.register("customer");
+							myAccount.register("customer");
 						break;
 					case '2': 
-							if(accountInfo.logIn()) 
+							if(myAccount.logIn()) 
 								inMainMenu = false;
 						break;
 					case '3':
 							programIsOn = false;
 				}
 			}
+			
+
+			try {
+				System.out.println(myAccount.getOnline());
+				System.out.println(myAccount.getUsername());
+				System.out.println(myAccount.getPassword());
+				System.out.println(myAccount.getRole());
+				System.out.println(myAccount.fullName);
+			} catch (NullPointerException e) {
+				System.out.println("Nobody!");
+			}
+			
+
 						
-			// Account Type Menus and Actions
-			if(accountInfo.getOnline()) {
-				if(accountInfo.getRole().equalsIgnoreCase("official")) {
-					GovermentOfficial currentUser = new GovermentOfficial();
+			// // Account Type Menus and Actions
+			// if(myAccount.getOnline()) {
+			// 	if(myAccount.getRole().equalsIgnoreCase("official")) {
+			// 		GovermentOfficial currentUser = new GovermentOfficial();
 
-				} else if (accountInfo.getRole().equalsIgnoreCase("tracer")) {
-					ContactTracer currentUser = new ContactTracer();
+			// 	} else if (myAccount.getRole().equalsIgnoreCase("tracer")) {
+			// 		ContactTracer currentUser = new ContactTracer();
 
-				} else {
-					Citizen currentUser = new Citizen();
-				}
+			// 	} else {
+			// 		Citizen currentUser = new Citizen();
+			// 	}
 
-				currentUser.copyAccountInfo(accountInfo);
-			}
+			// 	currentUser.copyAccountInfo(myAccount);
+
+			// 	while(currentUser.getOnline()) {
+
+			// 		if(myAccount.getRole().equalsIgnoreCase("official")) {
+			// 			//officialmethodmenus
+						
+
+			// 		} else if (myAccount.getRole().equalsIgnoreCase("tracer")) {
+			// 			//tracerslmethodmenus
+
+			// 		} else {
+			// 			//customersmethodmenus
+			// 		}	
+
+			// 	}
+			// }
 
 
-			while(currentUser.getOnline()) {
-
-				if(accountInfo.getRole().equalsIgnoreCase("official")) {
-					//officialmethodmenus
-					
-
-				} else if (accountInfo.getRole().equalsIgnoreCase("tracer")) {
-					//tracerslmethodmenus
-
-				} else {
-					//customersmethodmenus
-				}	
-
-			}
-
-			inMainMenu = true;
+			
+			
 		}
 		
 

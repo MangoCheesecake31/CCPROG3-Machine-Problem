@@ -218,13 +218,6 @@ public class Account {
 
 
 	// Getters ::::::::::::::::::::::::::::::::
-	/** 
-		returns user's role
-		@author Steven Castro
-	*/
-	public String getRole() {
-		return role;
-	}
 
 	/** 
 		returns user's username
@@ -240,6 +233,14 @@ public class Account {
 	*/
 	public String getPassword() {
 		return password;
+	}
+
+	/** 
+		returns user's role
+		@author Steven Castro
+	*/
+	public String getRole() {
+		return role;
 	}
 
 	/** 
@@ -267,7 +268,6 @@ public class Account {
 		// when true update Account Class username and role
 		if(list.checkMaster(username)) {
 			this.username = username;
-			role = list.getMasterRole(username);
 			return true;
 		}
 
@@ -329,10 +329,18 @@ public class Account {
 	public void loadUserInfo(String username) throws IOException {
 
 		File fp = new File("./Accounts/" + username + ".act");
+		MasterList list = new MasterList();
 		Scanner sc = new Scanner(fp);
+		String dump;
 
-		// Scan Password (ignored)
-		String dump = sc.next();
+		// Username
+		this.username = username;
+
+		// Scan Password
+		password = sc.next();
+
+		// Scan Role
+		role = list.getMasterRole(username);
 
 		// Scan Fullname
 		fullName = new Name((sc.next()).replaceAll(",", ""), (sc.next()).replaceAll(",", ""), sc.next());
@@ -381,9 +389,13 @@ public class Account {
 		}	
 	}
 
+	// IDEA :::::::::::::::::::::::: (maybe irrelevant)
 
-	// Testing Idea
-
+	/**
+		copies Account class attributes
+		@author Steven Castro
+		@param Account class parameter
+	*/
 	public void copyAccountInfo(Account newUser) {
 
 		// Account Information
