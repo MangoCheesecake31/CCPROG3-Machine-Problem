@@ -32,13 +32,90 @@ public class Citizen extends Account {
 		sc.close();
 	}
 
-
+	/**
+	 asks the User to input the establishment code, date, and time of check in
+	 then adds it to the User's record.
+	 @author Roymaxson Li
+	 */
 	public void checkIn() {
+		int month, day, hour, minute;
+		Record rec = new Record(getUsername());
+		Scanner sc = new Scanner(System.in);
+
 		System.out.println("Checking In!");
+		System.out.println("Please enter establishment code: ");
+		String code = sc.nextLine();
+		System.out.println("Enter year: ");
+		int year = sc.nextInt();
+		System.out.println("Enter month (1-12): ");
+		do {
+			month = sc.nextInt();
+			if(month > 12 || month < 1)
+				System.out.println("Invalid input.");
+		} while(month > 12 || month < 1);
+		System.out.println("Enter day of month: ");
+		do {
+			day = sc.nextInt();
+			if(day > 31 || day < 1)
+				System.out.println("Invalid input.");
+		} while (day > 31 || day < 1);
+		System.out.println("Enter hour: ");
+		do {
+			hour = sc.nextInt();
+			if(hour > 23 || hour < 0)
+				System.out.println("Invalid input.");
+		} while (hour > 23 || hour < 0);
+		System.out.println("Enter minute: ");
+		do {
+			minute = sc.nextInt();
+			if(minute > 60 || minute < 0)
+				System.out.println("Invalid input.");
+		} while (minute > 60 || minute < 0);
+
+		rec.addEntry(code, year, month, day, hour, minute);
+		sc.close();
 	}
 
+	/**
+	 asks the User to input the date and time of reported positive
+	 test result then records it along with the user name
+	 @author Roymaxson Li
+	 */
 	public void reportPositive() {
+		int month, day, hour, minute;
+		Record rec = new Record(getUsername());
+		PositiveResults positive = new PositiveResults();
+		Scanner sc = new Scanner(System.in);
+
 		System.out.println("Covid Positive!");
+		System.out.println("Enter year: ");
+		int year = sc.nextInt();
+		System.out.println("Enter month (1-12): ");
+		do {
+			month = sc.nextInt();
+			if(month > 12 || month < 1)
+				System.out.println("Invalid input.");
+		} while(month > 12 || month < 1);
+		System.out.println("Enter day of month: ");
+		do {
+			day = sc.nextInt();
+			if(day > 31 || day < 1)
+				System.out.println("Invalid input.");
+		} while (day > 31 || day < 1);
+		System.out.println("Enter hour: ");
+		do {
+			hour = sc.nextInt();
+			if(hour > 23 || hour < 0)
+				System.out.println("Invalid input.");
+		} while (hour > 23 || hour < 0);
+		System.out.println("Enter minute: ");
+		do {
+			minute = sc.nextInt();
+			if(minute > 60 || minute < 0)
+				System.out.println("Invalid input.");
+		} while (minute > 60 || minute < 0);
+
+		positive.addEntry(getUsername(), year, month, day, hour, minute);
 	}
 
 

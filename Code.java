@@ -1,20 +1,15 @@
-public class Code {
-    private String code;
-
-    public Code(String code) {
-        this.code = code;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String newCode) {
-        code = newCode;
-    }
-
-    // valid or invalid -> when?
-//    private boolean validCode(String newCode) {
+//public class Code {
+//    private String code;
 //
+//    public Code(String code) {
+//        this.code = code;
 //    }
-}
+//
+//    public String getCode() {
+//        return code;
+//    }
+//
+//    public void setCode(String newCode) {
+//        code = newCode;
+//    }
+//}

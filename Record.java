@@ -2,12 +2,13 @@ import java.util.Calendar;
 import java.util.ArrayList;
 
 public class Record {
-    private int numEntries;
+    private int numEntries = 0;
     private String username;
     private ArrayList<Calendar> dateList = new ArrayList<>();
-    private ArrayList<Code> codeList = new ArrayList<>();
+    private ArrayList<String> codeList = new ArrayList<String>();
 
     /**
+        constructor
         @author Roymaxson Li
         @param username
     */
@@ -16,36 +17,45 @@ public class Record {
     }
 
     /**
+        gets the total number of entries
         @author Roymaxson Li
+        @return numEntries
     */
     public int getNumEntry() {
         return numEntries;
     }
 
     /**
+        gets the User's username
         @author Roymaxson Li
+        @return username
     */
     public String getUsername() {
         return username;
     }
 
     /**
+        gets a date entry in the array list based on the index given
         @author Roymaxson Li
         @param index
+        @returns the date object of a given index in the dateList array list
     */
     public Calendar getCalendarEntry(int index) {
         return dateList.get(index);
     }
 
     /**
+        gets a code in the array list based on the index given
         @author Roymaxson Li
         @param index
+        @returns the establishment code of a given index in the codeList array list
     */
-    public Code getCodeEntry(int index) {
+    public String getCodeEntry(int index) {
         return codeList.get(index);
     }
 
     /**
+        adds the code, date, and time entry into array lists then increments numEntries
         @author Roymaxson Li
         @param code
         @param year
@@ -54,7 +64,7 @@ public class Record {
         @param hour
         @param minute
     */
-    public void addEntry(Code code, int year, int month, int day, int hour, int minute) {
+    public void addEntry(String code, int year, int month, int day, int hour, int minute) {
         month -= 1;
 
         Calendar cal = new Calendar.Builder().setFields(Calendar.YEAR, year,
@@ -64,5 +74,7 @@ public class Record {
                                                         Calendar.MINUTE, minute).build();
         dateList.add(cal);
         codeList.add(code);
+
+        numEntries++;
     }
 }
