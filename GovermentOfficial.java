@@ -20,6 +20,7 @@ public class GovermentOfficial extends Citizen {
 		returns true if goverment offical account creation is sucessful
 		undergo registry process if username does not exist in MasterList.txt 
 		@author Steven Castro
+		@return boolean
 	*/
 	public boolean createGovernmentOfficial() {
 
@@ -53,6 +54,7 @@ public class GovermentOfficial extends Citizen {
 		returns true if contact tracer account creation is sucessful
 		undergo registry process if username does not exist in MasterList.txt 
 		@author Steven Castro
+		@return boolean
 	*/
 	public boolean createContactTracer()
 	{
@@ -86,6 +88,7 @@ public class GovermentOfficial extends Citizen {
 		returns true if termination of account is sucessful
 		@author Steven Castro
 		@param username username of the user to be demoted to customer account
+		@return boolean
 	*/
 	public boolean terminateAccount(String username) {
 		// Search Username in MasterList

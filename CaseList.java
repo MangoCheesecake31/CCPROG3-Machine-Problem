@@ -21,11 +21,21 @@ public class CaseList {
 
 
 	// Methods
-
+	/**
+		returns the value of numEntries
+		@author Steven Castro
+		@return int
+	*/
 	public int getNumEntries() {
 		return numEntries;
 	}
 
+	/**
+		adds a new case onto CaseList.txt
+		@author Steven Castro
+		@param user
+		@param date
+	*/
 	public void addCase(String user, Calendar date) {
 		caseNumbers.add(++numEntries);
 		usernames.add(user);
@@ -36,6 +46,12 @@ public class CaseList {
 		saveList();
 	}
 
+	/**
+		returns a String output of a case in a format
+		@author Steven Castro
+		@param caseNum number of the case to be return in String
+		@return String
+	*/
 	public String toString(int caseNum) {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
 		return caseNumbers.get(caseNum) 
@@ -45,10 +61,44 @@ public class CaseList {
 				+ " " + status.get(caseNum);
 	}
 
-	public void assignTracer(String tracer, int caseNum) {
-	
+	/**
+		returns true if assigning a tracer to a case is sucessful
+		@author Steven Castro
+		@param caseNum case number
+		@param tracer tracer username
+		@return boolean
+	*/
+	public boolean assignTracer(int caseNum, String tracer) {
+		if(0 < caseNum && caseNum < numEntries) {
+			tracerNames.set(caseNum - 1, tracer);
+			saveList();
+			return true;
+		}
+		return false;
+
 	}
 
+	/**
+		returns true if updating a status of a case is sucessful
+		@author Steven Castro
+		@param caseNum case number
+		@param status tracing status
+		@return boolean
+	*/
+	public boolean updateStatus(int caseNum, char state) {
+		if(0 < caseNum && caseNum < numEntries) {
+			status.set(caseNum - 1, state);
+			saveList();
+			return true;
+		}
+		return false;
+
+	}
+	
+	/**
+		scans and loads CaseList.txt onto CaseList class arrays
+		@author Steven Castro
+	*/
 	private void loadList() {
 		Calendar cal;
 		String temp;
@@ -77,10 +127,14 @@ public class CaseList {
 			}
 			
 		} catch (IOException e) {
-
+			System.out.println("file not found...");
 		}
 	}
 
+	/**
+		saves CaseList class arrays onto CaseList.txt
+		@author Steven Castro
+	*/
 	private void saveList() {
 
 		try {
@@ -91,7 +145,7 @@ public class CaseList {
 			ps.println(toString(i));
 			}	
 		} catch (IOException e) {
-			System.out.println("File Not Found!");
+			System.out.println("file not found...");
 		}
 		
 	}	

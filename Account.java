@@ -23,6 +23,7 @@ public class Account {
 		if successful creates a file containing user personal information and adds user to the Master List file
 		@author Steven Castro
 		@param accountType type of account to be registered 
+		@return boolean
 	*/
 	public boolean register(String accountType) {
 
@@ -144,6 +145,7 @@ public class Account {
 		starts a login process and returns returns true if it is successful
 		if sucessful read and load user's personal information and account details
 		@author Steven Castro
+		@return boolean
 	*/
 	public boolean logIn() {
 
@@ -216,12 +218,12 @@ public class Account {
 		online = false;
 	}
 
-
 	// Getters ::::::::::::::::::::::::::::::::
 
 	/** 
 		returns user's username
 		@author Steven Castro
+		@return String
 	*/
 	public String getUsername() {
 		return username;
@@ -230,6 +232,7 @@ public class Account {
 	/** 
 		returns user's password
 		@author Steven Castro
+		@return String
 	*/
 	public String getPassword() {
 		return password;
@@ -238,6 +241,7 @@ public class Account {
 	/** 
 		returns user's role
 		@author Steven Castro
+		@return String
 	*/
 	public String getRole() {
 		return role;
@@ -246,6 +250,7 @@ public class Account {
 	/** 
 		returns user's online status
 		@author Steven Castro
+		@return boolean
 	*/
 	public boolean getOnline() {
 		return online;
@@ -257,7 +262,8 @@ public class Account {
 		returns true if username exists in the MasterList.txt
 		sets the username & role attribute of Class Account when true
 		@author Steven Castro
-		@param username current user's inputted username
+		@param username current user's inputted username/
+		@return boolean
 	*/
 	public boolean verifyUsername(String username) {
 
@@ -279,6 +285,7 @@ public class Account {
 		sets the attribute online of Class Account to true
 		@author Steven Castro
 		@param password current user's inputted password
+		@return boolean
 	*/
 	private boolean verifyPassword(String password) {
 		try {
@@ -298,6 +305,7 @@ public class Account {
 		(Minimum of 6 characters, Includes at least 1 special character)
 		@author Steven Castro
 		@param password current user's inputted password
+		@return boolean
 	*/
 	private boolean validPassword(String password) {
 
@@ -361,9 +369,10 @@ public class Account {
 	}
 
 	/**
-		write User's personal and account information to respective files
+		returns true if writing User's personal and account information to respective files is sucessful
 		@author Steven Castro
 		@param username current user's username
+		@return boolean
 	*/
 	public boolean saveUserInfo(String username) {
 

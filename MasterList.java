@@ -18,10 +18,11 @@ public class MasterList {
 
 	// Methods
 	/**
-		appends a new username in MasterList arrays
+		returns true if appending a new username in MasterList arrays is sucessful
 		@author Steven Castro
 		@param username new user's username
 		@param role new user's role
+		@return boolean
 	*/
 	public boolean addMaster(String username, String role) {
 		// Check if Username is Unique
@@ -40,6 +41,7 @@ public class MasterList {
 		returns true if the username exists in MasterList array
 		@author Steven Castro
 		@param username username to be searched in MasterList array
+		@return boolean
 	*/
 	public boolean checkMaster(String username) {
 		for(int i = 0; i < numAcc; i++) {
@@ -52,10 +54,11 @@ public class MasterList {
 	}
 
 	/**
-		update the role of an existing username in the MasterList
+		returns true if updating the role of an existing username in the MasterList is sucessful
 		@author Steven Castro
 		@param username username of the user's role to be updated
 		@param role user's new role
+		@return boolean
 	*/
 	public boolean updateMaster(String username, String role) {
 		// Check if Username is Unique
@@ -72,6 +75,7 @@ public class MasterList {
 		return the role of an existing user in the MasterList
 		@author Steven Castro
 		@param username username of the user's role to be returned
+		@return String
 	*/
 	public String getMasterRole(String username) throws IndexOutOfBoundsException {
 		// Check if Username is Unique
@@ -83,8 +87,9 @@ public class MasterList {
 	}
 	
 	/**
-		scan and loads the contents of MasterList.txt onto an array
+		returns true if scanning and loading the contents of MasterList.txt onto an array is sucessful
 		@author Steven Castro
+		@return boolean
 	*/
 	private boolean loadList() {
 		// Check if the List is Already Loaded
@@ -116,8 +121,9 @@ public class MasterList {
 	}
 
 	/**
-		writes the contents of the arrays to MasterList.txt 
+		returns true if writing the contents of the arrays to MasterList.txt is sucessful
 		@author Steven Castro
+		@return boolean
 	*/
 	private boolean saveList() {
 		// Check if the List is Not Yet Loaded
@@ -149,6 +155,7 @@ public class MasterList {
 		returns the index of the username found in the MasterList arrays
 		@author Steven Castro
 		@param username username to be searched in the MasterList
+		@return int
 	*/
 	private int searchMasterIndex(String username) {
 		for(int i = 0; i < numAcc; i++) {
