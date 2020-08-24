@@ -1,3 +1,4 @@
+import java.util.Calendar;
 import java.util.Scanner;
 import java.io.*;
 
@@ -72,8 +73,9 @@ public class Citizen extends Account {
 				System.out.println("Invalid input.");
 		} while (minute > 60 || minute < 0);
 
-		rec.addEntry(code, year, month, day, hour, minute);
 		sc.close();
+
+		rec.addEntry(code, year, month, day, hour, minute);
 	}
 
 	/**
@@ -84,7 +86,7 @@ public class Citizen extends Account {
 	public void reportPositive() {
 		int month, day, hour, minute;
 		Record rec = new Record(getUsername());
-		PositiveResults positive = new PositiveResults();
+		CaseList caseList = new CaseList();
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Covid Positive!");
@@ -115,7 +117,15 @@ public class Citizen extends Account {
 				System.out.println("Invalid input.");
 		} while (minute > 60 || minute < 0);
 
-		positive.addEntry(getUsername(), year, month, day, hour, minute);
+		sc.close();
+
+		Calendar cal = new Calendar.Builder().setFields(Calendar.YEAR, year,
+														Calendar.MONTH, month,
+														Calendar.DAY_OF_MONTH, day,
+														Calendar.HOUR, hour,
+														Calendar.MINUTE, minute).build();
+
+		caseList.addCase(getUsername(), cal);
 	}
 
 

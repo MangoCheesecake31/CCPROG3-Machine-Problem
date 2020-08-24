@@ -6,7 +6,7 @@ public class testObj {
 		
 		GovermentOfficial gv = new GovermentOfficial();
 
-		gv.createGovernmentOfficialAccount();
+		//gv.createGovernmentOfficialAccount();
 		//gv.createContactTracerAccount();
 	}
 }

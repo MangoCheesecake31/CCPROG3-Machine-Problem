@@ -1,5 +1,6 @@
 import java.util.Calendar;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 
 public class Record {
     private int numEntries = 0;
@@ -76,5 +77,15 @@ public class Record {
         codeList.add(code);
 
         numEntries++;
+    }
+
+    /**
+     * outputs the date in simple date format
+     * @author Roymaxson Li
+     * @param calendar
+     */
+    public void toString(Calendar calendar) {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        System.out.println(sdf.format(calendar.getTime()));
     }
 }
