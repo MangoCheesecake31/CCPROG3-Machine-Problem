@@ -80,12 +80,13 @@ public class Record {
     }
 
     /**
-     * outputs the date in simple date format
+     * outputs the establishment code and date in simple date format
      * @author Roymaxson Li
-     * @param calendar
+     * @param entry
+     * @return establishment code, date, and time of given index
      */
-    public void toString(Calendar calendar) {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-        System.out.println(sdf.format(calendar.getTime()));
+    public String toString(int entry) {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy HHmm");
+        return codeList.get(entry)+ " " + sdf.format(dateList.get(entry).getTime());
     }
 }
