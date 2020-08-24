@@ -10,7 +10,6 @@ public class Address {
 	private String phoneNumber;
 
 	// Constructors
-
 	public Address() {
 
 	}
@@ -27,15 +26,30 @@ public class Address {
 	// ::::::::::::::::::::
 		
 	// Setters
-
+	/**
+		sets value of homeAddress field
+		@author Steven Castro
+		@param a home address
+	*/
 	public void setHomeAddress(String a) {
 		homeAddress = a;
 	}
 
+	/**
+		sets value of officeAddress field
+		@author Steven Castro
+		@param a office address
+	*/
 	public void setOfficeAddress(String a) {
 		officeAddress = a;
 	}
 
+	/**
+		returns true if setting the value of phoneNumber field is sucessful
+		@author Steven Castro
+		@param n phone number
+		@return boolean
+	*/
 	public boolean setPhoneNumber(String n) {
 		if(validPhoneNumber(n)) {
 			phoneNumber = n;
@@ -44,30 +58,59 @@ public class Address {
 		return false;
 	}
 
+	/**
+		sets value of emailAddress field
+		@author Steven Castro
+		@param a email address
+	*/
 	public void setEmailAddress(String a) {
 		emailAddress = a;
 	}
 
 	// Getters
-
+	/**
+		returns the value of homeAddress field
+		@author Steven Castro
+		@return String
+	*/
 	public String getHomeAddress() {
 		return homeAddress;
 	}
 
+	/**
+		returns the value of officeAddress field
+		@author Steven Castro
+		@return String
+	*/
 	public String getOfficeAddress() {
 		return officeAddress;
 	}
 
+	/**
+		returns the value of phoneNumber field
+		@author Steven Castro
+		@return String
+	*/
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
+	/**
+		returns the value of emailAddress field
+		@author Steven Castro
+		@return String
+	*/
 	public String getEmailAddress() {
 		return emailAddress;
 	}
 
 
-
+	/**
+		returns true if parameter is a valid phone number
+		@author Steven Castro
+		@param n phone number
+		@return boolean
+	*/
 	private boolean validPhoneNumber(String n) {
 
 		if(n.length() != 11) {							
