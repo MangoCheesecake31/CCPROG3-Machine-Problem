@@ -229,11 +229,60 @@ public class Visual {
 		  System.out.print("|>>> ");
 	}
 
+	public static void citizenMenu() {
+		System.out.println("| ------------------------------ Citizen ------------------------------ |");
+		System.out.println("|                                                                       |");
+		System.out.println("|    [1] Check In                                                       |");
+		System.out.println("|    [2] Report Positive Test Result                                    |");
+		System.out.println("|    [3] Update Profile Information                                     |");
+		System.out.println("|    [4] Log Out                                                        |");
+		System.out.println("|                                                                       |");
+		System.out.println("| --------------------------------------------------------------------- |");
+		  System.out.print("|>>> ");
+	}
+
+	public static void governmentOfficialMenu() {
+		System.out.println("| ------------------------ Government Official ------------------------ |");
+		System.out.println("|                                                                       |");
+		System.out.println("|    [1] Show Unassigned Cases                                          |");
+		System.out.println("|    [2] Show Contact Tracing Updates                                   |");
+		System.out.println("|    [3] Analytics                                                      |");
+		System.out.println("|    [4] Create Government Official Accounts					        |");
+		System.out.println("|    [5] Create Contact Tracer Accounts					                |");
+		System.out.println("|    [6] Terminate Account					                            |");
+		System.out.println("|    [7] Log Out                                                        |");
+		System.out.println("|                                                                       |");
+		System.out.println("| --------------------------------------------------------------------- |");
+		  System.out.print("|>>> ");
+	}
+
+	public static void contactTracerMenu() {
+		System.out.println("| -------------------------- Contact Tracer --------------------------- |");
+		System.out.println("|                                                                       |");
+		System.out.println("|    [1] Show Cases                                                     |");
+		System.out.println("|    [2] Trace Specific Case                                            |");
+		System.out.println("|    [3] Inform Citizens Possibly Exposed                               |");
+		System.out.println("|    [4] Log Out                                                        |");
+		System.out.println("|                                                                       |");
+		System.out.println("| --------------------------------------------------------------------- |");
+		System.out.print("|>>> ");
+	}
+
 	public static void cls() {
 		try {
 			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 		} catch (Exception e){
 			System.out.println(e);
+		}
+	}
+
+	public static void pressEnterToContinue()
+	{
+		System.out.println("Press Enter to continue...");
+		try {
+			System.in.read();
+		} catch (Exception e){
+
 		}
 	}
 

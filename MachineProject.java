@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MachineProject {
@@ -82,15 +83,96 @@ public class MachineProject {
 		sc.close();
 	}
 
-	public boolean CitizenMenus() {
+	public void CitizenMenus() throws IOException {
+		Citizen citizen = new Citizen();
+		Scanner sc = new Scanner(System.in);
 
+		boolean inCitizenMenu = true;
+
+		while(inCitizenMenu) {
+			Visual.cls();
+			Visual.citizenMenu();
+
+			switch(sc.next().charAt(0)) {
+				case '1':
+						citizen.checkIn();
+					break;
+				case '2':
+						citizen.reportPositive();
+					break;
+				case '3':
+						citizen.changeUserInfo();
+					break;
+				case '4':
+					inCitizenMenu = false;
+			}
+		}
+		sc.close();
 	}
 
-	public boolean GovermentOfficialMenus() {
+	public void GovermentOfficialMenus() throws IOException {
+		GovernmentOfficial gov = new GovernmentOfficial();
+		Scanner sc = new Scanner(System.in);
 
+		boolean inGovernmentOfficialMenu = true;
+
+		while(inGovernmentOfficialMenu) {
+			Visual.cls();
+			Visual.governmentOfficialMenu();
+
+			switch(sc.next().charAt(0)) {
+				case '1':
+						gov.showUnassignedCases();
+					break;
+				case '2':
+						// Show Contact Tracing Updates !PHASE 2
+					break;
+				case '3':
+						gov.analytics();
+					break;
+				case '4':
+						gov.createGovernmentOfficial();
+					break;
+				case '5':
+						gov.createContactTracer();
+					break;
+				case '6':
+						if(gov.terminateAccount(sc.nextLine()))
+							System.out.println("User demoted to citizen!");
+						else
+							System.out.println("Username does not exist.");
+							Visual.pressEnterToContinue();
+					break;
+				case '7':
+					inGovernmentOfficialMenu = false;
+			}
+		}
+		sc.close();
 	}
 
-	public boolean ContactTracerMenus() {
+	public void ContactTracerMenus() {
+		ContactTracer contactTracer = new ContactTracer();
+		Scanner sc = new Scanner(System.in);
 
+		boolean inContactTracerMenu = true;
+
+		while(inContactTracerMenu) {
+			Visual.cls();
+			Visual.contactTracerMenu();
+
+			switch(sc.next().charAt(0)) {
+				case '1':
+					// Show Cases !PHASE 2
+					break;
+				case '2':
+					// Trace Specific Case !PHASE 2
+					break;
+				case '3':
+					// Inform Citizens Possibly Exposed !PHASE 2
+					break;
+				case '4':
+					inContactTracerMenu = false;
+			}
+		}
 	}
 }

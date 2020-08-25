@@ -3,7 +3,7 @@ import java.text.SimpleDateFormat;
 import java.io.*;
 import java.util.Calendar;
 
-public class GovermentOfficial extends Citizen {
+public class GovernmentOfficial extends Citizen {
 	// Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	private MasterList mList = new MasterList();
 	private CaseList cList = new CaseList();
