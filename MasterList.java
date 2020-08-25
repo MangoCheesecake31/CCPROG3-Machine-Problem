@@ -3,27 +3,30 @@ import java.util.Scanner;
 import java.io.*;
 
 public class MasterList {
-	// Attributes
+	// Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	private int numAcc;
 	private boolean isLoaded = false;
 	private ArrayList<String> masters = new ArrayList<String>();
 	private ArrayList<String> roles = new ArrayList<String>();
 
 
-	// Constructors
+	// Constructors ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	public MasterList() {
 		loadList();
 	}
 
 
-	// Methods
+	// Methods ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+	// Data Manipulation ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 	/**
-		returns true if appending a new username in MasterList arrays is sucessful
-		@author Steven Castro
-		@param username new user's username
-		@param role new user's role
-		@return boolean
-	*/
+	 *	returns true if appending a new username in MasterList arrays is sucessful
+	 *	@author Steven Castro
+	 *	@param username new user's username
+	 *	@param role new user's role
+	 *	@return boolean
+	 */
 	public boolean addMaster(String username, String role) {
 		// Check if Username is Unique
 		if(!checkMaster(username)) {
@@ -38,11 +41,11 @@ public class MasterList {
 	}
 
 	/**
-		returns true if the username exists in MasterList array
-		@author Steven Castro
-		@param username username to be searched in MasterList array
-		@return boolean
-	*/
+	 *	returns true if the username exists in MasterList array
+	 *	@author Steven Castro
+	 *	@param username username to be searched in MasterList array
+	 *	@return boolean
+	 */
 	public boolean checkMaster(String username) {
 		for(int i = 0; i < numAcc; i++) {
 			if(username.equalsIgnoreCase(masters.get(i))) {
@@ -71,6 +74,8 @@ public class MasterList {
 		return false;
 	}
 
+	// Getters ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 	/**
 		return the role of an existing user in the MasterList
 		@author Steven Castro
@@ -86,11 +91,13 @@ public class MasterList {
 		return "user not found";
 	}
 	
+	// File Handling ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 	/**
-		returns true if scanning and loading the contents of MasterList.txt onto an array is sucessful
-		@author Steven Castro
-		@return boolean
-	*/
+	 *	returns true if scanning and loading the contents of MasterList.txt onto an array is sucessful
+	 *	@author Steven Castro
+	 *	@return boolean
+	 */
 	private boolean loadList() {
 		// Check if the List is Already Loaded
 		if(isLoaded) {
@@ -121,10 +128,10 @@ public class MasterList {
 	}
 
 	/**
-		returns true if writing the contents of the arrays to MasterList.txt is sucessful
-		@author Steven Castro
-		@return boolean
-	*/
+	 *	returns true if writing the contents of the arrays to MasterList.txt is sucessful
+	 *	@author Steven Castro
+	 *	@return boolean
+	 */
 	private boolean saveList() {
 		// Check if the List is Not Yet Loaded
 		if(!isLoaded) {
@@ -151,19 +158,20 @@ public class MasterList {
 
 	}
 
+	// Data Searching ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 	/**
-		returns the index of the username found in the MasterList arrays
-		@author Steven Castro
-		@param username username to be searched in the MasterList
-		@return int
-	*/
+	 *	returns the index of the username found in the MasterList arrays
+	 *	@author Steven Castro
+	 *	@param username username to be searched in the MasterList
+	 *	@return int
+	 */
 	private int searchMasterIndex(String username) {
 		for(int i = 0; i < numAcc; i++) {
 			if(username.equalsIgnoreCase(masters.get(i))) {
 				return i;
 			}
 		}
-
 		return -1;
 	}
 }

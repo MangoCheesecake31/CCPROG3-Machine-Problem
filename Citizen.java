@@ -3,11 +3,12 @@ import java.util.Scanner;
 import java.io.*;
 
 public class Citizen extends Account {
-	
+	// Methods ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 	/**
-		starts a process to change User's personal information
-		@author Steven Castro
-	*/
+	 *	starts a process to change User's personal information
+	 *	@author Steven Castro
+	 */
 	public void changeUserInfo() throws IOException {
 		boolean inChangeMenu = true;
 		Scanner sc = new Scanner(System.in);
@@ -29,14 +30,13 @@ public class Citizen extends Account {
 					inChangeMenu = false;
 			}
 		}
-
 		sc.close();
 	}
 
 	/**
-	 asks the User to input the establishment code, date, and time of check in
-	 then adds it to the User's record.
-	 @author Roymaxson Li
+	 *	asks the User to input the establishment code, date, and time of check in
+	 *	then adds it to the User's record.
+	 *	@author Roymaxson Li
 	 */
 	public void checkIn() {
 		int month, day, hour, minute;
@@ -79,9 +79,9 @@ public class Citizen extends Account {
 	}
 
 	/**
-	 asks the User to input the date and time of reported positive
-	 test result then records it along with the user name
-	 @author Roymaxson Li
+	 *	asks the User to input the date and time of reported positive
+	 *	test result then records it along with the user name
+	 *	@author Roymaxson Li
 	 */
 	public void reportPositive() {
 		int month, day, hour, minute;
@@ -128,12 +128,13 @@ public class Citizen extends Account {
 		caseList.addCase(getUsername(), cal);
 	}
 
+	// Change User Information  ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	/**
-		starts a process to change User's name information
-		@author Steven Castro
-	*/
-	private void changeNameInfo() throws IOException {
+	 *	starts a process to change User's name information
+	 *	@author Steven Castro
+	 */
+	private void changeNameInfo() {
 		char input;
 		boolean inEditMenu = true;
 		Scanner sc = new Scanner(System.in);
@@ -172,10 +173,10 @@ public class Citizen extends Account {
 	}
 
 	/**
-		starts a process to change User's address information
-		@author Steven Castro
-	*/
-	private void changeAddressInfo() throws IOException {
+	 *	starts a process to change User's address information
+	 *	@author Steven Castro
+	 */
+	private void changeAddressInfo() {
 		char input;
 		boolean inEditMenu = true;
 		String dump;

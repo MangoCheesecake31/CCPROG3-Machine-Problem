@@ -1,5 +1,7 @@
 Things That I Wish To Implement in the Near Future I Guess...
 
-- Auto Load MasterList.java
-- Citizen Methods (When Record is Finished)
+- Optimize all switch cases
+- Create Establishment Record Object to handle files related to records
+- Give structure or format to GovermentOfficial.showUnassignedCase()
+- Optimized Analytics
 - 

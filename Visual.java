@@ -1,10 +1,7 @@
-
-
 import java.io.IOException;
 
 public class Visual {
 	public static void mainMenu() {
-
 		System.out.println("| ----------------------------- Main Menu ----------------------------- |");
 		System.out.println("|                                                                       |");
 		System.out.println("|    [1] Register                                                       |");
@@ -15,17 +12,35 @@ public class Visual {
 		  System.out.print("|>>> ");
 	}
 
-	public static void usernameMenu() {
+	public static void regUsernameMenu() {
 		System.out.println("| ----------------------------- Register ------------------------------ |");
 		System.out.println("|                                                                       |");
-		System.out.println("|    Enter Unique Username:                                             |");
+		System.out.println("|    Enter Username:                                                    |");
 		System.out.println("|                                                                       |");
 		System.out.println("| --------------------------------------------------------------------- |");
 		  System.out.print("|>>> ");
 	}
 
-	public static void passwordMenu() {
+	public static void logUsernameMenu() {
+		System.out.println("| ------------------------------ Login -------------------------------- |");
+		System.out.println("|                                                                       |");
+		System.out.println("|    Enter Username:                                                    |");
+		System.out.println("|                                                                       |");
+		System.out.println("| --------------------------------------------------------------------- |");
+		  System.out.print("|>>> ");
+	}
+
+	public static void regPasswordMenu() {
 		System.out.println("| ----------------------------- Register ------------------------------ |");
+		System.out.println("|                                                                       |");
+		System.out.println("|    Enter Password:                                                    |");
+		System.out.println("|                                                                       |");
+		System.out.println("| --------------------------------------------------------------------- |");
+		  System.out.print("|>>> ");
+	}
+
+	public static void logPasswordMenu() {
+		System.out.println("| ------------------------------ Login  ------------------------------- |");
 		System.out.println("|                                                                       |");
 		System.out.println("|    Enter Password:                                                    |");
 		System.out.println("|                                                                       |");
@@ -160,7 +175,7 @@ public class Visual {
 	public static void createOfficialMenu() {
 		System.out.println("| ---------------------- Create Goverment Official -------------------- |");
 		System.out.println("|                                                                       |");
-		System.out.println("|    Enter Existing Username:                                           |");
+		System.out.println("|    Enter Username:                                                    |");
 		System.out.println("|                                                                       |");
 		System.out.println("| --------------------------------------------------------------------- |");
 		  System.out.print("|>>> ");
@@ -169,22 +184,50 @@ public class Visual {
 	public static void createTracerMenu() {
 		System.out.println("| ------------------------ Create Contact Tracer ---------------------- |");
 		System.out.println("|                                                                       |");
-		System.out.println("|    Enter Existing Username:                                           |");
+		System.out.println("|    Enter Username:                                                    |");
 		System.out.println("|                                                                       |");
 		System.out.println("| --------------------------------------------------------------------- |");
 		  System.out.print("|>>> ");
 	}
 
+	public static void analyticsMenu() {
+		System.out.println("| ----------------------------- Analytics ----------------------------- |");
+		System.out.println("|                                                                       |");
+		System.out.println("|    Show Number of Cases in a...                                       |");
+		System.out.println("|    [1] Given City and Duration                                        |");
+		System.out.println("|    [2] Given City                                                     |");
+		System.out.println("|    [3] Given Duration                                                 |");
+		System.out.println("|                                                                       |");
+		System.out.println("| --------------------------------------------------------------------- |");
+		  System.out.print("|>>> ");
+	}
 
+	public static void inputStartDateMenu() {
+		System.out.println("| --------------------------------------------------------------------- |");
+		System.out.println("|                                                                       |");
+		System.out.println("|    Enter Start Date: (MM,dd,yyyy)                                     |");
+		System.out.println("|                                                                       |");
+		System.out.println("| --------------------------------------------------------------------- |");
+		  System.out.print("|>>> ");
+	}
 
+	public static void inputEndDateMenu() {
+		System.out.println("| --------------------------------------------------------------------- |");
+		System.out.println("|                                                                       |");
+		System.out.println("|    Enter End Date: (MM,dd,yyyy)                                       |");
+		System.out.println("|                                                                       |");
+		System.out.println("| --------------------------------------------------------------------- |");
+		  System.out.print("|>>> ");
+	}
 
-
-
-
-
-
-
-
+	public static void inputCityMenu() {
+		System.out.println("| --------------------------------------------------------------------- |");
+		System.out.println("|                                                                       |");
+		System.out.println("|    Enter City:                                                        |");
+		System.out.println("|                                                                       |");
+		System.out.println("| --------------------------------------------------------------------- |");
+		  System.out.print("|>>> ");
+	}
 
 	public static void cls() {
 		try {

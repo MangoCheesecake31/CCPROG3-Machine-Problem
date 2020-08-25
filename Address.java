@@ -1,15 +1,12 @@
 public class Address {
-	
-	// ::::::::::::::::::::
-	// 		Attributes
-	// ::::::::::::::::::::
-
+	// Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	private String emailAddress;
 	private String homeAddress;
 	private String officeAddress;
 	private String phoneNumber;
 
-	// Constructors
+
+	// Constructors ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	public Address() {
 
 	}
@@ -21,36 +18,36 @@ public class Address {
 		setEmailAddress(email);
 	}
 
-	// ::::::::::::::::::::
-	// 		Methods
-	// ::::::::::::::::::::
+
+	// Methods ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 		
-	// Setters
+	// Setters ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-		sets value of homeAddress field
-		@author Steven Castro
-		@param a home address
-	*/
+	 *	sets value of homeAddress field
+	 *	@author Steven Castro
+	 *	@param a home address
+	 */
 	public void setHomeAddress(String a) {
 		homeAddress = a;
 	}
 
 	/**
-		sets value of officeAddress field
-		@author Steven Castro
-		@param a office address
-	*/
+	 *	sets value of officeAddress field
+	 *	@author Steven Castro
+	 *	@param a office address
+	 */
 	public void setOfficeAddress(String a) {
 		officeAddress = a;
 	}
 
 	/**
-		returns true if setting the value of phoneNumber field is sucessful
-		@author Steven Castro
-		@param n phone number
-		@return boolean
-	*/
+	 *	returns true if setting the value of phoneNumber field is sucessful
+	 *	@author Steven Castro
+	 *	@param n phone number
+	 *	@return boolean
+	 */
 	public boolean setPhoneNumber(String n) {
+		
 		if(validPhoneNumber(n)) {
 			phoneNumber = n;
 			return true;
@@ -59,58 +56,60 @@ public class Address {
 	}
 
 	/**
-		sets value of emailAddress field
-		@author Steven Castro
-		@param a email address
-	*/
+	 *	sets value of emailAddress field
+	 *	@author Steven Castro
+	 *	@param a email address
+	 */
 	public void setEmailAddress(String a) {
 		emailAddress = a;
 	}
 
-	// Getters
+	// Getters ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 	/**
-		returns the value of homeAddress field
-		@author Steven Castro
-		@return String
-	*/
+	 *	returns the value of homeAddress field
+	 *	@author Steven Castro
+	 *	@return String
+	 */
 	public String getHomeAddress() {
 		return homeAddress;
 	}
 
 	/**
-		returns the value of officeAddress field
-		@author Steven Castro
-		@return String
-	*/
+	 *	returns the value of officeAddress field
+	 *	@author Steven Castro
+	 *	@return String
+	 */
 	public String getOfficeAddress() {
 		return officeAddress;
 	}
 
 	/**
-		returns the value of phoneNumber field
-		@author Steven Castro
-		@return String
-	*/
+	 *	returns the value of phoneNumber field
+	 *	@author Steven Castro
+	 *	@return String
+	 */
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
 	/**
-		returns the value of emailAddress field
-		@author Steven Castro
-		@return String
-	*/
+	 *	returns the value of emailAddress field
+	 *	@author Steven Castro
+	 *	@return String
+	 */
 	public String getEmailAddress() {
 		return emailAddress;
 	}
 
+	// Data Validity ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	/**
-		returns true if parameter is a valid phone number
-		@author Steven Castro
-		@param n phone number
-		@return boolean
-	*/
+	 *	returns true if parameter is a valid phone number
+	 *	@author Steven Castro
+	 *	@param n phone number
+	 *	@return boolean
+	 */
 	private boolean validPhoneNumber(String n) {
 
 		if(n.length() != 11) {							
@@ -123,9 +122,7 @@ public class Address {
 		} catch (NumberFormatException e) {			
 			System.out.print("Invalid Format!");
 			return false;
-
 		}
-
 		return true;
 	}
 }

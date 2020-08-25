@@ -40,7 +40,7 @@ public class MachineProject {
 				System.out.println("Nobody!");
 			}
 			
-
+			break;
 						
 			// // Account Type Menus and Actions
 			// if(myAccount.getOnline()) {
@@ -80,5 +80,17 @@ public class MachineProject {
 
 		System.out.println("> Program is terminating..");
 		sc.close();
+	}
+
+	public boolean CitizenMenus() {
+
+	}
+
+	public boolean GovermentOfficialMenus() {
+
+	}
+
+	public boolean ContactTracerMenus() {
+
 	}
 }

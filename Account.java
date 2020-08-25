@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.io.*;
 
 public class Account {
-	// Attributes
+	// Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	// Personal Information
 	public Name fullName;
@@ -16,15 +16,27 @@ public class Account {
 	private boolean online;
 
 
-	// Methods
-	
+	// Constructors ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	public Account() {
+
+	}
+
+	public Account(String username) throws IOException {
+		loadUserInfo(username);
+	}
+
+
+	// Methods ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+	// Registry, LogIn & Out ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 	/** 
-		starts a registry process and returns true if it is successful
-		if successful creates a file containing user personal information and adds user to the Master List file
-		@author Steven Castro
-		@param accountType type of account to be registered 
-		@return boolean
-	*/
+	 *	starts a registry process and returns true if it is successful
+	 *	if successful creates a file containing user personal information and adds user to the Master List file
+	 *	@author Steven Castro
+	 *	@param accountType type of account to be registered 
+	 *	@return boolean
+	 */
 	public boolean register(String accountType) {
 
 		// Check account type ::::::::::::::::::::
@@ -50,13 +62,13 @@ public class Account {
 
 		// Ask User for Desirable Username
 		Visual.cls();
-		Visual.usernameMenu();
+		Visual.regUsernameMenu();
 
 		// Check Username if it is Unique
 		while(verifyUsername(input = sc.next())) {
 			Visual.cls();
 			System.out.println("|INVALID: Username is already taken...");
-			Visual.usernameMenu();
+			Visual.regUsernameMenu();
 			attempt--;
 
 			// Check Number of Attempts
@@ -72,13 +84,13 @@ public class Account {
 
 		// Ask User for Desirable Password
 		Visual.cls();
-		Visual.passwordMenu();
+		Visual.regPasswordMenu();
 
 		// Check Password if it is in Valid Format
 		while(!(validPassword(input = sc.next()))) {
 			Visual.cls();
 			System.out.println("|INVALID: Passwords should contain atleast 6 characters and 1 digit or special character...");
-			Visual.passwordMenu();
+			Visual.regPasswordMenu();
 			attempt--;
 
 			// Check Number of Attempts
@@ -142,11 +154,11 @@ public class Account {
 	}
 
 	/** 
-		starts a login process and returns returns true if it is successful
-		if sucessful read and load user's personal information and account details
-		@author Steven Castro
-		@return boolean
-	*/
+	 *	starts a login process and returns returns true if it is successful
+	 *	if sucessful read and load user's personal information and account details
+	 *	@author Steven Castro
+	 *	@return boolean
+	 */
 	public boolean logIn() {
 
 		Scanner input = new Scanner(System.in);
@@ -155,7 +167,7 @@ public class Account {
 
 		// Ask User for Account Username
 		Visual.cls();
-		Visual.usernameMenu();
+		Visual.logUsernameMenu();
 
 		// Check Username if Account is Existing
 		if(verifyUsername(input.next())) {
@@ -171,7 +183,7 @@ public class Account {
 				password = sc.next();
 
 				// Ask User for Password Input
-				Visual.passwordMenu();
+				Visual.logPasswordMenu();
 				if(verifyPassword(input.next()) == false) {
 					Visual.cls();
 					System.out.println("|INVALID: Wrong password...");
@@ -206,9 +218,9 @@ public class Account {
 	}
 
 	/** 
-		reset Account class fields to default
-		@author Steven Castro
-	*/
+	 *	reset Account class fields to default
+	 *	@author Steven Castro
+	 */
 	public void logOut() {
 		username = null;
 		password = null;
@@ -218,53 +230,53 @@ public class Account {
 		online = false;
 	}
 
-	// Getters ::::::::::::::::::::::::::::::::
+	// Getter ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	/** 
-		returns user's username
-		@author Steven Castro
-		@return String
-	*/
+	 *	returns user's username
+	 *	@author Steven Castro
+	 *	@return String
+	 */
 	public String getUsername() {
 		return username;
 	}
 
 	/** 
-		returns user's password
-		@author Steven Castro
-		@return String
-	*/
+	 *	returns user's password
+     *	@author Steven Castro
+	 *	@return String
+	 */
 	public String getPassword() {
 		return password;
 	}
 
 	/** 
-		returns user's role
-		@author Steven Castro
-		@return String
-	*/
+	 *	returns user's role
+	 *	@author Steven Castro
+	 *	@return String
+	 */
 	public String getRole() {
 		return role;
 	}
 
 	/** 
-		returns user's online status
-		@author Steven Castro
-		@return boolean
-	*/
+	 *	returns user's online status
+     *	@author Steven Castro
+     *	@return boolean
+	 */
 	public boolean getOnline() {
 		return online;
 	}
 
-	// Date Validity ::::::::::::::::::::::::
+	// Data Validty ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	/**
-		returns true if username exists in the MasterList.txt
-		sets the username & role attribute of Class Account when true
-		@author Steven Castro
-		@param username current user's inputted username/
-		@return boolean
-	*/
+	 *	returns true if username exists in the MasterList.txt
+	 *	sets the username & role attribute of Class Account when true
+	 *	@author Steven Castro
+	 *	@param username current user's inputted username/
+	 *	@return boolean
+	 */
 	public boolean verifyUsername(String username) {
 
 		// Master List
@@ -281,12 +293,12 @@ public class Account {
 	}
 
 	/**
-		returns true if password is equivalent to account password
-		sets the attribute online of Class Account to true
-		@author Steven Castro
-		@param password current user's inputted password
-		@return boolean
-	*/
+	 *	returns true if password is equivalent to account password
+	 *	sets the attribute online of Class Account to true
+	 *	@author Steven Castro
+	 *	@param password current user's inputted password
+	 *	@return boolean
+	 */
 	private boolean verifyPassword(String password) {
 		try {
 			if(this.password.equals(password)) {
@@ -301,12 +313,12 @@ public class Account {
 	}
 
 	/**
-		returns true if password is in valid format
-		(Minimum of 6 characters, Includes at least 1 special character)
-		@author Steven Castro
-		@param password current user's inputted password
-		@return boolean
-	*/
+	 *	returns true if password is in valid format
+	 *	(Minimum of 6 characters, Includes at least 1 special character)
+	 *	@author Steven Castro
+	 *	@param password current user's inputted password
+	 *	@return boolean
+	 */
 	private boolean validPassword(String password) {
 
 		// every digit and special character
@@ -327,45 +339,50 @@ public class Account {
 		return false;
 	}
 
-	// File Handling ::::::::::::::::::::::::
+	// File Handling ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	/**
-		scans and loads User's personnal and account information
-		@author Steven Castro
-		@param username current user's username
-	*/
+	 *	scans and loads User's personnal and account information
+	 *	@author Steven Castro
+	 *	@param username current user's username
+	 */
 	public void loadUserInfo(String username) throws IOException {
 
-		File fp = new File("./Accounts/" + username + ".act");
 		MasterList list = new MasterList();
-		Scanner sc = new Scanner(fp);
-		String dump;
+		
+		try {
+			File fp = new File("./Accounts/" + username + ".act");
+			Scanner sc = new Scanner(fp);
+			String dump;
 
-		// Username
-		this.username = username;
+			// Username
+			this.username = username;
 
-		// Scan Password
-		password = sc.next();
+			// Scan Password
+			password = sc.next();
 
-		// Scan Role
-		role = list.getMasterRole(username);
+			// Scan Role
+			role = list.getMasterRole(username);
 
-		// Scan Fullname
-		fullName = new Name((sc.next()).replaceAll(",", ""), (sc.next()).replaceAll(",", ""), sc.next());
+			// Scan Fullname
+			fullName = new Name((sc.next()).replaceAll(",", ""), (sc.next()).replaceAll(",", ""), sc.next());
 
-		// Flush
-		dump = sc.nextLine();
+			// Flush
+			dump = sc.nextLine();
 
-		// Scan Address Information
-		addresses = new Address();
-		addresses.setHomeAddress((sc.nextLine()).substring(6));
-		addresses.setOfficeAddress((sc.nextLine()).substring(8));
-		dump = sc.next();
-		addresses.setPhoneNumber((sc.next()).substring(1));
-		dump = sc.nextLine();
-		addresses.setEmailAddress((sc.nextLine()).substring(7));
+			// Scan Address Information
+			addresses = new Address();
+			addresses.setHomeAddress((sc.nextLine()).substring(6));
+			addresses.setOfficeAddress((sc.nextLine()).substring(8));
+			dump = sc.next();
+			addresses.setPhoneNumber((sc.next()).substring(1));
+			dump = sc.nextLine();
+			addresses.setEmailAddress((sc.nextLine()).substring(7));
+			sc.close();
 
-		sc.close();
+		} catch (IOException e) {
+			System.out.println("|ERROR: Account File Not Found...");
+		}
 	}
 
 	/**
@@ -398,13 +415,13 @@ public class Account {
 		}	
 	}
 
-	// IDEA :::::::::::::::::::::::: (maybe irrelevant)
+	// Could Be Useful ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	/**
-		copies Account class attributes
-		@author Steven Castro
-		@param Account class parameter
-	*/
+	 *	copies Account class attributes
+	 *	@author Steven Castro
+	 *	@param Account class parameter
+	 */
 	public void copyAccountInfo(Account newUser) {
 
 		// Account Information
