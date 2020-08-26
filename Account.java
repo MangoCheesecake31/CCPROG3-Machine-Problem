@@ -190,8 +190,6 @@ public class Account {
 					return false;
 				}
 
-				input.close();
-
 				// Load User Account and Personal Information
 				loadUserInfo(username);
 	
@@ -420,7 +418,7 @@ public class Account {
 	/**
 	 *	copies Account class attributes
 	 *	@author Steven Castro
-	 *	@param Account class parameter
+	 *	@param newUser class parameter
 	 */
 	public void copyAccountInfo(Account newUser) {
 

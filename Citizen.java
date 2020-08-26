@@ -33,7 +33,6 @@ public class Citizen extends Account {
 					System.out.println("|INVALID: Invalid Input...");
 			}
 		}
-		sc.close();
 	}
 
 	/**
@@ -76,8 +75,6 @@ public class Citizen extends Account {
 				System.out.println("Invalid input.");
 		} while (minute > 60 || minute < 0);
 
-		sc.close();
-
 		rec.addEntry(code, year, month, day, hour, minute);
 	}
 
@@ -119,8 +116,6 @@ public class Citizen extends Account {
 			if(minute > 60 || minute < 0)
 				System.out.println("Invalid input.");
 		} while (minute > 60 || minute < 0);
-
-		sc.close();
 
 		Calendar cal = new Calendar.Builder().setFields(Calendar.YEAR, year,
 														Calendar.MONTH, month,

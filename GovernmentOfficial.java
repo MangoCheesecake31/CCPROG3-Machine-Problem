@@ -199,7 +199,6 @@ public class GovernmentOfficial extends Citizen {
 		  System.out.print("|> Press Enter to Continue...");
 		Scanner sc = new Scanner(System.in);
 		String dump = sc.nextLine();
-		sc.close();
 	}
 
 	/**

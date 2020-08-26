@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.Scanner;
 
 public class MachineProject {
@@ -21,9 +20,16 @@ public class MachineProject {
 					case '1':
 							myAccount.register("customer");
 						break;
-					case '2': 
-							if(myAccount.logIn()) 
-								inMainMenu = false;
+					case '2':
+							if(myAccount.logIn()) {
+								if(myAccount.getRole().equalsIgnoreCase("customer")) {
+									CitizenMenus();
+								} else if(myAccount.getRole().equalsIgnoreCase("official")) {
+									GovermentOfficialMenus();
+								} else if(myAccount.getRole().equalsIgnoreCase("tracer")) {
+									ContactTracerMenus();
+								}
+							}
 						break;
 					case '3':
 							programIsOn = false;
@@ -80,10 +86,9 @@ public class MachineProject {
 		
 
 		System.out.println("> Program is terminating..");
-		sc.close();
 	}
 
-	public void CitizenMenus() throws IOException {
+	public static void CitizenMenus() {
 		Citizen citizen = new Citizen();
 		Scanner sc = new Scanner(System.in);
 
@@ -93,7 +98,7 @@ public class MachineProject {
 			Visual.cls();
 			Visual.citizenMenu();
 
-			switch(sc.next().charAt(0)) {
+			switch (sc.next().charAt(0)) {
 				case '1':
 						citizen.checkIn();
 					break;
@@ -107,12 +112,11 @@ public class MachineProject {
 					inCitizenMenu = false;
 			}
 		}
-		sc.close();
 	}
 
-	public void GovermentOfficialMenus() throws IOException {
+	public static void GovermentOfficialMenus() {
 		GovernmentOfficial gov = new GovernmentOfficial();
-		Scanner sc = new Scanner(System.in);
+		Scanner	sc = new Scanner(System.in);
 
 		boolean inGovernmentOfficialMenu = true;
 
@@ -144,15 +148,14 @@ public class MachineProject {
 							Visual.pressEnterToContinue();
 					break;
 				case '7':
-					inGovernmentOfficialMenu = false;
+						inGovernmentOfficialMenu = false;
 			}
 		}
-		sc.close();
 	}
 
-	public void ContactTracerMenus() {
+	public static void ContactTracerMenus() {
 		ContactTracer contactTracer = new ContactTracer();
-		Scanner sc = new Scanner(System.in);
+		Scanner	sc = new Scanner(System.in);
 
 		boolean inContactTracerMenu = true;
 
@@ -171,7 +174,7 @@ public class MachineProject {
 					// Inform Citizens Possibly Exposed !PHASE 2
 					break;
 				case '4':
-					inContactTracerMenu = false;
+						inContactTracerMenu = false;
 			}
 		}
 	}
