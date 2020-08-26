@@ -21,7 +21,7 @@ public class Account {
 
 	}
 
-	public Account(String username) throws IOException {
+	public Account(String username) {
 		loadUserInfo(username);
 	}
 
@@ -190,8 +190,6 @@ public class Account {
 					return false;
 				}
 
-				input.close();
-
 				// Load User Account and Personal Information
 				loadUserInfo(username);
 	
@@ -346,7 +344,7 @@ public class Account {
 	 *	@author Steven Castro
 	 *	@param username current user's username
 	 */
-	public void loadUserInfo(String username) throws IOException {
+	public void loadUserInfo(String username) {
 
 		MasterList list = new MasterList();
 		
@@ -420,7 +418,7 @@ public class Account {
 	/**
 	 *	copies Account class attributes
 	 *	@author Steven Castro
-	 *	@param Account class parameter
+	 *	@param newUser class parameter
 	 */
 	public void copyAccountInfo(Account newUser) {
 
