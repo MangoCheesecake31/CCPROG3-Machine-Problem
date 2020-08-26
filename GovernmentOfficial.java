@@ -18,25 +18,28 @@ public class GovernmentOfficial extends Citizen {
 	 */
 	public void showUnassignedCases() {
 		Scanner sc = new Scanner(System.in);
-		String dump;
+		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
+		// System.out.format("|    HOME  : %-59s|\n", addresses.getHomeAddress());
 
-		// [X] TODO: format it better
-		System.out.println("| ------------------------- Unassigned Cases -------------------------- |");
-		System.out.println("|                                                                       |");
+		System.out.println("| -------------------------------- Unassigned Cases ---------------------------------- |");
+		System.out.println("|                                                                                      |");
+		System.out.println("| Case Username                       Report Date Tracername                    Status |");
 		// Print Unassigned Cases
 		for(int i = 0; i < cList.getNumEntries(); i++) {
 			
-			if(cList.getTracerName(i).equals("000")) {
-				System.out.println("| " + cList.toString(i));
+			if(cList.getTracerName(i).equals("000")) {	
+				 System.out.format("| %-4d %-30s %-10s  %-30s %c     |\n", i + 1, cList.getUsername(i),  
+																		      sdf.format(cList.getReportDate(i).getTime()),
+																		 	  cList.getTracerName(i),
+																		  	  cList.getStatus(i));
 			}
 		}
-		System.out.println("| --------------------------------------------------------------------- |");
-		System.out.print("|> Press Enter to Continue...");
-		dump = sc.nextLine();
+		System.out.println("| -------------------------------------------------------------------------------------|");
+		Visual.pressEnterToContinue();
 	}
 
-	// b. trace specificc aes method
-
+	// B. Show Contact Tracing Updates
+	// public void showContactTracingUpdates()
 
 	/**
 	 *	display analytics of cases based on user preference of city and duration
@@ -44,17 +47,22 @@ public class GovernmentOfficial extends Citizen {
 	 */
 	public void analytics()  {
 		Scanner sc = new Scanner(System.in);
+
 		Visual.cls();
 		Visual.analyticsMenu();
 
+		// Analytics Preferences Menu
 		switch(sc.next().charAt(0)) {
-			case '1': givenCityDuration();
-					break;
-			case '2': givenCity();
-					break;				
-			case '3': givenDuration();
-					break;
-			default: System.out.println("|INVALID: Invalid Input...");	
+			// Given a Specific City & Duration
+			case '1' -> givenCityDuration();
+			// Given Only a Specific City
+			case '2' -> givenCity();
+			// Given Only a Specific Duration
+			case '3' -> givenDuration();
+			default  -> {
+				System.out.println("|INVALID: Invalid Input...");
+				Visual.pressEnterToContinue();
+			}
 		}	
 	}
 
@@ -67,30 +75,45 @@ public class GovernmentOfficial extends Citizen {
 	 *	@return boolean
 	 */
 	public boolean createGovernmentOfficial() {
-		Account newUser = new Account();
+		boolean inCreateMenu = true;
+		Account ac = new Account();
 		Scanner sc = new Scanner(System.in);
 		String input;
 
-		// Ask User for Desirable Username
-		Visual.cls();
-		Visual.createOfficialMenu();
-		
-		// If Username does not Exist in MasterList undergo registry process
-		if(newUser.verifyUsername(input = sc.next())) {
-			// Check Account Role
-			if(mList.getMasterRole(input).equals("official")) {
-				System.out.println("|INVALID: Account already has Goverment Official Role...");
-				return false;
+		while(inCreateMenu) {
+			Visual.cls();
+			Visual.isExistingAccountMenu();
+
+			switch(sc.next().toUpperCase().charAt(0)) {
+				// Employ Existing Account
+				case 'Y' ->	{
+					inCreateMenu = false;
+
+ 					Visual.cls();
+					Visual.createOfficialMenu();
+
+					// Check If Account is Verified / Existing
+					if(ac.verifyUsername(input = sc.next())) {
+						// Check Account Role
+						if(mList.getMasterRole(input).equals("official")) {
+							System.out.println("|INVALID: Account already has Goverment Official Role...");
+							Visual.pressEnterToContinue();
+							return false;
+						}
+					}
+
+					// Update Account Role
+					mList.updateMaster(input, "official");
+				}
+				// Register New Account
+				case 'N' -> {
+					inCreateMenu = false;
+					// Register an Official Account
+					return ac.register("official");
+				}
 			}
-
-			// If Account is Existing Update Role of User in MasterList.txt
-			mList.updateMaster(input, "official");
-
-		} else if(!(newUser.register("official"))) {
-			return false;
 		}
-
-		return true;
+		return false;
 	}
 
 	/**
@@ -100,29 +123,45 @@ public class GovernmentOfficial extends Citizen {
 	 * 	@return boolean
 	 */
 	public boolean createContactTracer() {
-		Account newUser = new Account();
+		boolean inCreateMenu = true;
+		Account ac = new Account();
 		Scanner sc = new Scanner(System.in);
 		String input;
 
-		// Ask User for Desirable Username
-		Visual.cls();
-		Visual.createTracerMenu();
+		while(inCreateMenu) {
+			Visual.cls();
+			Visual.isExistingAccountMenu();
 
-		// If Username does not Exist in MasterList undergo registry process
-		if(newUser.verifyUsername(input = sc.next())) {
-			// Check Account Role
-			if(mList.getMasterRole(input).equals("tracer")) {
-				System.out.println("|INVALID: Account already has Contact Tracer Role...");
-				return false;
+			switch(sc.next().toUpperCase().charAt(0)) {
+				// Employ Existing Account
+				case 'Y' ->	{
+					inCreateMenu = false;
+
+ 					Visual.cls();
+					Visual.createTracerMenu();
+
+					// Check If Account is Verified / Existing
+					if(ac.verifyUsername(input = sc.next())) {
+						// Check Account Role
+						if(mList.getMasterRole(input).equals("tracer")) {
+							System.out.println("|INVALID: Account already has Contact Tracer Role...");
+							Visual.pressEnterToContinue();
+							return false;
+						}
+					}
+
+					// Update Account Role
+					mList.updateMaster(input, "tracer");
+				}
+				// Register New Account
+				case 'N' -> {
+					inCreateMenu = false;
+					// Register a Contact Tracer Account
+					return ac.register("tracer");
+				}
 			}
-
-			// If Account is Existing Update Role of User in MasterList.txt
-			mList.updateMaster(input, "tracer");
-
-		} else if(!(newUser.register("tracer"))) {
-			return false;
 		}
-		return true;
+		return false;
 	}
 
 	/**
@@ -131,14 +170,33 @@ public class GovernmentOfficial extends Citizen {
 	 *	@param username username of the user to be demoted to customer account
 	 *	@return boolean
 	 */
-	public boolean terminateAccount(String username) {
+	public boolean terminateAccount() {
+		String dump;
+		Scanner sc = new Scanner(System.in);
+
+		// Prompts & Ask for Username of Account to be Terminated
+		Visual.cls();
+		Visual.terminateAccountMenu();
+		String username = sc.next();
+
+		// Check If username is the current User
+		if(username.equalsIgnoreCase(getUsername())) {
+			System.out.println("|INVALID: Cannot Terminite Own Account...");
+			Visual.pressEnterToContinue();
+			return false;
+		}
 
 		// Search Username in MasterList
 		if(mList.checkMaster(username)) {
 			// Demote User's Role to Customer
 			mList.updateMaster(username, "customer");
+			System.out.println("|> Termination of Account is Successful...");
+			Visual.pressEnterToContinue();
 			return true;
-		}
+		} 
+
+		System.out.println("|INVALID: Account Does Not Exist...");
+		Visual.pressEnterToContinue();
 		return false;
 	}
 
@@ -150,8 +208,8 @@ public class GovernmentOfficial extends Citizen {
 	 *	@return Calendar	
 	 */
 	public Calendar inputDate() {
-		Scanner sc = new Scanner(System.in);
 		Calendar myDate;
+		Scanner sc = new Scanner(System.in);
 		String temp = sc.nextLine();
 
 		try {
@@ -196,9 +254,7 @@ public class GovernmentOfficial extends Citizen {
 		System.out.println("| Duration: " + sdf.format(start.getTime()) + " ---> " + sdf.format(end.getTime()));
 		System.out.println("| Number of Cases: " + numCase);
 		System.out.println("| --------------------------------------------------------------------- |");
-		  System.out.print("|> Press Enter to Continue...");
-		Scanner sc = new Scanner(System.in);
-		String dump = sc.nextLine();
+		Visual.pressEnterToContinue();
 	}
 
 	/**
@@ -220,19 +276,18 @@ public class GovernmentOfficial extends Citizen {
 			// Account
 			if(mList.checkMaster(cList.getUsername(i))) {
 
-				// try {
-					ac = new Account(cList.getUsername(i));
+				// Load Account
+				ac = new Account(cList.getUsername(i));
 
-					System.out.println(ac.addresses.getHomeAddress());
+				// Print Address (Remove)
+				System.out.println(ac.addresses.getHomeAddress());
 
-					if(ac.addresses.getHomeAddress().toUpperCase().contains(cityName.toUpperCase())) {
-						System.out.println(cList.toString(i));
-						numCase++;
-					}
+				// Search & Count
+				if(ac.addresses.getHomeAddress().toUpperCase().contains(cityName.toUpperCase())) {
+					System.out.println(cList.toString(i));
+					numCase++;
+				}
 
-				// } catch (IOException e) {
-				// 	System.out.println("|ERROR: Account File Not Found...");
-				// }
 			}
 		}
 
@@ -241,8 +296,7 @@ public class GovernmentOfficial extends Citizen {
 		System.out.println("| City: " + cityName);
 		System.out.println("| Number of Cases: " + numCase);
 		System.out.println("| --------------------------------------------------------------------- |");
-		  System.out.print("|> Press Enter to Continue...");
-		String dump = sc.nextLine();
+		Visual.pressEnterToContinue();
 	}
 
 	/**
@@ -250,7 +304,55 @@ public class GovernmentOfficial extends Citizen {
 	 * @author Steven Castro
 	 */
 	private void givenCityDuration() {  
+		int numCase = 0;
+		Account ac;
+		Scanner sc = new Scanner(System.in);
+		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
 
+		// Prompts and Ask for Duration
+		Visual.inputStartDateMenu();
+		Calendar start = inputDate();
+
+		Visual.inputEndDateMenu();
+		Calendar end = inputDate();
+
+		// Prompts and Ask for City
+		// Ask Duration
+		Visual.inputCityMenu();
+		String cityName = sc.nextLine();
+
+		// Search & Count
+		for(int i = 0; i < cList.getNumEntries(); i++) {
+
+			// Duration
+			if((cList.getReportDate(i).compareTo(start)) >= 0) {
+				if((cList.getReportDate(i).compareTo(end)) <= 0) {
+
+					// Account
+					if(mList.checkMaster(cList.getUsername(i))) {
+
+						// Load Account
+						ac = new Account(cList.getUsername(i));
+						
+						// Print Address (Remove)
+						System.out.println(ac.addresses.getHomeAddress());
+
+						// City
+						if(ac.addresses.getHomeAddress().toUpperCase().contains(cityName.toUpperCase())) {
+							System.out.println(cList.toString(i));
+							numCase++;
+						}
+					}
+				}
+			}
+		}
+
+		System.out.println("| --------------------------------------------------------------------- |");
+		System.out.println("| Duration: " + sdf.format(start.getTime()) + " ---> " + sdf.format(end.getTime()));
+		System.out.println("| City: " + cityName);
+		System.out.println("| Number of Cases: " + numCase);
+		System.out.println("| --------------------------------------------------------------------- |");
+		Visual.pressEnterToContinue();
 	}
 }
 
