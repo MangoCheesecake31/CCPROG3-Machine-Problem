@@ -21,7 +21,7 @@ public class Account {
 
 	}
 
-	public Account(String username) throws IOException {
+	public Account(String username) {
 		loadUserInfo(username);
 	}
 
@@ -346,7 +346,7 @@ public class Account {
 	 *	@author Steven Castro
 	 *	@param username current user's username
 	 */
-	public void loadUserInfo(String username) throws IOException {
+	public void loadUserInfo(String username) {
 
 		MasterList list = new MasterList();
 		
