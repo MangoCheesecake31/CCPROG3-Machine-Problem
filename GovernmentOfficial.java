@@ -42,7 +42,7 @@ public class GovernmentOfficial extends Citizen {
 	 *	display analytics of cases based on user preference of city and duration
      * 	@author Steven Castro
 	 */
-	public void analytics() throws IOException {
+	public void analytics()  {
 		Scanner sc = new Scanner(System.in);
 		Visual.cls();
 		Visual.analyticsMenu();
@@ -206,7 +206,7 @@ public class GovernmentOfficial extends Citizen {
 	 * display analytics of cases based on a given city
 	 * @author Steven Castro
 	 */
-	private void givenCity() throws IOException {  // FUCKING IO
+	private void givenCity()  {  
 		int numCase = 0;
 		Account ac;
 		Scanner sc = new Scanner(System.in);
@@ -220,14 +220,20 @@ public class GovernmentOfficial extends Citizen {
 			
 			// Account
 			if(mList.checkMaster(cList.getUsername(i))) {
-				ac = new Account(cList.getUsername(i));
-				
-				System.out.println(ac.addresses.getHomeAddress());
 
-				if(ac.addresses.getHomeAddress().toUpperCase().contains(cityName.toUpperCase())) {
-					System.out.println(cList.toString(i));
-					numCase++;
-				}
+				// try {
+					ac = new Account(cList.getUsername(i));
+
+					System.out.println(ac.addresses.getHomeAddress());
+
+					if(ac.addresses.getHomeAddress().toUpperCase().contains(cityName.toUpperCase())) {
+						System.out.println(cList.toString(i));
+						numCase++;
+					}
+
+				// } catch (IOException e) {
+				// 	System.out.println("|ERROR: Account File Not Found...");
+				// }
 			}
 		}
 

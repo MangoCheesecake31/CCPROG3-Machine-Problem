@@ -9,7 +9,7 @@ public class Citizen extends Account {
 	 *	starts a process to change User's personal information
 	 *	@author Steven Castro
 	 */
-	public void changeUserInfo() throws IOException {
+	public void changeUserInfo() {
 		boolean inChangeMenu = true;
 		Scanner sc = new Scanner(System.in);
 
@@ -28,6 +28,9 @@ public class Citizen extends Account {
 					break;
 				case '3':
 					inChangeMenu = false;
+					break;
+				default: 
+					System.out.println("|INVALID: Invalid Input...");
 			}
 		}
 		sc.close();
