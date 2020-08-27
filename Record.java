@@ -62,17 +62,18 @@ public class Record {
         @param year
         @param month
         @param day
-        @param hour
-        @param minute
     */
-    public void addEntry(String code, int year, int month, int day, int hour, int minute) {
+    public void addEntry(String code, int year, int month, int day) {
         month -= 1;
 
+        Calendar time = Calendar.getInstance();
+
         Calendar cal = new Calendar.Builder().setFields(Calendar.YEAR, year,
-                                                        Calendar.MONTH, month,
-                                                        Calendar.DAY_OF_MONTH, day,
-                                                        Calendar.HOUR, hour,
-                                                        Calendar.MINUTE, minute).build();
+                                               Calendar.MONTH, month,
+                                               Calendar.DAY_OF_MONTH, day,
+                                               Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY),
+                                               Calendar.MINUTE, time.get(Calendar.MINUTE)).build();
+
         dateList.add(cal);
         codeList.add(code);
 

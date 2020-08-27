@@ -244,12 +244,15 @@ public class Visual {
 	public static void governmentOfficialMenu() {
 		System.out.println("| ------------------------ Government Official ------------------------ |");
 		System.out.println("|                                                                       |");
-		System.out.println("|    [1] Show Unassigned Cases                                          |");
-		System.out.println("|    [2] Show Contact Tracing Updates                                   |");
-		System.out.println("|    [3] Analytics                                                      |");
-		System.out.println("|    [4] Create Government Official Accounts					        |");
-		System.out.println("|    [5] Create Contact Tracer Accounts					                |");
-		System.out.println("|    [6] Terminate Account					                            |");
+		System.out.println("|    [1] Check In                                                       |");
+		System.out.println("|    [2] Report Positive Test Result                                    |");
+		System.out.println("|    [3] Update Profile Information                                     |");
+		System.out.println("|    [4] Show Unassigned Cases                                          |");
+		System.out.println("|    [5] Show Contact Tracing Updates                                   |");
+		System.out.println("|    [6] Analytics                                                      |");
+		System.out.println("|    [7] Create Government Official Accounts					        |");
+		System.out.println("|    [8] Create Contact Tracer Accounts					                |");
+		System.out.println("|    [9] Terminate Account					                            |");
 		System.out.println("|    [7] Log Out                                                        |");
 		System.out.println("|                                                                       |");
 		System.out.println("| --------------------------------------------------------------------- |");
@@ -259,10 +262,13 @@ public class Visual {
 	public static void contactTracerMenu() {
 		System.out.println("| -------------------------- Contact Tracer --------------------------- |");
 		System.out.println("|                                                                       |");
-		System.out.println("|    [1] Show Cases                                                     |");
-		System.out.println("|    [2] Trace Specific Case                                            |");
-		System.out.println("|    [3] Inform Citizens Possibly Exposed                               |");
-		System.out.println("|    [4] Log Out                                                        |");
+		System.out.println("|    [1] Check In                                                       |");
+		System.out.println("|    [2] Report Positive Test Result                                    |");
+		System.out.println("|    [3] Update Profile Information                                     |");
+		System.out.println("|    [4] Show Cases                                                     |");
+		System.out.println("|    [5] Trace Specific Case                                            |");
+		System.out.println("|    [6] Inform Citizens Possibly Exposed                               |");
+		System.out.println("|    [7] Log Out                                                        |");
 		System.out.println("|                                                                       |");
 		System.out.println("| --------------------------------------------------------------------- |");
 		System.out.print("|>>> ");

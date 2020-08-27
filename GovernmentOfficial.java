@@ -79,7 +79,7 @@ public class GovernmentOfficial extends Citizen {
 		if(newUser.verifyUsername(input = sc.next())) {
 			// Check Account Role
 			if(mList.getMasterRole(input).equals("official")) {
-				System.out.println("|INVALID: Account already has Goverment Official Role...");
+				System.out.println("|INVALID: Account already has Government Official Role...");
 				return false;
 			}
 

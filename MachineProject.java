@@ -17,22 +17,19 @@ public class MachineProject {
 				Visual.mainMenu();
 
 				switch(sc.next().charAt(0)) {
-					case '1':
-							myAccount.register("customer");
-						break;
-					case '2':
-							if(myAccount.logIn()) {
-								if(myAccount.getRole().equalsIgnoreCase("customer")) {
-									CitizenMenus();
-								} else if(myAccount.getRole().equalsIgnoreCase("official")) {
-									GovermentOfficialMenus();
-								} else if(myAccount.getRole().equalsIgnoreCase("tracer")) {
-									ContactTracerMenus();
-								}
+					case '1' -> myAccount.register("customer");
+					case '2' -> {
+						if (myAccount.logIn()) {
+							if (myAccount.getRole().equalsIgnoreCase("customer")) {
+								CitizenMenus();
+							} else if (myAccount.getRole().equalsIgnoreCase("official")) {
+								GovernmentOfficialMenus();
+							} else if (myAccount.getRole().equalsIgnoreCase("tracer")) {
+								ContactTracerMenus();
 							}
-						break;
-					case '3':
-							programIsOn = false;
+						}
+					}
+					case '3' -> programIsOn = false;
 				}
 			}
 			
@@ -90,6 +87,7 @@ public class MachineProject {
 
 	public static void CitizenMenus() {
 		Citizen citizen = new Citizen();
+		Account acc = new Account();
 		Scanner sc = new Scanner(System.in);
 
 		boolean inCitizenMenu = true;
@@ -99,23 +97,21 @@ public class MachineProject {
 			Visual.citizenMenu();
 
 			switch (sc.next().charAt(0)) {
-				case '1':
-						citizen.checkIn();
-					break;
-				case '2':
-						citizen.reportPositive();
-					break;
-				case '3':
-						citizen.changeUserInfo();
-					break;
-				case '4':
+				case '1' -> citizen.checkIn();
+				case '2' -> citizen.reportPositive();
+				case '3' -> citizen.changeUserInfo();
+				case '4' -> {
+					acc.logOut();
 					inCitizenMenu = false;
+				}
 			}
 		}
 	}
 
-	public static void GovermentOfficialMenus() {
+	public static void GovernmentOfficialMenus() {
 		GovernmentOfficial gov = new GovernmentOfficial();
+		Citizen citizen = new Citizen();
+		Account acc = new Account();
 		Scanner	sc = new Scanner(System.in);
 
 		boolean inGovernmentOfficialMenu = true;
@@ -125,36 +121,33 @@ public class MachineProject {
 			Visual.governmentOfficialMenu();
 
 			switch(sc.next().charAt(0)) {
-				case '1':
-						gov.showUnassignedCases();
-					break;
-				case '2':
-						// Show Contact Tracing Updates !PHASE 2
-					break;
-				case '3':
-						gov.analytics();
-					break;
-				case '4':
-						gov.createGovernmentOfficial();
-					break;
-				case '5':
-						gov.createContactTracer();
-					break;
-				case '6':
-						if(gov.terminateAccount(sc.nextLine()))
-							System.out.println("User demoted to citizen!");
-						else
-							System.out.println("Username does not exist.");
-							Visual.pressEnterToContinue();
-					break;
-				case '7':
-						inGovernmentOfficialMenu = false;
+				case '1' -> citizen.checkIn();
+				case '2' -> citizen.reportPositive();
+				case '3' -> citizen.changeUserInfo();
+				case '4' -> gov.showUnassignedCases();
+				case '5' -> System.out.println("Show Contact Tracing Updates !PHASE 2"); // !PHASE 2
+				case '6' -> gov.analytics();
+				case '7' -> gov.createGovernmentOfficial();
+				case '8' -> gov.createContactTracer();
+				case '9' -> {
+					if (gov.terminateAccount(sc.nextLine()))
+						System.out.println("User demoted to citizen!");
+					else
+						System.out.println("Username does not exist.");
+					Visual.pressEnterToContinue();
+				}
+				case '0' -> {
+					acc.logOut();
+					inGovernmentOfficialMenu = false;
+				}
 			}
 		}
 	}
 
 	public static void ContactTracerMenus() {
 		ContactTracer contactTracer = new ContactTracer();
+		Citizen citizen = new Citizen();
+		Account acc = new Account();
 		Scanner	sc = new Scanner(System.in);
 
 		boolean inContactTracerMenu = true;
@@ -164,17 +157,16 @@ public class MachineProject {
 			Visual.contactTracerMenu();
 
 			switch(sc.next().charAt(0)) {
-				case '1':
-					// Show Cases !PHASE 2
-					break;
-				case '2':
-					// Trace Specific Case !PHASE 2
-					break;
-				case '3':
-					// Inform Citizens Possibly Exposed !PHASE 2
-					break;
-				case '4':
-						inContactTracerMenu = false;
+				case '1' -> citizen.checkIn();
+				case '2' -> citizen.reportPositive();
+				case '3' -> citizen.changeUserInfo();
+				case '4' -> System.out.println("Show Cases !PHASE 2"); // !PHASE 2
+				case '5' -> System.out.println("Trace Specific Case !PHASE 2"); // !PHASE 2
+				case '6' -> System.out.println("Inform Citizens Possibly Exposed !PHASE 2"); // !PHASE 2
+				case '7' -> {
+					acc.logOut();
+					inContactTracerMenu = false;
+				}
 			}
 		}
 	}

@@ -62,20 +62,8 @@ public class Citizen extends Account {
 			if(day > 31 || day < 1)
 				System.out.println("Invalid input.");
 		} while (day > 31 || day < 1);
-		System.out.println("Enter hour: ");
-		do {
-			hour = sc.nextInt();
-			if(hour > 23 || hour < 0)
-				System.out.println("Invalid input.");
-		} while (hour > 23 || hour < 0);
-		System.out.println("Enter minute: ");
-		do {
-			minute = sc.nextInt();
-			if(minute > 60 || minute < 0)
-				System.out.println("Invalid input.");
-		} while (minute > 60 || minute < 0);
 
-		rec.addEntry(code, year, month, day, hour, minute);
+		rec.addEntry(code, year, month, day);
 	}
 
 	/**
@@ -104,25 +92,13 @@ public class Citizen extends Account {
 			if(day > 31 || day < 1)
 				System.out.println("Invalid input.");
 		} while (day > 31 || day < 1);
-		System.out.println("Enter hour: ");
-		do {
-			hour = sc.nextInt();
-			if(hour > 23 || hour < 0)
-				System.out.println("Invalid input.");
-		} while (hour > 23 || hour < 0);
-		System.out.println("Enter minute: ");
-		do {
-			minute = sc.nextInt();
-			if(minute > 60 || minute < 0)
-				System.out.println("Invalid input.");
-		} while (minute > 60 || minute < 0);
 
+		Calendar time = Calendar.getInstance();
 		Calendar cal = new Calendar.Builder().setFields(Calendar.YEAR, year,
 														Calendar.MONTH, month,
 														Calendar.DAY_OF_MONTH, day,
-														Calendar.HOUR, hour,
-														Calendar.MINUTE, minute).build();
-
+														Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY),
+														Calendar.MINUTE, time.get(Calendar.MINUTE)).build();
 		caseList.addCase(getUsername(), cal);
 	}
 
