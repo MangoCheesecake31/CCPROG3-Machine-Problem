@@ -21,11 +21,11 @@ public class MachineProject {
 					case '2' -> {
 						if (myAccount.logIn()) {
 							if (myAccount.getRole().equalsIgnoreCase("customer")) {
-								CitizenMenus();
+								CitizenMenus(myAccount);
 							} else if (myAccount.getRole().equalsIgnoreCase("official")) {
-								GovernmentOfficialMenus();
+								GovernmentOfficialMenus(myAccount);
 							} else if (myAccount.getRole().equalsIgnoreCase("tracer")) {
-								ContactTracerMenus();
+								ContactTracerMenus(myAccount);
 							}
 						}
 					}
@@ -85,9 +85,8 @@ public class MachineProject {
 		System.out.println("> Program is terminating..");
 	}
 
-	public static void CitizenMenus() {
+	public static void CitizenMenus(Account acc) {
 		Citizen citizen = new Citizen();
-		Account acc = new Account();
 		Scanner sc = new Scanner(System.in);
 
 		boolean inCitizenMenu = true;
@@ -108,10 +107,8 @@ public class MachineProject {
 		}
 	}
 
-	public static void GovernmentOfficialMenus() {
+	public static void GovernmentOfficialMenus(Account acc) {
 		GovernmentOfficial gov = new GovernmentOfficial();
-		Citizen citizen = new Citizen();
-		Account acc = new Account();
 		Scanner	sc = new Scanner(System.in);
 
 		boolean inGovernmentOfficialMenu = true;
@@ -121,9 +118,9 @@ public class MachineProject {
 			Visual.governmentOfficialMenu();
 
 			switch(sc.next().charAt(0)) {
-				case '1' -> citizen.checkIn();
-				case '2' -> citizen.reportPositive();
-				case '3' -> citizen.changeUserInfo();
+				case '1' -> gov.checkIn();
+				case '2' -> gov.reportPositive();
+				case '3' -> gov.changeUserInfo();
 				case '4' -> gov.showUnassignedCases();
 				case '5' -> System.out.println("Show Contact Tracing Updates !PHASE 2"); // !PHASE 2
 				case '6' -> gov.analytics();
@@ -144,10 +141,8 @@ public class MachineProject {
 		}
 	}
 
-	public static void ContactTracerMenus() {
+	public static void ContactTracerMenus(Account acc) {
 		ContactTracer contactTracer = new ContactTracer();
-		Citizen citizen = new Citizen();
-		Account acc = new Account();
 		Scanner	sc = new Scanner(System.in);
 
 		boolean inContactTracerMenu = true;
@@ -157,9 +152,9 @@ public class MachineProject {
 			Visual.contactTracerMenu();
 
 			switch(sc.next().charAt(0)) {
-				case '1' -> citizen.checkIn();
-				case '2' -> citizen.reportPositive();
-				case '3' -> citizen.changeUserInfo();
+				case '1' -> contactTracer.checkIn();
+				case '2' -> contactTracer.reportPositive();
+				case '3' -> contactTracer.changeUserInfo();
 				case '4' -> System.out.println("Show Cases !PHASE 2"); // !PHASE 2
 				case '5' -> System.out.println("Trace Specific Case !PHASE 2"); // !PHASE 2
 				case '6' -> System.out.println("Inform Citizens Possibly Exposed !PHASE 2"); // !PHASE 2
