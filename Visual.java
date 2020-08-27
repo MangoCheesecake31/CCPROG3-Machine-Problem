@@ -172,8 +172,17 @@ public class Visual {
 		  System.out.print("|>>> ");
 	}
 
+	public static void isExistingAccountMenu() {
+		System.out.println("| ------------------------- Existing Account -------------------------- |");
+		System.out.println("|                                                                       |");
+		System.out.println("|    Does the Account already Exist? (Y/N)                              |");
+		System.out.println("|                                                                       |");
+		System.out.println("| --------------------------------------------------------------------- |");
+		  System.out.print("|>>> ");
+	}
+
 	public static void createOfficialMenu() {
-		System.out.println("| ---------------------- Create Goverment Official -------------------- |");
+		System.out.println("| --------------------- Create Goverment Official --------------------- |");
 		System.out.println("|                                                                       |");
 		System.out.println("|    Enter Username:                                                    |");
 		System.out.println("|                                                                       |");
@@ -247,9 +256,9 @@ public class Visual {
 		System.out.println("|    [1] Show Unassigned Cases                                          |");
 		System.out.println("|    [2] Show Contact Tracing Updates                                   |");
 		System.out.println("|    [3] Analytics                                                      |");
-		System.out.println("|    [4] Create Government Official Accounts					        |");
-		System.out.println("|    [5] Create Contact Tracer Accounts					                |");
-		System.out.println("|    [6] Terminate Account					                            |");
+		System.out.println("|    [4] Create Government Official Account                             |");
+		System.out.println("|    [5] Create Contact Tracer Account                                  |");
+		System.out.println("|    [6] Terminate Account                                              |");
 		System.out.println("|    [7] Log Out                                                        |");
 		System.out.println("|                                                                       |");
 		System.out.println("| --------------------------------------------------------------------- |");
@@ -268,6 +277,16 @@ public class Visual {
 		System.out.print("|>>> ");
 	}
 
+
+	public static void terminateAccountMenu() {
+		System.out.println("| ------------------------- Terminate Account ------------------------- |");
+		System.out.println("|                                                                       |");
+		System.out.println("|    Enter Username:                                                    |");
+		System.out.println("|                                                                       |");
+		System.out.println("| --------------------------------------------------------------------- |");
+		  System.out.print("|>>> ");
+	}
+
 	public static void cls() {
 		try {
 			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -278,7 +297,7 @@ public class Visual {
 
 	public static void pressEnterToContinue()
 	{
-		System.out.println("Press Enter to continue...");
+		System.out.println("|> Press Enter to Continue...");
 		try {
 			System.in.read();
 		} catch (Exception e){
