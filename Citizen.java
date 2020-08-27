@@ -46,17 +46,17 @@ public class Citizen extends Account {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Checking In!");
-		System.out.println("Please enter establishment code: ");
+		System.out.print("Please enter establishment code: ");
 		String code = sc.nextLine();
-		System.out.println("Enter year: ");
+		System.out.print("Enter year: ");
 		int year = sc.nextInt();
-		System.out.println("Enter month (1-12): ");
+		System.out.print("Enter month (1-12): ");
 		do {
 			month = sc.nextInt();
 			if(month > 12 || month < 1)
 				System.out.println("Invalid input.");
 		} while(month > 12 || month < 1);
-		System.out.println("Enter day of month: ");
+		System.out.print("Enter day of month: ");
 		do {
 			day = sc.nextInt();
 			if(day > 31 || day < 1)
@@ -78,15 +78,15 @@ public class Citizen extends Account {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Covid Positive!");
-		System.out.println("Enter year: ");
+		System.out.print("Enter year: ");
 		int year = sc.nextInt();
-		System.out.println("Enter month (1-12): ");
+		System.out.print("Enter month (1-12): ");
 		do {
 			month = sc.nextInt();
 			if(month > 12 || month < 1)
 				System.out.println("Invalid input.");
 		} while(month > 12 || month < 1);
-		System.out.println("Enter day of month: ");
+		System.out.print("Enter day of month: ");
 		do {
 			day = sc.nextInt();
 			if(day > 31 || day < 1)
