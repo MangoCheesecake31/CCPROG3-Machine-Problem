@@ -172,8 +172,17 @@ public class Visual {
 		  System.out.print("|>>> ");
 	}
 
+	public static void isExistingAccountMenu() {
+		System.out.println("| ------------------------- Existing Account -------------------------- |");
+		System.out.println("|                                                                       |");
+		System.out.println("|    Does the Account already Exist? (Y/N)                              |");
+		System.out.println("|                                                                       |");
+		System.out.println("| --------------------------------------------------------------------- |");
+		  System.out.print("|>>> ");
+	}
+
 	public static void createOfficialMenu() {
-		System.out.println("| ---------------------- Create Goverment Official -------------------- |");
+		System.out.println("| --------------------- Create Goverment Official --------------------- |");
 		System.out.println("|                                                                       |");
 		System.out.println("|    Enter Username:                                                    |");
 		System.out.println("|                                                                       |");
@@ -244,15 +253,12 @@ public class Visual {
 	public static void governmentOfficialMenu() {
 		System.out.println("| ------------------------ Government Official ------------------------ |");
 		System.out.println("|                                                                       |");
-		System.out.println("|    [1] Check In                                                       |");
-		System.out.println("|    [2] Report Positive Test Result                                    |");
-		System.out.println("|    [3] Update Profile Information                                     |");
-		System.out.println("|    [4] Show Unassigned Cases                                          |");
-		System.out.println("|    [5] Show Contact Tracing Updates                                   |");
-		System.out.println("|    [6] Analytics                                                      |");
-		System.out.println("|    [7] Create Government Official Accounts					        |");
-		System.out.println("|    [8] Create Contact Tracer Accounts					                |");
-		System.out.println("|    [9] Terminate Account					                            |");
+		System.out.println("|    [1] Show Unassigned Cases                                          |");
+		System.out.println("|    [2] Show Contact Tracing Updates                                   |");
+		System.out.println("|    [3] Analytics                                                      |");
+		System.out.println("|    [4] Create Government Official Account                             |");
+		System.out.println("|    [5] Create Contact Tracer Account                                  |");
+		System.out.println("|    [6] Terminate Account                                              |");
 		System.out.println("|    [7] Log Out                                                        |");
 		System.out.println("|                                                                       |");
 		System.out.println("| --------------------------------------------------------------------- |");
@@ -262,16 +268,23 @@ public class Visual {
 	public static void contactTracerMenu() {
 		System.out.println("| -------------------------- Contact Tracer --------------------------- |");
 		System.out.println("|                                                                       |");
-		System.out.println("|    [1] Check In                                                       |");
-		System.out.println("|    [2] Report Positive Test Result                                    |");
-		System.out.println("|    [3] Update Profile Information                                     |");
-		System.out.println("|    [4] Show Cases                                                     |");
-		System.out.println("|    [5] Trace Specific Case                                            |");
-		System.out.println("|    [6] Inform Citizens Possibly Exposed                               |");
-		System.out.println("|    [7] Log Out                                                        |");
+		System.out.println("|    [1] Show Cases                                                     |");
+		System.out.println("|    [2] Trace Specific Case                                            |");
+		System.out.println("|    [3] Inform Citizens Possibly Exposed                               |");
+		System.out.println("|    [4] Log Out                                                        |");
 		System.out.println("|                                                                       |");
 		System.out.println("| --------------------------------------------------------------------- |");
 		System.out.print("|>>> ");
+	}
+
+
+	public static void terminateAccountMenu() {
+		System.out.println("| ------------------------- Terminate Account ------------------------- |");
+		System.out.println("|                                                                       |");
+		System.out.println("|    Enter Username:                                                    |");
+		System.out.println("|                                                                       |");
+		System.out.println("| --------------------------------------------------------------------- |");
+		  System.out.print("|>>> ");
 	}
 
 	public static void cls() {
@@ -284,7 +297,7 @@ public class Visual {
 
 	public static void pressEnterToContinue()
 	{
-		System.out.println("Press Enter to continue...");
+		System.out.println("|> Press Enter to Continue...");
 		try {
 			System.in.read();
 		} catch (Exception e){

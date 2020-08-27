@@ -59,6 +59,15 @@ public class CaseList {
 		return tracerNames.get(caseNum);
 	}
 
+	/**
+	 *	returns the value of status of a specific case number
+	 *	@author Steven Castro
+	 *	@return char
+	 */
+	public char getStatus(int caseNum) {
+		return status.get(caseNum);
+	}
+
 	// Data Manipulation ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	/**

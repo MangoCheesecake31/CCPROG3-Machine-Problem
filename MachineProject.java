@@ -17,131 +17,95 @@ public class MachineProject {
 				Visual.mainMenu();
 
 				switch(sc.next().charAt(0)) {
+					// Register
 					case '1' -> myAccount.register("customer");
+					// Login & Account Methods
 					case '2' -> {
-						if (myAccount.logIn()) {
-							if (myAccount.getRole().equalsIgnoreCase("customer")) {
+						if(myAccount.logIn()) {
+							if(myAccount.getRole().equalsIgnoreCase("customer")) {
 								CitizenMenus(myAccount);
-							} else if (myAccount.getRole().equalsIgnoreCase("official")) {
-								GovernmentOfficialMenus(myAccount);
-							} else if (myAccount.getRole().equalsIgnoreCase("tracer")) {
-								ContactTracerMenus(myAccount);
-							}
+							} else if(myAccount.getRole().equalsIgnoreCase("official")) {
+								GovermentOfficialMenus(myAccount);
+							} else {
+								ContactTracerMenus();	// Pass Account
+							}	
 						}
 					}
-					case '3' -> programIsOn = false;
+					// Exit Program	
+					case '3' -> programIsOn = false;	
 				}
 			}
-			
-
-			try {
-				System.out.println(myAccount.getOnline());
-				System.out.println(myAccount.getUsername());
-				System.out.println(myAccount.getPassword());
-				System.out.println(myAccount.getRole());
-				System.out.println(myAccount.fullName);
-			} catch (NullPointerException e) {
-				System.out.println("Nobody!");
-			}
-			
-			break;
-						
-			// // Account Type Menus and Actions
-			// if(myAccount.getOnline()) {
-			// 	if(myAccount.getRole().equalsIgnoreCase("official")) {
-			// 		GovermentOfficial currentUser = new GovermentOfficial();
-
-			// 	} else if (myAccount.getRole().equalsIgnoreCase("tracer")) {
-			// 		ContactTracer currentUser = new ContactTracer();
-
-			// 	} else {
-			// 		Citizen currentUser = new Citizen();
-			// 	}
-
-			// 	currentUser.copyAccountInfo(myAccount);
-
-			// 	while(currentUser.getOnline()) {
-
-			// 		if(myAccount.getRole().equalsIgnoreCase("official")) {
-			// 			//officialmethodmenus
-						
-
-			// 		} else if (myAccount.getRole().equalsIgnoreCase("tracer")) {
-			// 			//tracerslmethodmenus
-
-			// 		} else {
-			// 			//customersmethodmenus
-			// 		}	
-
-			// 	}
-			// }
-
-
-			
-			
+			// Log Out Object (Not sure if needed at this point)
+			myAccount.logOut();
 		}
-		
 
 		System.out.println("> Program is terminating..");
 	}
 
-	public static void CitizenMenus(Account acc) {
-		Citizen citizen = new Citizen();
+
+
+	public static void CitizenMenus(Account user) {
+		boolean inCitizenMenu = true;
 		Scanner sc = new Scanner(System.in);
 
-		boolean inCitizenMenu = true;
+		// Load Account onto User Object
+		Citizen cz =  new Citizen();
+		cz.copyAccountInfo(user);
 
 		while(inCitizenMenu) {
 			Visual.cls();
 			Visual.citizenMenu();
 
 			switch (sc.next().charAt(0)) {
-				case '1' -> citizen.checkIn();
-				case '2' -> citizen.reportPositive();
-				case '3' -> citizen.changeUserInfo();
-				case '4' -> {
-					acc.logOut();
-					inCitizenMenu = false;
-				}
+				// Check In
+				case '1' -> cz.checkIn();
+				// Report Positive Case
+				case '2' -> cz.reportPositive();
+				// Change Profile Information
+				case '3' -> cz.changeUserInfo();
+				// Exit / LogOut
+				case '4' -> inCitizenMenu = false;
 			}
 		}
+		Visual.cls();
 	}
 
-	public static void GovernmentOfficialMenus(Account acc) {
-		GovernmentOfficial gov = new GovernmentOfficial();
+
+
+	public static void GovermentOfficialMenus(Account user) {
+		boolean inGovernmentOfficialMenu = true;
 		Scanner	sc = new Scanner(System.in);
 
-		boolean inGovernmentOfficialMenu = true;
+		GovernmentOfficial gv = new GovernmentOfficial();
+		gv.copyAccountInfo(user);
 
 		while(inGovernmentOfficialMenu) {
 			Visual.cls();
 			Visual.governmentOfficialMenu();
 
 			switch(sc.next().charAt(0)) {
-				case '1' -> gov.checkIn();
-				case '2' -> gov.reportPositive();
-				case '3' -> gov.changeUserInfo();
-				case '4' -> gov.showUnassignedCases();
-				case '5' -> System.out.println("Show Contact Tracing Updates !PHASE 2"); // !PHASE 2
-				case '6' -> gov.analytics();
-				case '7' -> gov.createGovernmentOfficial();
-				case '8' -> gov.createContactTracer();
-				case '9' -> {
-					if (gov.terminateAccount(sc.nextLine()))
-						System.out.println("User demoted to citizen!");
-					else
-						System.out.println("Username does not exist.");
-					Visual.pressEnterToContinue();
-				}
-				case '0' -> {
-					acc.logOut();
-					inGovernmentOfficialMenu = false;
-				}
+				// Display Unassigned Cases
+				case '1' -> gv.showUnassignedCases();
+				// Display Contact Tracing Updates (PHASE 2 IMPLEMENTATION)
+				case '2' -> System.out.println("Contact Tracing Updates!");
+				// Display Analytics
+				case '3' -> gv.analytics();
+				// Employ or Register Government Offical Accounts		
+				case '4' -> gv.createGovernmentOfficial();
+				// Employ or Register Contact Tracer Accounts
+				case '5' -> gv.createContactTracer();
+				// Terminate or Demote an Existing Account
+				case '6' -> gv.terminateAccount();
+				// Exit / Log Out
+				case '7' -> inGovernmentOfficialMenu = false;	
 			}
 		}
+		Visual.cls();
 	}
 
-	public static void ContactTracerMenus(Account acc) {
+
+
+	public static void ContactTracerMenus() {
 		ContactTracer contactTracer = new ContactTracer();
 		Scanner	sc = new Scanner(System.in);
 
@@ -152,16 +116,17 @@ public class MachineProject {
 			Visual.contactTracerMenu();
 
 			switch(sc.next().charAt(0)) {
-				case '1' -> contactTracer.checkIn();
-				case '2' -> contactTracer.reportPositive();
-				case '3' -> contactTracer.changeUserInfo();
-				case '4' -> System.out.println("Show Cases !PHASE 2"); // !PHASE 2
-				case '5' -> System.out.println("Trace Specific Case !PHASE 2"); // !PHASE 2
-				case '6' -> System.out.println("Inform Citizens Possibly Exposed !PHASE 2"); // !PHASE 2
-				case '7' -> {
-					acc.logOut();
-					inContactTracerMenu = false;
-				}
+				case '1':
+					// Show Cases !PHASE 2
+					break;
+				case '2':
+					// Trace Specific Case !PHASE 2
+					break;
+				case '3':
+					// Inform Citizens Possibly Exposed !PHASE 2
+					break;
+				case '4':
+						inContactTracerMenu = false;
 			}
 		}
 	}
