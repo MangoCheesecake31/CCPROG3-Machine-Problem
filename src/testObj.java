@@ -4,7 +4,7 @@ public class testObj {
 	public static void main(String args[]) throws IOException {
 		
 		Account ac = new Account();
-		GovernmentOfficial gv = new GovernmentOfficial();
+//		GovernmentOfficial gv = new GovernmentOfficial();
 		Citizen cz = new Citizen();
 		// Calendar start = gv.inputDate();
 		// Calendar end =  gv.inputDate();

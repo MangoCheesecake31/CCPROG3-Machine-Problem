@@ -37,104 +37,14 @@ public class Account {
 	 *	@param accountType type of account to be registered 
 	 *	@return boolean
 	 */
-	public boolean register(String accountType) {
+	public void register(String accountType, String username, String password, Name fullName, Address addresses) {
 
-		// Check account type ::::::::::::::::::::
-		boolean valid = false;
-		String[] validTypes = {"customer", "tracer", "official"};
-		
-		for(String x: validTypes) 
-			if(x.equalsIgnoreCase(accountType)) {
-				valid = true;
-				break;
-			}
-
-		if(!valid) {
-			System.out.println("|INVALID: Account Type Parameter...");
-			return false;
-		}
-
-
-		// Registry Process ::::::::::::::::::::
-		int attempt = 3;
-		Scanner sc = new Scanner(System.in);
-		String input, input2;
-
-		// Ask User for Desirable Username
-		Visual.cls();
-		Visual.regUsernameMenu();
-
-		// Check Username if it is Unique
-		while(verifyUsername(input = sc.next())) {
-			Visual.cls();
-			System.out.println("|INVALID: Username is already taken...");
-			Visual.regUsernameMenu();
-			attempt--;
-
-			// Check Number of Attempts
-			if(attempt == 0) {
-				Visual.cls();
-				System.out.println("|INVALID: Too Many Wrong Attempts...");
-				return false;
-			}
-		}
-
-		username = input;
-		attempt = 3;
-
-		// Ask User for Desirable Password
-		Visual.cls();
-		Visual.regPasswordMenu();
-
-		// Check Password if it is in Valid Format
-		while(!(validPassword(input = sc.next()))) {
-			Visual.cls();
-			System.out.println("|INVALID: Passwords should contain atleast 6 characters and 1 digit or special character...");
-			Visual.regPasswordMenu();
-			attempt--;
-
-			// Check Number of Attempts
-			if(attempt == 0) {
-				Visual.cls();
-				System.out.println("|INVALID: Too Many Wrong Attempts...");
-				return false;
-			}
-		}
-
-		password = input;
-		role = accountType;
-
-
-		// Ask User to Fill Personal Information ::::::::::::::::
-		Visual.cls();
-
-		// Ask User Fullname
-		Visual.firstNameMenu();
-		input = sc.next();
-		Visual.middleNameMenu();
-		input2 = sc.next();
-		Visual.lastNameMenu();
-		fullName = new Name(input, input2, sc.next());
-	
-		// Flush
-		input = sc.nextLine();
-				
-		// // Ask User Address Information
-		addresses = new Address();
-
-		Visual.homeAddMenu();
-		addresses.setHomeAddress(sc.nextLine());
-		Visual.officeAddMenu();
-		addresses.setOfficeAddress(sc.nextLine());
-		Visual.phoneNumMenu();
-		addresses.setPhoneNumber(sc.next());
-
-		// Flush
-		input = sc.nextLine();
-
-		Visual.emailAddMenu();
-		addresses.setEmailAddress(sc.nextLine());
-				
+		// Load to Account Object Fields
+		this.username = username;
+		this.password = password;
+		this.role = accountType;
+		this.fullName = fullName;
+		this.addresses = addresses;
 
 		// Saving User Information ::::::::::::::::::::
 
@@ -145,73 +55,36 @@ public class Account {
 		list.addMaster(username, accountType);
 
 		// Save User Personal and Account Information
-		System.out.println("|> Saving User...");
-		if(saveUserInfo(username)) {				
-			System.out.println("|> User Saved...");
-		}
-
-		return true;
+		saveUserInfo(username);
 	}
 
 	/** 
 	 *	starts a login process and returns returns true if it is successful
 	 *	if sucessful read and load user's personal information and account details
 	 *	@author Steven Castro
+	 *	@param username Account username
+	 *	@param password inpuuted password
 	 *	@return boolean
 	 */
-	public boolean logIn() {
+	public boolean logIn(String username, String password) {
 
-		Scanner input = new Scanner(System.in);
-		
-		// Login Process ::::::::::::::::::::
-
-		// Ask User for Account Username
-		Visual.cls();
-		Visual.logUsernameMenu();
-
-		// Check Username if Account is Existing
-		if(verifyUsername(input.next())) {
-			
-			Visual.cls();
-			System.out.println("|> User is verified...");
-
+		try {
 			File fp = new File("./Accounts/" + username + ".act");
-			
-			try {
-				// Scan Account Password
-				Scanner sc = new Scanner(fp);
-				password = sc.next();
+			Scanner sc =  new Scanner(fp);
 
-				// Ask User for Password Input
-				Visual.logPasswordMenu();
-				if(verifyPassword(input.next()) == false) {
-					Visual.cls();
-					System.out.println("|INVALID: Wrong password...");
-					return false;
-				}
+			// Get Account Password
+			this.password = sc.next();
 
-				// Load User Account and Personal Information
-				loadUserInfo(username);
-	
-				Visual.cls();
-				System.out.println("|>User: " + username + " Loaded...");
-				
-				sc.close();
-				return true;
+			return verifyPassword(password);
 
-			} catch (IOException e) {
-				System.out.println("|>User - " + username + " Loading failed...");
-				System.out.println("|ERROR: file not found (accounts) :(");
-				return false;
-			}
+		} catch (IOException e) {
+			System.out.println("|ERROR: Account File Not Found...");
 		}
 
 		// Login Process Failure Reset
 		username = null;
 		role = null;
 
-		Visual.cls();
-		System.out.println("> User is not verified...");
 		return false;
 	}
 
@@ -298,15 +171,15 @@ public class Account {
 	 *	@return boolean
 	 */
 	private boolean verifyPassword(String password) {
+
 		try {
-			if(this.password.equals(password)) {
+			if(password.equals(this.password)) {
 				online = true;
-				return true; 
+				return true;
 			}
 		} catch (NullPointerException e) {
-			return false;
-		}	
-
+			System.out.println("|ERROR: Account Password Not Loaded...");
+		}
 		return false;
 	}
 
@@ -317,7 +190,7 @@ public class Account {
 	 *	@param password current user's inputted password
 	 *	@return boolean
 	 */
-	private boolean validPassword(String password) {
+	public boolean validPassword(String password) {
 
 		// every digit and special character
 		String special = "0123456789~`!@#$%^&*()-_+={}[]|\\/:;\"'<>,.?";

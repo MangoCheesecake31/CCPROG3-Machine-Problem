@@ -121,7 +121,7 @@ public class MasterList {
 			return true;
 
 		} catch (IOException e) {
-			System.out.println("ERROR: file not found! (L) :(");
+			System.out.println("ERROR: MasterList File Not Found...");
 			return false;
 		}
 

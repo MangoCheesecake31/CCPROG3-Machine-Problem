@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.io.*;
 import java.util.Calendar;
@@ -5,23 +6,23 @@ import java.util.Calendar;
 public class MachineProject {
 	public static void main(String args[]) {
 		Scanner sc = new Scanner(System.in);
-		
+
 		boolean programIsOn = true;
 		boolean inMainMenu = true;
 
-		while(programIsOn) {
+		while (programIsOn) {
 			// New User
 			Account myAccount = new Account();
 
 			// Main Menu
-			while(inMainMenu && programIsOn) {
+			while (inMainMenu && programIsOn) {
 
 				Visual.mainMenu();
 
-				switch(sc.next().charAt(0)) {
+				switch (sc.next().charAt(0)) {
 					// Register
 					case '1' -> {
-						if(registryProcess("customer")) {
+						if (registryProcess("customer")) {
 							System.out.println("|> Registry Sucessful...");
 						} else {
 							System.out.println("|> Registry Failed...");
@@ -33,13 +34,13 @@ public class MachineProject {
 
 						// Account Type Methods
 						try {
-							if(myAccount.getOnline()) {
-								if(myAccount.getRole().equalsIgnoreCase("customer")) {
+							if (myAccount.getOnline()) {
+								if (myAccount.getRole().equalsIgnoreCase("customer")) {
 									CitizenMenus(myAccount);
-								} else if(myAccount.getRole().equalsIgnoreCase("official")) {
+								} else if (myAccount.getRole().equalsIgnoreCase("official")) {
 									GovernmentOfficialMenus(myAccount);
 								} else {
-									ContactTracerMenus();	// Pass Account
+									ContactTracerMenus();    // Pass Account
 								}
 							}
 						} catch (NullPointerException e) {
@@ -47,7 +48,7 @@ public class MachineProject {
 						}
 					}
 					// Exit Program
-					case '3' -> programIsOn = false;	
+					case '3' -> programIsOn = false;
 				}
 			}
 			// Log Out Object (Not sure if needed at this point)
@@ -57,8 +58,11 @@ public class MachineProject {
 		System.out.println("> Program is terminating..");
 	}
 
-
-
+	/**
+	 * displays the menu for Citizen accounts and asks the user
+	 * what he/she wants to do.
+	 * @param myAccount
+	 */
 	public static void CitizenMenus(Account myAccount) {
 		boolean inCitizenMenu = true;
 		Scanner sc = new Scanner(System.in);
@@ -67,7 +71,7 @@ public class MachineProject {
 		Citizen cz = new Citizen();
 		cz.copyAccountInfo(myAccount);
 
-		while(inCitizenMenu) {
+		while (inCitizenMenu) {
 			Visual.cls();
 			Visual.citizenMenu();
 
@@ -86,48 +90,50 @@ public class MachineProject {
 		Visual.cls();
 	}
 
-
-
+	/**
+	 * Displays the Government Official menu and asks the
+	 * user what he/she wants to do.
+	 * @param user
+	 */
 	public static void GovernmentOfficialMenus(Account user) {
-		// boolean inGovernmentOfficialMenu = true;
-		// Scanner	sc = new Scanner(System.in);
+		boolean inGovernmentOfficialMenu = true;
+		Scanner sc = new Scanner(System.in);
 
-		// GovernmentOfficial gv = new GovernmentOfficial();
-		// gv.copyAccountInfo(user);
+		GovernmentOfficial gv = new GovernmentOfficial();
+		gv.copyAccountInfo(user);
 
-		// while(inGovernmentOfficialMenu) {
-		// 	Visual.cls();
-		// 	Visual.governmentOfficialMenu();
+		while (inGovernmentOfficialMenu) {
+			Visual.cls();
+			Visual.governmentOfficialMenu();
 
-		// 	switch(sc.next().charAt(0)) {
-		// 		// Check In
-		// 		case '1' -> gv.checkIn();
-		// 		// Report Positive Case
-		// 		case '2' -> gv.reportPositive();
-		// 		// Change Profile Information
-		// 		case '3' -> gv.changeUserInfo();
-		// 		// Display Unassigned Cases
-		// 		case '4' -> gv.showUnassignedCases();
-		// 		// Display Contact Tracing Updates (PHASE 2 IMPLEMENTATION)
-		// 		case '5' -> System.out.println("Contact Tracing Updates!");
-		// 		// Display Analytics
-		// 		case '6' -> gv.analytics();
-		// 		// Employ or Register Government Official Accounts
-		// 		case '7' -> gv.createGovernmentOfficial();
-		// 		// Employ or Register Contact Tracer Accounts
-		// 		case '8' -> gv.createContactTracer();
-		// 		// Terminate or Demote an Existing Account
-		// 		case '9' -> gv.terminateAccount();
-		// 		// Exit / Log Out
-		// 		case '0' -> {
-		// 			gv.logOut();
-		// 			inGovernmentOfficialMenu = false;
-		// 		}
-		// 	}
-		// }
+			switch (sc.next().charAt(0)) {
+				// Check In
+				case '1' -> checkIn(gv);
+				// Report Positive Case
+				case '2' -> reportPositive(gv);
+				// Change Profile Information
+				case '3' -> changeUserProfileProcess(gv);
+				// Display Unassigned Cases
+				case '4' -> gv.showUnassignedCases();
+				// Display Contact Tracing Updates (PHASE 2 IMPLEMENTATION)
+				case '5' -> System.out.println("Contact Tracing Updates!");
+				// Display Analytics
+				case '6' -> analyticsProcess(gv);
+				// Employ or Register Government Official Accounts
+				case '7' -> createGovernmentOfficialProcess(gv);
+				// Employ or Register Contact Tracer Accounts
+				case '8' -> createContactTracerProcess(gv);
+				// Terminate or Demote an Existing Account
+				case '9' -> terminateAccountProcess(gv);
+				// Exit / Log Out
+				case '0' -> {
+					gv.logOut();
+					inGovernmentOfficialMenu = false;
+				}
+			}
+		}
 		Visual.cls();
 	}
-
 
 
 	public static void ContactTracerMenus() {
@@ -160,11 +166,16 @@ public class MachineProject {
 		// 	}
 		// }
 	}
-	
+
+	/**
+	 * asks the user to input the date of reported positive test result
+	 * then records it along with the username.
+	 * @param acc
+	 */
 	public static void reportPositive(Account acc) {
 		int year, month, day;
 		Record rec = new Record(acc.getUsername());
-		Case caseList = new caseList();
+		CaseList caseList = new CaseList();
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Covid Positive!");
@@ -173,25 +184,30 @@ public class MachineProject {
 		System.out.print("Enter month (1-12): ");
 		do {
 			month = sc.nextInt();
-			if(month > 12 || month < 1)
+			if (month > 12 || month < 1)
 				System.out.println("Invalid input.");
-		} while(month > 12 || month < 1);
+		} while (month > 12 || month < 1);
 		System.out.print("Enter day of month: ");
 		do {
 			day = sc.nextInt();
-			if(day > 31 || day < 1)
+			if (day > 31 || day < 1)
 				System.out.println("Invalid input.");
 		} while (day > 31 || day < 1);
 
 		Calendar time = Calendar.getInstance();
 		Calendar cal = new Calendar.Builder().setFields(Calendar.YEAR, year,
-														Calendar.MONTH, month,
-														Calendar.DAY_OF_MONTH, day,
-														Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY),
-														Calendar.MINUTE, time.get(Calendar.MINUTE)).build();
+				Calendar.MONTH, month,
+				Calendar.DAY_OF_MONTH, day,
+				Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY),
+				Calendar.MINUTE, time.get(Calendar.MINUTE)).build();
 		caseList.addCase(acc.getUsername(), cal);
 	}
 
+	/**
+	 * asks the user to input the establishment code and date
+	 * of check in then adds it to the user's record.
+	 * @param acc
+	 */
 	public static void checkIn(Account acc) {
 		int year, month, day;
 		Record rec = new Record(acc.getUsername());
@@ -205,13 +221,13 @@ public class MachineProject {
 		System.out.print("Enter month (1-12): ");
 		do {
 			month = sc.nextInt();
-			if(month > 12 || month < 1)
+			if (month > 12 || month < 1)
 				System.out.println("Invalid input.");
-		} while(month > 12 || month < 1);
+		} while (month > 12 || month < 1);
 		System.out.print("Enter day of month: ");
 		do {
 			day = sc.nextInt();
-			if(day > 31 || day < 1)
+			if (day > 31 || day < 1)
 				System.out.println("Invalid input.");
 		} while (day > 31 || day < 1);
 
@@ -220,6 +236,11 @@ public class MachineProject {
 
 	// Main Menu ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+	/**
+	 * 
+	 * @param accountType
+	 * @return true when registry succeeds, false otherwise.
+	 */
 	public static boolean registryProcess(String accountType) {
 		Account ac = new Account();
 		String username;
@@ -240,14 +261,14 @@ public class MachineProject {
 		Visual.regUsernameMenu();
 
 		// Check Username if it is Unique
-		while(ac.verifyUsername(input = sc.next())) {
+		while (ac.verifyUsername(input = sc.next())) {
 			Visual.cls();
 			System.out.println("|INVALID: Username is already taken...");
 			Visual.regUsernameMenu();
 			attempt--;
 
 			// Check Number of Attempts
-			if(attempt == 0) {
+			if (attempt == 0) {
 				Visual.cls();
 				System.out.println("|INVALID: Too Many Wrong Attempts...");
 				return false;
@@ -263,14 +284,14 @@ public class MachineProject {
 		Visual.regPasswordMenu();
 
 		// Check Password if it is in Valid Format
-		while(!(ac.validPassword(input = sc.next()))) {
+		while (!(ac.validPassword(input = sc.next()))) {
 			Visual.cls();
 			System.out.println("|INVALID: Passwords should contain atleast 6 characters and 1 digit or special character...");
 			Visual.regPasswordMenu();
 			attempt--;
 
 			// Check Number of Attempts
-			if(attempt == 0) {
+			if (attempt == 0) {
 				Visual.cls();
 				System.out.println("|INVALID: Too Many Wrong Attempts...");
 				return false;
@@ -328,14 +349,14 @@ public class MachineProject {
 		Visual.logUsernameMenu();
 
 		// Check Username if Account is Existing
-		if(ac.verifyUsername(username = sc.next())) {
+		if (ac.verifyUsername(username = sc.next())) {
 
 			Visual.cls();
 			System.out.println("|> User is verified...");
 
 			// Ask User for Account Password
 			Visual.logPasswordMenu();
-			if(ac.logIn(username, sc.next())) {
+			if (ac.logIn(username, sc.next())) {
 				// Load Account Details onto ac Object
 				ac.loadUserInfo(username);
 				return ac;
@@ -357,20 +378,21 @@ public class MachineProject {
 	// Change User Profile Information  ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	/**
-	 *	starts a process to change User's personal information
-	 *	@author Steven Castro
+	 * starts a process to change User's personal information
+	 *
+	 * @author Steven Castro
 	 */
 	public static void changeUserProfileProcess(Citizen myAccount) {
 		boolean inChangeMenu = true;
 		Scanner sc = new Scanner(System.in);
 
-		while(inChangeMenu) {
+		while (inChangeMenu) {
 			// Prompt User What Personal Info to Change
 			Visual.cls();
 			Visual.changeUserMainMenu();
 
 			// Call Change Info Proccesses (Name, Address)
-			switch(Character.toUpperCase((sc.next().charAt(0)))) {
+			switch (Character.toUpperCase((sc.next().charAt(0)))) {
 				// Change Name Information
 				case '1' -> changeUserNameProfileProcess(myAccount);
 				// Change Address information
@@ -383,15 +405,16 @@ public class MachineProject {
 	}
 
 	/**
-	 *	starts a process to change User's name information
-	 *	@author Steven Castro
+	 * starts a process to change User's name information
+	 *
+	 * @author Steven Castro
 	 */
 	public static void changeUserNameProfileProcess(Citizen myAccount) {
 		char input;
 		boolean inEditMenu = true;
 		Scanner sc = new Scanner(System.in);
 
-		while(inEditMenu) {
+		while (inEditMenu) {
 			// Prompt User What Personal Info to Change (Name)
 			Visual.cls();
 			Visual.changeUserNameMenu(myAccount.fullName);
@@ -399,13 +422,13 @@ public class MachineProject {
 			input = sc.next().charAt(0);
 
 			// Check Valid Input
-			if('0' < input && input < '4') {
+			if ('0' < input && input < '4') {
 				Visual.cls();
 				Visual.enterNewNameMenu();
 			}
 
 			// Apply Changes
-			switch(input) {
+			switch (input) {
 				// Change First Name
 				case '1' -> myAccount.fullName.setFirstName(sc.next());
 				// Change Middle Name
@@ -422,8 +445,9 @@ public class MachineProject {
 	}
 
 	/**
-	 *	starts a process to change User's address information
-	 *	@author Steven Castro
+	 * starts a process to change User's address information
+	 *
+	 * @author Steven Castro
 	 */
 	public static void changeUserAddressProfileProcess(Citizen myAccount) {
 		char input;
@@ -431,7 +455,7 @@ public class MachineProject {
 		String dump;
 		Scanner sc = new Scanner(System.in);
 
-		while(inEditMenu) {
+		while (inEditMenu) {
 			// Prompt User What Personal Info to Change (Address)
 			Visual.cls();
 			Visual.changeUserAddressMenu(myAccount.addresses);
@@ -439,7 +463,7 @@ public class MachineProject {
 			input = sc.next().charAt(0);
 
 			// Check Valid Input
-			if('0' < input && input < '5') {
+			if ('0' < input && input < '5') {
 				Visual.cls();
 				Visual.enterNewAddressMenu();
 			}
@@ -448,7 +472,7 @@ public class MachineProject {
 			dump = sc.nextLine();
 
 			// Apply Changes
-			switch(input) {
+			switch (input) {
 				// Change Home Address
 				case '1' -> myAccount.addresses.setHomeAddress(sc.nextLine());
 				// Change Home Address
@@ -469,13 +493,199 @@ public class MachineProject {
 	// Check In & Report Cases  ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-
-
-	
 	// Goverment Methods ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-	// Account Manipulation ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	// Analytics ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+	/**
+	 *	starts a process to display analytics based on given user inputStartDateMenu
+	 */
+	public static void analyticsProcess(GovernmentOfficial myAccount) {
+		Scanner sc = new Scanner(System.in);
+		String dump;
+		Calendar start, end;
+		String cityName;
 
+		Visual.cls();
+		Visual.analyticsMenu();
 
+		// Analytics Preferences Menu
+		switch (sc.next().charAt(0)) {
+			// Given a Specific City & Duration
+			case '1' -> {
+				// Buffer
+				dump = sc.nextLine();
+
+				// Inputs
+				Visual.inputCityMenu();
+				cityName = sc.nextLine();
+				Visual.inputStartDateMenu();
+				start = inputDate();
+				Visual.inputEndDateMenu();
+				end = inputDate();
+
+				// Print Analytics
+				myAccount.analytics(cityName, start, end);
+			}
+			// Given Only a Specific City
+			case '2'-> {
+				// Buffer
+				dump = sc.nextLine();
+
+				// Inputs
+				Visual.inputCityMenu();
+				cityName = sc.nextLine();
+
+				// Print Analytics
+				myAccount.analytics(cityName);
+			}
+			// Given Only a Specific Duration
+			case '3' -> {
+				// Inputs
+				Visual.inputStartDateMenu();
+				start = inputDate();
+				Visual.inputEndDateMenu();
+				end = inputDate();
+
+				// Print Analytics
+	 			myAccount.analytics(start, end);
+			}
+			default -> {
+				System.out.println("|INVALID: Invalid Input...");
+				Visual.pressEnterToContinue();
+			}
+		}
+	}
+
+		// Account Manipulation ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+	/**
+	 *	starts a process to employ or promote an Account to a Goverment Official
+	 */
+	public static boolean createGovernmentOfficialProcess(GovernmentOfficial myAccount) {
+		boolean inCreateMenu = true;
+		MasterList mList =  new MasterList();
+		Account ac = new Account();
+		Scanner sc = new Scanner(System.in);
+		String input;
+
+		while(inCreateMenu) {
+			Visual.cls();
+			Visual.isExistingAccountMenu();
+
+			switch(sc.next().toUpperCase().charAt(0)) {
+				// Employ Existing Account
+				case 'Y' ->	{
+					inCreateMenu = false;
+
+ 					Visual.cls();
+					Visual.createOfficialMenu();
+
+					// Check If Account is Verified / Existing
+					if(ac.verifyUsername(input = sc.next())) {
+						// Check Account Role
+						if(mList.getMasterRole(input).equals("official")) {
+							System.out.println("|INVALID: Account already has Goverment Official Role...");
+							Visual.pressEnterToContinue();
+							return false;
+						} else {
+							// Update Account Role
+							myAccount.createGovernmentOfficial(input);
+							return true;
+						}
+					}
+				}
+				// Register New Account
+				case 'N' -> {
+					inCreateMenu = false;
+
+					// Register an Official Account
+					return registryProcess("official");
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 *	starts a process to employ or promote an Account to a Contact Tracer
+	 */
+	public static boolean createContactTracerProcess(GovernmentOfficial myAccount) {
+		boolean inCreateMenu = true;
+		MasterList mList =  new MasterList();
+		Account ac = new Account();
+		Scanner sc = new Scanner(System.in);
+		String input;
+
+		while(inCreateMenu) {
+			Visual.cls();
+			Visual.isExistingAccountMenu();
+
+			switch(sc.next().toUpperCase().charAt(0)) {
+				// Employ Existing Account
+				case 'Y' ->	{
+					inCreateMenu = false;
+
+ 					Visual.cls();
+					Visual.createTracerMenu();
+
+					// Check If Account is Verified / Existing
+					if(ac.verifyUsername(input = sc.next())) {
+						// Check Account Role
+						if(mList.getMasterRole(input).equals("official")) {
+							System.out.println("|INVALID: Account already has Contact Tracer Role...");
+							Visual.pressEnterToContinue();
+							return false;
+						} else {
+							// Update Account Role
+							myAccount.createGovernmentOfficial(input);
+							return true;
+						}
+					}
+				}
+				// Register New Account
+				case 'N' -> {
+					inCreateMenu = false;
+
+					// Register an Official Account
+					return registryProcess("tracer");
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 *	starts a process to demote an Account to a Customer
+	 */
+	public static boolean terminateAccountProcess(GovernmentOfficial myAccount) {
+		Scanner sc = new Scanner(System.in);
+
+		// Prompts & Ask for Username of Account to be Terminated
+		Visual.cls();
+		Visual.terminateAccountMenu();
+		return myAccount.terminateAccount(sc.next());
+	}
+
+	/**
+	 *	starts a process to obtain user input of a date
+	 *  @author Steven Castro
+	 */
+	public static Calendar inputDate() {
+		Calendar myDate;
+		Scanner sc = new Scanner(System.in);
+		String temp = sc.nextLine();
+
+		try {
+			// Build Calendar
+			myDate = new Calendar.Builder().setFields(Calendar.MONTH, (Integer.parseInt(temp.substring(0, 2)) - 1),
+					Calendar.DAY_OF_MONTH, Integer.parseInt(temp.substring(3, 5)),
+					Calendar.YEAR, Integer.parseInt(temp.substring(6, 10))).build();
+		} catch (NumberFormatException e) {
+			System.out.println("|INVALID: Invalid Date or Format...");
+			return null;
+		}
+		return myDate;
+	}
 }
