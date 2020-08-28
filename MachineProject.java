@@ -25,7 +25,7 @@ public class MachineProject {
 							if(myAccount.getRole().equalsIgnoreCase("customer")) {
 								CitizenMenus(myAccount);
 							} else if(myAccount.getRole().equalsIgnoreCase("official")) {
-								GovermentOfficialMenus(myAccount);
+								GovernmentOfficialMenus(myAccount);
 							} else {
 								ContactTracerMenus();	// Pass Account
 							}	
@@ -64,7 +64,10 @@ public class MachineProject {
 				// Change Profile Information
 				case '3' -> cz.changeUserInfo();
 				// Exit / LogOut
-				case '4' -> inCitizenMenu = false;
+				case '4' -> {
+					cz.logOut();
+					inCitizenMenu = false;
+				}
 			}
 		}
 		Visual.cls();
@@ -72,7 +75,7 @@ public class MachineProject {
 
 
 
-	public static void GovermentOfficialMenus(Account user) {
+	public static void GovernmentOfficialMenus(Account user) {
 		boolean inGovernmentOfficialMenu = true;
 		Scanner	sc = new Scanner(System.in);
 
@@ -84,20 +87,29 @@ public class MachineProject {
 			Visual.governmentOfficialMenu();
 
 			switch(sc.next().charAt(0)) {
+				// Check In
+				case '1' -> gv.checkIn();
+				// Report Positive Case
+				case '2' -> gv.reportPositive();
+				// Change Profile Information
+				case '3' -> gv.changeUserInfo();
 				// Display Unassigned Cases
-				case '1' -> gv.showUnassignedCases();
+				case '4' -> gv.showUnassignedCases();
 				// Display Contact Tracing Updates (PHASE 2 IMPLEMENTATION)
-				case '2' -> System.out.println("Contact Tracing Updates!");
+				case '5' -> System.out.println("Contact Tracing Updates!");
 				// Display Analytics
-				case '3' -> gv.analytics();
-				// Employ or Register Government Offical Accounts		
-				case '4' -> gv.createGovernmentOfficial();
+				case '6' -> gv.analytics();
+				// Employ or Register Government Official Accounts
+				case '7' -> gv.createGovernmentOfficial();
 				// Employ or Register Contact Tracer Accounts
-				case '5' -> gv.createContactTracer();
+				case '8' -> gv.createContactTracer();
 				// Terminate or Demote an Existing Account
-				case '6' -> gv.terminateAccount();
+				case '9' -> gv.terminateAccount();
 				// Exit / Log Out
-				case '7' -> inGovernmentOfficialMenu = false;	
+				case '0' -> {
+					gv.logOut();
+					inGovernmentOfficialMenu = false;
+				}
 			}
 		}
 		Visual.cls();
@@ -116,17 +128,22 @@ public class MachineProject {
 			Visual.contactTracerMenu();
 
 			switch(sc.next().charAt(0)) {
-				case '1':
-					// Show Cases !PHASE 2
-					break;
-				case '2':
-					// Trace Specific Case !PHASE 2
-					break;
-				case '3':
-					// Inform Citizens Possibly Exposed !PHASE 2
-					break;
-				case '4':
-						inContactTracerMenu = false;
+				// Check In
+				case '1' -> contactTracer.checkIn();
+				// Report Positive Case
+				case '2' -> contactTracer.reportPositive();
+				// Change Profile Information
+				case '3' -> contactTracer.changeUserInfo();
+				// Show Cases (PHASE 2 IMPLEMENTATION)
+				case '4' -> System.out.println("Show Cases!");
+				// Trace Specific Case (PHASE 2 IMPLEMENTATION)
+				case '5' -> System.out.println("Trace Specific Case!");
+				// Inform Citizens Possibly Exposed (PHASE 2 IMPLEMENTATION)
+				case '6' -> System.out.println("Inform Citizens Possibly Exposed!");
+				case '7'-> {
+					contactTracer.logOut();
+					inContactTracerMenu = false;
+				}
 			}
 		}
 	}

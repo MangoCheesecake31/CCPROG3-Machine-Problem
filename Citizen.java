@@ -46,36 +46,24 @@ public class Citizen extends Account {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Checking In!");
-		System.out.println("Please enter establishment code: ");
+		System.out.print("Please enter establishment code: ");
 		String code = sc.nextLine();
-		System.out.println("Enter year: ");
+		System.out.print("Enter year: ");
 		int year = sc.nextInt();
-		System.out.println("Enter month (1-12): ");
+		System.out.print("Enter month (1-12): ");
 		do {
 			month = sc.nextInt();
 			if(month > 12 || month < 1)
 				System.out.println("Invalid input.");
 		} while(month > 12 || month < 1);
-		System.out.println("Enter day of month: ");
+		System.out.print("Enter day of month: ");
 		do {
 			day = sc.nextInt();
 			if(day > 31 || day < 1)
 				System.out.println("Invalid input.");
 		} while (day > 31 || day < 1);
-		System.out.println("Enter hour: ");
-		do {
-			hour = sc.nextInt();
-			if(hour > 23 || hour < 0)
-				System.out.println("Invalid input.");
-		} while (hour > 23 || hour < 0);
-		System.out.println("Enter minute: ");
-		do {
-			minute = sc.nextInt();
-			if(minute > 60 || minute < 0)
-				System.out.println("Invalid input.");
-		} while (minute > 60 || minute < 0);
 
-		rec.addEntry(code, year, month, day, hour, minute);
+		rec.addEntry(code, year, month, day);
 	}
 
 	/**
@@ -90,39 +78,27 @@ public class Citizen extends Account {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Covid Positive!");
-		System.out.println("Enter year: ");
+		System.out.print("Enter year: ");
 		int year = sc.nextInt();
-		System.out.println("Enter month (1-12): ");
+		System.out.print("Enter month (1-12): ");
 		do {
 			month = sc.nextInt();
 			if(month > 12 || month < 1)
 				System.out.println("Invalid input.");
 		} while(month > 12 || month < 1);
-		System.out.println("Enter day of month: ");
+		System.out.print("Enter day of month: ");
 		do {
 			day = sc.nextInt();
 			if(day > 31 || day < 1)
 				System.out.println("Invalid input.");
 		} while (day > 31 || day < 1);
-		System.out.println("Enter hour: ");
-		do {
-			hour = sc.nextInt();
-			if(hour > 23 || hour < 0)
-				System.out.println("Invalid input.");
-		} while (hour > 23 || hour < 0);
-		System.out.println("Enter minute: ");
-		do {
-			minute = sc.nextInt();
-			if(minute > 60 || minute < 0)
-				System.out.println("Invalid input.");
-		} while (minute > 60 || minute < 0);
 
+		Calendar time = Calendar.getInstance();
 		Calendar cal = new Calendar.Builder().setFields(Calendar.YEAR, year,
 														Calendar.MONTH, month,
 														Calendar.DAY_OF_MONTH, day,
-														Calendar.HOUR, hour,
-														Calendar.MINUTE, minute).build();
-
+														Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY),
+														Calendar.MINUTE, time.get(Calendar.MINUTE)).build();
 		caseList.addCase(getUsername(), cal);
 	}
 
