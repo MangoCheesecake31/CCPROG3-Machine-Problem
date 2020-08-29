@@ -172,10 +172,8 @@ public class MachineProject {
 	 * then records it along with the username.
 	 * @param acc
 	 */
-	public static void reportPositive(Account acc) {
+	public static void reportPositive(Citizen acc) {
 		int year, month, day;
-		Record rec = new Record(acc.getUsername());
-		CaseList caseList = new CaseList();
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Covid Positive!");
@@ -200,7 +198,8 @@ public class MachineProject {
 				Calendar.DAY_OF_MONTH, day,
 				Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY),
 				Calendar.MINUTE, time.get(Calendar.MINUTE)).build();
-		caseList.addCase(acc.getUsername(), cal);
+
+		acc.reportPositive(acc, cal);
 	}
 
 	/**
@@ -208,9 +207,8 @@ public class MachineProject {
 	 * of check in then adds it to the user's record.
 	 * @param acc
 	 */
-	public static void checkIn(Account acc) {
+	public static void checkIn(Citizen acc) {
 		int year, month, day;
-		Record rec = new Record(acc.getUsername());
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Checking In!");
@@ -231,7 +229,7 @@ public class MachineProject {
 				System.out.println("Invalid input.");
 		} while (day > 31 || day < 1);
 
-		rec.addEntry(code, year, month, day);
+		acc.checkIn(acc, code, year, month, day);
 	}
 
 	// Main Menu ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

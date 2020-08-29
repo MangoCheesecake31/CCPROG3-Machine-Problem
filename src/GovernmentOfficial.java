@@ -242,139 +242,138 @@ public class GovernmentOfficial extends Citizen {
 		}
 		return myDate;
 	}
-}
 
-// 	/**
-// 	 * display analytics of cases based on a given duration
-// 	 * @author Steven Castro
-// 	 */
-// 	private void givenDuration() {
-// 		int numCase = 0;
-// 		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
+ 	/**
+ 	 * display analytics of cases based on a given duration
+ 	 * @author Steven Castro
+ 	 */
+ 	private void givenDuration() {
+ 		int numCase = 0;
+ 		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
 
-// 		// Prompts and Ask for Duration
-// 		Visual.inputStartDateMenu();
-// 		Calendar start = inputDate();
+ 		// Prompts and Ask for Duration
+ 		Visual.inputStartDateMenu();
+ 		Calendar start = inputDate();
 
-// 		Visual.inputEndDateMenu();
-// 		Calendar end = inputDate();
+ 		Visual.inputEndDateMenu();
+ 		Calendar end = inputDate();
 
-// 		// Search & Count Cases
-// 		for(int i = 0; i < cList.getNumEntries(); i++) {
-// 			if((cList.getReportDate(i).compareTo(start)) >= 0) {
-// 				 if((cList.getReportDate(i).compareTo(end)) <= 0) {
-// 				 	System.out.println(cList.toString(i));
-// 				 	numCase++;
-// 				 }
-// 			}
-// 		}
+ 		// Search & Count Cases
+ 		for(int i = 0; i < cList.getNumEntries(); i++) {
+ 			if((cList.getReportDate(i).compareTo(start)) >= 0) {
+ 				 if((cList.getReportDate(i).compareTo(end)) <= 0) {
+ 				 	System.out.println(cList.toString(i));
+ 				 	numCase++;
+ 				 }
+ 			}
+ 		}
 
-// 		// Output
-// 		System.out.println("| --------------------------------------------------------------------- |");
-// 		System.out.println("| Duration: " + sdf.format(start.getTime()) + " ---> " + sdf.format(end.getTime()));
-// 		System.out.println("| Number of Cases: " + numCase);
-// 		System.out.println("| --------------------------------------------------------------------- |");
-// 		Visual.pressEnterToContinue();
-// 	}
+ 		// Output
+ 		System.out.println("| --------------------------------------------------------------------- |");
+ 		System.out.println("| Duration: " + sdf.format(start.getTime()) + " ---> " + sdf.format(end.getTime()));
+ 		System.out.println("| Number of Cases: " + numCase);
+ 		System.out.println("| --------------------------------------------------------------------- |");
+ 		Visual.pressEnterToContinue();
+ 	}
 
-// 	/**
-// 	 * display analytics of cases based on a given city
-// 	 * @author Steven Castro
-// 	 */
-// 	private void givenCity()  {
-// 		int numCase = 0;
-// 		Account ac;
-// 		Scanner sc = new Scanner(System.in);
+ 	/**
+ 	 * display analytics of cases based on a given city
+ 	 * @author Steven Castro
+ 	 */
+ 	private void givenCity()  {
+ 		int numCase = 0;
+ 		Account ac;
+ 		Scanner sc = new Scanner(System.in);
 
-// 		// Ask Duration
-// 		Visual.inputCityMenu();
-// 		String cityName = sc.nextLine();
+ 		// Ask Duration
+ 		Visual.inputCityMenu();
+ 		String cityName = sc.nextLine();
 
-// 		// Search & Count
-// 		for(int i = 0; i < cList.getNumEntries(); i++) {
+ 		// Search & Count
+ 		for(int i = 0; i < cList.getNumEntries(); i++) {
 
-// 			// Account
-// 			if(mList.checkMaster(cList.getUsername(i))) {
+ 			// Account
+ 			if(mList.checkMaster(cList.getUsername(i))) {
 
-// 				// Load Account
-// 				ac = new Account(cList.getUsername(i));
+ 				// Load Account
+ 				ac = new Account(cList.getUsername(i));
 
-// 				// Print Address (Remove)
-// 				System.out.println(ac.addresses.getHomeAddress());
+ 				// Print Address (Remove)
+ 				System.out.println(ac.addresses.getHomeAddress());
 
-// 				// Search & Count
-// 				if(ac.addresses.getHomeAddress().toUpperCase().contains(cityName.toUpperCase())) {
-// 					System.out.println(cList.toString(i));
-// 					numCase++;
-// 				}
+ 				// Search & Count
+ 				if(ac.addresses.getHomeAddress().toUpperCase().contains(cityName.toUpperCase())) {
+ 					System.out.println(cList.toString(i));
+ 					numCase++;
+ 				}
 
-// 			}
-// 		}
+ 			}
+ 		}
 
-// 		// Output
-// 		System.out.println("| --------------------------------------------------------------------- |");
-// 		System.out.println("| City: " + cityName);
-// 		System.out.println("| Number of Cases: " + numCase);
-// 		System.out.println("| --------------------------------------------------------------------- |");
-// 		Visual.pressEnterToContinue();
-// 	}
+ 		// Output
+ 		System.out.println("| --------------------------------------------------------------------- |");
+ 		System.out.println("| City: " + cityName);
+ 		System.out.println("| Number of Cases: " + numCase);
+ 		System.out.println("| --------------------------------------------------------------------- |");
+ 		Visual.pressEnterToContinue();
+ 	}
 
-// 	/**
-// 	 * display analytics of cases based on a given city and duration
-// 	 * @author Steven Castro
-// 	 */
-// 	private void givenCityDuration() {
-// 		int numCase = 0;
-// 		Account ac;
-// 		Scanner sc = new Scanner(System.in);
-// 		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
+ 	/**
+ 	 * display analytics of cases based on a given city and duration
+ 	 * @author Steven Castro
+ 	 */
+ 	private void givenCityDuration() {
+ 		int numCase = 0;
+ 		Account ac;
+ 		Scanner sc = new Scanner(System.in);
+ 		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
 
-// 		// Prompts and Ask for Duration
-// 		Visual.inputStartDateMenu();
-// 		Calendar start = inputDate();
+ 		// Prompts and Ask for Duration
+ 		Visual.inputStartDateMenu();
+ 		Calendar start = inputDate();
 
-// 		Visual.inputEndDateMenu();
-// 		Calendar end = inputDate();
+ 		Visual.inputEndDateMenu();
+ 		Calendar end = inputDate();
 
-// 		// Prompts and Ask for City
-// 		// Ask Duration
-// 		Visual.inputCityMenu();
-// 		String cityName = sc.nextLine();
+ 		// Prompts and Ask for City
+ 		// Ask Duration
+ 		Visual.inputCityMenu();
+ 		String cityName = sc.nextLine();
 
-// 		// Search & Count
-// 		for(int i = 0; i < cList.getNumEntries(); i++) {
+ 		// Search & Count
+ 		for(int i = 0; i < cList.getNumEntries(); i++) {
 
-// 			// Duration
-// 			if((cList.getReportDate(i).compareTo(start)) >= 0) {
-// 				if((cList.getReportDate(i).compareTo(end)) <= 0) {
+ 			// Duration
+ 			if((cList.getReportDate(i).compareTo(start)) >= 0) {
+ 				if((cList.getReportDate(i).compareTo(end)) <= 0) {
 
-// 					// Account
-// 					if(mList.checkMaster(cList.getUsername(i))) {
+ 					// Account
+ 					if(mList.checkMaster(cList.getUsername(i))) {
 
-// 						// Load Account
-// 						ac = new Account(cList.getUsername(i));
+ 						// Load Account
+ 						ac = new Account(cList.getUsername(i));
 
-// 						// Print Address (Remove)
-// 						System.out.println(ac.addresses.getHomeAddress());
+ 						// Print Address (Remove)
+ 						System.out.println(ac.addresses.getHomeAddress());
 
-// 						// City
-// 						if(ac.addresses.getHomeAddress().toUpperCase().contains(cityName.toUpperCase())) {
-// 							System.out.println(cList.toString(i));
-// 							numCase++;
-// 						}
-// 					}
-// 				}
-// 			}
-// 		}
+ 						// City
+ 						if(ac.addresses.getHomeAddress().toUpperCase().contains(cityName.toUpperCase())) {
+ 							System.out.println(cList.toString(i));
+ 							numCase++;
+ 						}
+ 					}
+ 				}
+ 			}
+ 		}
 
-// 		System.out.println("| --------------------------------------------------------------------- |");
-// 		System.out.println("| Duration: " + sdf.format(start.getTime()) + " ---> " + sdf.format(end.getTime()));
-// 		System.out.println("| City: " + cityName);
-// 		System.out.println("| Number of Cases: " + numCase);
-// 		System.out.println("| --------------------------------------------------------------------- |");
-// 		Visual.pressEnterToContinue();
-// 	}
-// }
+ 		System.out.println("| --------------------------------------------------------------------- |");
+ 		System.out.println("| Duration: " + sdf.format(start.getTime()) + " ---> " + sdf.format(end.getTime()));
+ 		System.out.println("| City: " + cityName);
+ 		System.out.println("| Number of Cases: " + numCase);
+ 		System.out.println("| --------------------------------------------------------------------- |");
+ 		Visual.pressEnterToContinue();
+ 	}
+ }
 
 
 
