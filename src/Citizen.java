@@ -18,6 +18,10 @@ public class Citizen extends Account {
 		Record rec = new Record(getUsername());
 
 		rec.addEntry(code, year, month, day);
+
+		System.out.print("Output: ");
+		System.out.println(rec.toString(0));
+		Visual.pressEnterToContinue();
 	}
 
 	/**
