@@ -133,9 +133,15 @@ public class CaseList {
 	public boolean updateStatus(int caseNum, char state) {
 
 		if(0 < caseNum && caseNum < numEntries) {
-			status.set(caseNum - 1, state);
-			saveList();
-			return true;
+			switch(state) {
+				case'p':
+				case'P':
+				case't':
+				case'T': 
+					status.set(caseNum - 1, state);
+					saveList();
+					return true;
+			}
 		}
 		return false;
 	}

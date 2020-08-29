@@ -20,22 +20,12 @@ public class MasterList {
 
 	// Data Manipulation ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-	/**
-	 *	returns true if appending a new username in MasterList arrays is sucessful
-	 *	@author Steven Castro
-	 *	@param username new user's username
-	 *	@param role new user's role
-	 *	@return boolean
-	 */
-	public boolean addMaster(String username, String role) {
-		// Check if Username is Unique
-		if(!checkMaster(username)) {
-			masters.add(username);
-			roles.add(role);
-			numAcc++;
-			saveList();
-			return true;
-		}
+	/** *	returns true if appending a new username in MasterList arrays is
+sucessful *	@author Steven Castro *	@param username new user's username
+*	@param role new user's role *	@return boolean */ public boolean
+addMaster(String username, String role) { // Check if Username is Unique
+if(!checkMaster(username)) { masters.add(username); roles.add(role); numAcc++;
+saveList(); return true; }
 
 		return false;
 	}
@@ -88,7 +78,7 @@ public class MasterList {
 			return roles.get(searchMasterIndex(username));
 		}
 
-		return "user not found";
+		return null;
 	}
 	
 	// File Handling ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
