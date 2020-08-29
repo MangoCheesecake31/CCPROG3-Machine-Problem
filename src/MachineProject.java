@@ -199,7 +199,7 @@ public class MachineProject {
 				Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY),
 				Calendar.MINUTE, time.get(Calendar.MINUTE)).build();
 
-		acc.reportPositive(acc, cal);
+		acc.reportPositive(cal);
 	}
 
 	/**
@@ -229,7 +229,7 @@ public class MachineProject {
 				System.out.println("Invalid input.");
 		} while (day > 31 || day < 1);
 
-		acc.checkIn(acc, code, year, month, day);
+		acc.checkIn(code, year, month, day);
 	}
 
 	// Main Menu ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
