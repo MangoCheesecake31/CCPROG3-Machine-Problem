@@ -333,8 +333,8 @@ public class MachineProject {
 		Visual.emailAddMenu();
 		addresses.setEmailAddress(sc.nextLine());
 
-		ac.register(accountType, username, password, fullname, addresses);
-		return true;
+		Visual.cls();
+		return ac.register(accountType, username, password, fullname, addresses);
 	}
 
 	public static Account logInProcess() {

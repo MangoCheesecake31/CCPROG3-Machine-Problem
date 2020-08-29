@@ -24,7 +24,7 @@ public class CaseList {
 
 	// Getters ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-	 *	returns the value of numEntries
+	 *	returns numEntries field/attribute
 	 * 	@author Steven Castro
 	 *	@return int
 	 */
@@ -33,7 +33,7 @@ public class CaseList {
 	}
 
 	/**
-	 *	returns the value of usernames of a specific case number
+	 *	returns the index parameter caseNum of ArrayList usernames field/attribute
 	 *	@author Steven Castro
 	 *	@return String
 	 */
@@ -42,7 +42,7 @@ public class CaseList {
 	}
 
 	/**
-	 *	returns the value of reportDates of a specific case number
+	 *	returns the index parameter caseNum of ArrayList reportDates field/attribute
 	 *	@author Steven Castro
 	 *	@return String
 	 */
@@ -51,7 +51,7 @@ public class CaseList {
 	}
 
 	/**
-	 *	returns the value of tracerNames of a specific case number
+	 *	returns the index parameter caseNum of ArrayList tracerNames field/attribute
 	 *	@author Steven Castro
 	 *	@return String
 	 */
@@ -60,7 +60,7 @@ public class CaseList {
 	}
 
 	/**
-	 *	returns the value of status of a specific case number
+	 *	returns the index parameter caseNum of ArrayList status field/attribute
 	 *	@author Steven Castro
 	 *	@return char
 	 */
@@ -87,9 +87,9 @@ public class CaseList {
 	}
 
 	/**
-	 *	returns a String output of a case in a format
+	 *	returns a String output of a case specific case number in a format
 	 *	@author Steven Castro
-	 *	@param caseNum number of the case to be return in String
+	 *	@param caseNum case number of the case to be returned in String
 	 *	@return String
 	 */
 	public String toString(int caseNum) {
@@ -110,11 +110,15 @@ public class CaseList {
 	 *	@return boolean
 	 */
 	public boolean assignTracer(int caseNum, String tracer) {
+		MasterList list = new MasterList();
 
 		if(0 < caseNum && caseNum < numEntries) {
-			tracerNames.set(caseNum - 1, tracer);
-			saveList();
-			return true;
+			if(list.checkMaster(tracer)) {
+				tracerNames.set(caseNum - 1, tracer);
+				saveList();
+				return true;
+			}
+			
 		}
 		return false;
 	}

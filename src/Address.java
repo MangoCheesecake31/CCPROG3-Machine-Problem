@@ -105,7 +105,7 @@ public class Address {
 	// Data Validity ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	/**
-	 *	returns true if parameter is a valid phone number
+	 *	returns true if parameter n is a valid phone number
 	 *	@author Steven Castro
 	 *	@param n phone number
 	 *	@return boolean

@@ -22,7 +22,11 @@ public class Account {
 	}
 
 	public Account(String username) {
-		loadUserInfo(username);
+		MasterList list = new MasterList();
+
+		if(list.checkMaster(username)) {
+			loadUserInfo(username);
+		}
 	}
 
 
@@ -37,7 +41,9 @@ public class Account {
 	 *	@param accountType type of account to be registered 
 	 *	@return boolean
 	 */
-	public void register(String accountType, String username, String password, Name fullName, Address addresses) {
+	public boolean register(String accountType, String username, String password, Name fullName, Address addresses) {
+		final String[] VALIDTYPES = {"customer", "tracer", "official"};
+		boolean valid = false;
 
 		// Load to Account Object Fields
 		this.username = username;
@@ -46,21 +52,44 @@ public class Account {
 		this.fullName = fullName;
 		this.addresses = addresses;
 
+		// Checking Validity of Account Information ::::::::::::::::::::
+		MasterList list = new MasterList();
+
+		// Account Type Checking
+		for(String x: VALIDTYPES) {
+			if(x.equalsIgnoreCase(accountType)) {
+				valid = true;
+				break;
+			}
+		}
+
+		if(!valid)
+			return false;
+
+		// Account Username Checking (If Unique)
+		if(list.checkMaster(username)) {
+			return false;
+		}
+
+		// Account Password Checking (If Valid)
+
+		if(!(validPassword(password))) {
+			return false;
+		}
+
 		// Saving User Information ::::::::::::::::::::
 
 		// Add Registered User to MasterList.txt
-		MasterList list = new MasterList();
-
-		// Add New User to MasterList
 		list.addMaster(username, accountType);
 
-		// Save User Personal and Account Information
+		// Create & Save File for User Personal and Account Information
 		saveUserInfo(username);
+
+		return true;
 	}
 
 	/** 
-	 *	starts a login process and returns returns true if it is successful
-	 *	if sucessful read and load user's personal information and account details
+	 *	starts login process and returns true if it is successful
 	 *	@author Steven Castro
 	 *	@param username Account username
 	 *	@param password inpuuted password
@@ -104,7 +133,7 @@ public class Account {
 	// Getter ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	/** 
-	 *	returns user's username
+	 *	returns username field/attribute
 	 *	@author Steven Castro
 	 *	@return String
 	 */
@@ -113,7 +142,7 @@ public class Account {
 	}
 
 	/** 
-	 *	returns user's password
+	 *	returns password field/attribute
      *	@author Steven Castro
 	 *	@return String
 	 */
@@ -122,7 +151,7 @@ public class Account {
 	}
 
 	/** 
-	 *	returns user's role
+	 *	returns role field/attribute
 	 *	@author Steven Castro
 	 *	@return String
 	 */
@@ -131,7 +160,7 @@ public class Account {
 	}
 
 	/** 
-	 *	returns user's online status
+	 *	returns online field/attribute
      *	@author Steven Castro
      *	@return boolean
 	 */
@@ -143,7 +172,7 @@ public class Account {
 
 	/**
 	 *	returns true if username exists in the MasterList.txt
-	 *	sets the username & role attribute of Class Account when true
+	 *	sets the fields username & role of Class Account when true
 	 *	@author Steven Castro
 	 *	@param username current user's inputted username/
 	 *	@return boolean
@@ -164,8 +193,8 @@ public class Account {
 	}
 
 	/**
-	 *	returns true if password is equivalent to account password
-	 *	sets the attribute online of Class Account to true
+	 *	returns true if parameter password is equivalent to account password
+	 *	sets the field online of Account Class to true when true
 	 *	@author Steven Castro
 	 *	@param password current user's inputted password
 	 *	@return boolean
@@ -184,7 +213,7 @@ public class Account {
 	}
 
 	/**
-	 *	returns true if password is in valid format
+	 *	returns true if parameter password is in valid format
 	 *	(Minimum of 6 characters, Includes at least 1 special character)
 	 *	@author Steven Castro
 	 *	@param password current user's inputted password
@@ -213,7 +242,7 @@ public class Account {
 	// File Handling ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	/**
-	 *	scans and loads User's personnal and account information
+	 *	scans and loads user's personnal and account information onto Account Class fields
 	 *	@author Steven Castro
 	 *	@param username current user's username
 	 */
@@ -257,7 +286,7 @@ public class Account {
 	}
 
 	/**
-		returns true if writing User's personal and account information to respective files is sucessful
+		returns true when writing user's personal and account information to respective files is sucessful
 		@author Steven Castro
 		@param username current user's username
 		@return boolean
@@ -289,7 +318,7 @@ public class Account {
 	// Could Be Useful ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	/**
-	 *	copies Account class attributes
+	 *	copies all fields of paramter newUser to Account class fields
 	 *	@author Steven Castro
 	 *	@param newUser class parameter
 	 */

@@ -7,3 +7,5 @@ themartin customer
 "Compile customer
 yoboi customer
 TheNewGovernmentOfficial official
+Aquaman customer
+Batman customer
