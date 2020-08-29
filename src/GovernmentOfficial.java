@@ -6,7 +6,6 @@ import java.util.Calendar;
 public class GovernmentOfficial extends Citizen {
 	// Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	private MasterList mList = new MasterList();
-	private CaseList cList = new CaseList();
 
 	// Methods ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -18,6 +17,7 @@ public class GovernmentOfficial extends Citizen {
 	 * @author Steven Castro
 	 */
 	public void showUnassignedCases() {
+		CaseList cList = new CaseList();
 		Scanner sc = new Scanner(System.in);
 		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
 		// System.out.format("|    HOME  : %-59s|\n", addresses.getHomeAddress());
@@ -49,6 +49,7 @@ public class GovernmentOfficial extends Citizen {
 	 */
 	public void analytics(String cityName) {
 		int numCase = 0;
+		CaseList cList = new CaseList();
 		Account ac;
 
 		// Search & Count
@@ -87,6 +88,7 @@ public class GovernmentOfficial extends Citizen {
 	 */
 	public void analytics(Calendar start, Calendar end) {
 		int numCase = 0;
+		CaseList cList = new CaseList();
 		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
 
 
@@ -115,6 +117,7 @@ public class GovernmentOfficial extends Citizen {
 	 */
 	public void analytics(String cityName, Calendar start, Calendar end) {
 		int numCase = 0;
+		CaseList cList = new CaseList();
 		Account ac;
 		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
 
