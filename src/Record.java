@@ -11,7 +11,7 @@ public class Record {
     /**
         constructor
         @author Roymaxson Li
-        @param username
+        @param username the account's username
     */
     public Record(String username) {
         this.username = username;
@@ -38,8 +38,8 @@ public class Record {
     /**
         gets a date entry in the array list based on the index given
         @author Roymaxson Li
-        @param index
-        @returns the date object of a given index in the dateList array list
+        @param index the chosen index
+        @return the date object of a given index in the dateList array list
     */
     public Calendar getCalendarEntry(int index) {
         return dateList.get(index);
@@ -48,8 +48,8 @@ public class Record {
     /**
         gets a code in the array list based on the index given
         @author Roymaxson Li
-        @param index
-        @returns the establishment code of a given index in the codeList array list
+        @param index the chosen index
+        @return the establishment code of a given index in the codeList array list
     */
     public String getCodeEntry(int index) {
         return codeList.get(index);
@@ -58,10 +58,10 @@ public class Record {
     /**
         adds the code, date, and time entry into array lists then increments numEntries
         @author Roymaxson Li
-        @param code
-        @param year
-        @param month
-        @param day
+        @param code the establishment's code
+        @param year the input year
+        @param month the input month
+        @param day the input day
     */
     public void addEntry(String code, int year, int month, int day) {
         month -= 1;
@@ -83,7 +83,7 @@ public class Record {
     /**
      * outputs the establishment code and date in simple date format
      * @author Roymaxson Li
-     * @param entry
+     * @param entry the input establishment code and date
      * @return establishment code, date, and time of given index
      */
     public String toString(int entry) {

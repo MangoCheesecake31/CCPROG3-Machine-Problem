@@ -46,6 +46,7 @@ public class GovernmentOfficial extends Citizen {
 	 * display analytics of cases based on user preference of city
 	 *
 	 * @author Steven Castro
+	 * @param cityName name of the chosen city
 	 */
 	public void analytics(String cityName) {
 		int numCase = 0;
@@ -85,6 +86,8 @@ public class GovernmentOfficial extends Citizen {
 	 * display analytics of cases based on user preference of duration
 	 *
 	 * @author Steven Castro
+	 * @param start the starting date
+	 * @param end the ending date
 	 */
 	public void analytics(Calendar start, Calendar end) {
 		int numCase = 0;
@@ -111,9 +114,12 @@ public class GovernmentOfficial extends Citizen {
 	}
 
 	/**
-	 * display analytics of cases based on user preference of city & duration
+	 * display analytics of cases based on user preference of city and duration
 	 *
 	 * @author Steven Castro
+	 * @param cityName name of the chosen city
+	 * @param start the starting date
+	 * @param end the ending date
 	 */
 	public void analytics(String cityName, Calendar start, Calendar end) {
 		int numCase = 0;
@@ -158,11 +164,12 @@ public class GovernmentOfficial extends Citizen {
 	// Account Manipulation ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	/**
-	 * returns true if goverment offical account creation is sucessful
+	 * returns true if government official account creation is successful
 	 * undergo registry process if username does not exist in MasterList.txt
 	 *
 	 * @return boolean
 	 * @author Steven Castro
+	 * @param username the username to be turned into a government official
 	 */
 	public boolean createGovernmentOfficial(String username) {
 
@@ -180,6 +187,7 @@ public class GovernmentOfficial extends Citizen {
 	 *
 	 * @return boolean
 	 * @author Steven Castro
+	 * @param username the username to be turned into a Contact Tracer
 	 */
 	public boolean createContactTracer(String username) {
 
