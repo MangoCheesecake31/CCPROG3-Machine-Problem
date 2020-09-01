@@ -35,6 +35,7 @@ public class CaseList {
 	/**
 	 *	returns the index parameter caseNum of ArrayList usernames field/attribute
 	 *	@author Steven Castro
+	 *  @param caseNum the chosen case
 	 *	@return String
 	 */
 	public String getUsername(int caseNum) {
@@ -44,6 +45,7 @@ public class CaseList {
 	/**
 	 *	returns the index parameter caseNum of ArrayList reportDates field/attribute
 	 *	@author Steven Castro
+	 *  @param caseNum the chosen case
 	 *	@return String
 	 */
 	public Calendar getReportDate(int caseNum) {
@@ -53,6 +55,7 @@ public class CaseList {
 	/**
 	 *	returns the index parameter caseNum of ArrayList tracerNames field/attribute
 	 *	@author Steven Castro
+	 *  @param caseNum	the chosen case
 	 *	@return String
 	 */
 	public String getTracerName(int caseNum) {
@@ -62,6 +65,7 @@ public class CaseList {
 	/**
 	 *	returns the index parameter caseNum of ArrayList status field/attribute
 	 *	@author Steven Castro
+	 *  @param caseNum the chosen case
 	 *	@return char
 	 */
 	public char getStatus(int caseNum) {
@@ -73,8 +77,8 @@ public class CaseList {
 	/**
 	 *	adds a new case onto CaseList.txt
 	 *	@author Steven Castro
-	 *	@param user
-	 *	@param date
+	 *	@param user the user's username
+	 *	@param date date and time of case
 	 */
 	public void addCase(String user, Calendar date) {
 		caseNumbers.add(++numEntries);
@@ -127,7 +131,7 @@ public class CaseList {
 	 *	returns true if updating a status of a case is sucessful
 	 *	@author Steven Castro
 	 *	@param caseNum case number
-	 *	@param status tracing status
+	 *	@param state tracing status
 	 *	@return boolean
 	 */
 	public boolean updateStatus(int caseNum, char state) {

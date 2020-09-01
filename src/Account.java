@@ -38,7 +38,11 @@ public class Account {
 	 *	starts a registry process and returns true if it is successful
 	 *	if successful creates a file containing user personal information and adds user to the Master List file
 	 *	@author Steven Castro
-	 *	@param accountType type of account to be registered 
+	 *	@param accountType type of account to be registered
+	 *  @param username username of account
+	 *  @param password account's password
+	 *  @param fullName full name of user
+	 *  @param addresses user's address
 	 *	@return boolean
 	 */
 	public boolean register(String accountType, String username, String password, Name fullName, Address addresses) {
@@ -168,13 +172,13 @@ public class Account {
 		return online;
 	}
 
-	// Data Validty ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	// Data Validity ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	/**
 	 *	returns true if username exists in the MasterList.txt
-	 *	sets the fields username & role of Class Account when true
+	 *	sets the fields username and role of Class Account when true
 	 *	@author Steven Castro
-	 *	@param username current user's inputted username/
+	 *	@param username current user's inputted username
 	 *	@return boolean
 	 */
 	public boolean verifyUsername(String username) {

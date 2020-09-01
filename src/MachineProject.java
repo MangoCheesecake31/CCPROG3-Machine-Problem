@@ -61,7 +61,7 @@ public class MachineProject {
 	/**
 	 * displays the menu for Citizen accounts and asks the user
 	 * what he/she wants to do.
-	 * @param myAccount
+	 * @param myAccount the current user's account
 	 */
 	public static void CitizenMenus(Account myAccount) {
 		boolean inCitizenMenu = true;
@@ -93,7 +93,7 @@ public class MachineProject {
 	/**
 	 * Displays the Government Official menu and asks the
 	 * user what he/she wants to do.
-	 * @param user
+	 * @param user the current user's account
 	 */
 	public static void GovernmentOfficialMenus(Account user) {
 		boolean inGovernmentOfficialMenu = true;
@@ -170,7 +170,7 @@ public class MachineProject {
 	/**
 	 * asks the user to input the date of reported positive test result
 	 * then records it along with the username.
-	 * @param acc
+	 * @param acc the current user's account
 	 */
 	public static void reportPositive(Citizen acc) {
 		int year, month, day;
@@ -205,7 +205,7 @@ public class MachineProject {
 	/**
 	 * asks the user to input the establishment code and date
 	 * of check in then adds it to the user's record.
-	 * @param acc
+	 * @param acc the current user's account
 	 */
 	public static void checkIn(Citizen acc) {
 		int year, month, day;
@@ -236,7 +236,7 @@ public class MachineProject {
 
 	/**
 	 * 
-	 * @param accountType
+	 * @param accountType the account's type
 	 * @return true when registry succeeds, false otherwise.
 	 */
 	public static boolean registryProcess(String accountType) {
@@ -379,6 +379,7 @@ public class MachineProject {
 	 * starts a process to change User's personal information
 	 *
 	 * @author Steven Castro
+	 * @param myAccount the user's account
 	 */
 	public static void changeUserProfileProcess(Citizen myAccount) {
 		boolean inChangeMenu = true;
@@ -406,6 +407,7 @@ public class MachineProject {
 	 * starts a process to change User's name information
 	 *
 	 * @author Steven Castro
+	 * @param myAccount the user's account
 	 */
 	public static void changeUserNameProfileProcess(Citizen myAccount) {
 		char input;
@@ -446,6 +448,7 @@ public class MachineProject {
 	 * starts a process to change User's address information
 	 *
 	 * @author Steven Castro
+	 * @param myAccount the user's account
 	 */
 	public static void changeUserAddressProfileProcess(Citizen myAccount) {
 		char input;
@@ -497,6 +500,7 @@ public class MachineProject {
 
 	/**
 	 *	starts a process to display analytics based on given user inputStartDateMenu
+	 * @param myAccount the user's account
 	 */
 	public static void analyticsProcess(GovernmentOfficial myAccount) {
 		Scanner sc = new Scanner(System.in);
@@ -559,6 +563,8 @@ public class MachineProject {
 
 	/**
 	 *	starts a process to employ or promote an Account to a Goverment Official
+	 * @param myAccount the user's account
+	 * @return true if successfully created Government Official, false otherwise
 	 */
 	public static boolean createGovernmentOfficialProcess(GovernmentOfficial myAccount) {
 		boolean inCreateMenu = true;
@@ -583,7 +589,7 @@ public class MachineProject {
 					if(ac.verifyUsername(input = sc.next())) {
 						// Check Account Role
 						if(mList.getMasterRole(input).equals("official")) {
-							System.out.println("|INVALID: Account already has Goverment Official Role...");
+							System.out.println("|INVALID: Account already has Government Official Role...");
 							Visual.pressEnterToContinue();
 							return false;
 						} else {
@@ -608,6 +614,8 @@ public class MachineProject {
 
 	/**
 	 *	starts a process to employ or promote an Account to a Contact Tracer
+	 * @param myAccount the user's account
+	 * @return true if successfully created Contact Tracer, false otherwise
 	 */
 	public static boolean createContactTracerProcess(GovernmentOfficial myAccount) {
 		boolean inCreateMenu = true;
@@ -656,6 +664,8 @@ public class MachineProject {
 
 	/**
 	 *	starts a process to demote an Account to a Customer
+	 * @param myAccount the chosen account
+	 * @return true if successfully terminated account, false otherwise
 	 */
 	public static boolean terminateAccountProcess(GovernmentOfficial myAccount) {
 		Scanner sc = new Scanner(System.in);
@@ -669,6 +679,7 @@ public class MachineProject {
 	/**
 	 *	starts a process to obtain user input of a date
 	 *  @author Steven Castro
+	 * @return input date
 	 */
 	public static Calendar inputDate() {
 		Calendar myDate;
