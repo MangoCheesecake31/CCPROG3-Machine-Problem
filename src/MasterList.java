@@ -2,17 +2,35 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.*;
 
+/*
+ *	This object is dedicated to handling a text file that contains a list of all verified user accounts
+ *  and roles.
+ *	Version - 08-31-2020 10:32PM -
+ */
+
 public class MasterList {
 	// Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	private final File FILE;
 	private int numAcc;
-	private boolean isLoaded = false;
 	private ArrayList<String> masters = new ArrayList<String>();
 	private ArrayList<String> roles = new ArrayList<String>();
 
 
 	// Constructors ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	/**
+	 * Construct and loads a Master List Object with default file path
+	 */
 	public MasterList() {
-		loadList();
+		this("Masters.txt");
+	}
+
+	/**
+	 * Construct and loads a Master List Object with specified file path
+	 * @param  filename file path
+	 */
+	public MasterList(String filename) {
+		FILE = new File(filename);
+		load();
 	}
 
 
@@ -20,20 +38,16 @@ public class MasterList {
 
 	// Data Manipulation ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-	/**
-	 * returns true if appending a new username in MasterList arrays is successful
-	 * @param username given username
-	 * @param role account's role
-	 * @return true if successful, false otherwise
-	 */
+	/** 
+	 *	returns true if appending a new username in MasterList arrays is successful
+	 *	
+	 *	@author Steven Castro *	@param username new user's username
+	 *	@param role new user's role 
+	 *	@return boolean 
+	 */ 
 	public boolean addMaster(String username, String role) { // Check if Username is Unique
-		if(!checkMaster(username)) {
-			masters.add(username);
-			roles.add(role);
-			numAcc++;
-			saveList();
-			return true;
-		}
+		if(!checkMaster(username)) { masters.add(username); roles.add(role); numAcc++;
+		save(); return true; }
 
 		return false;
 	}
@@ -41,7 +55,7 @@ public class MasterList {
 	/**
 	 *	returns true if the username exists in MasterList array
 	 *	@author Steven Castro
-	 *	@param username username to be searched in MasterList array
+	 *	@param username username to be searched in the Master List
 	 *	@return boolean
 	 */
 	public boolean checkMaster(String username) {
@@ -50,118 +64,114 @@ public class MasterList {
 				return true;
 			}
 		}
-
 		return false;
 	}
 
 	/**
-		returns true if updating the role of an existing username in the MasterList is sucessful
-		@author Steven Castro
-		@param username username of the user's role to be updated
-		@param role user's new role
-		@return boolean
-	*/
+	 * returns true if updating the role of an existing username in the Master List is successful
+	 * 
+	 * 	@author Steven Castro
+	 *  @param username username of the user
+	 *  @param role user's new role
+	 *  @return boolean
+	 */
 	public boolean updateMaster(String username, String role) {
 		// Check if Username is Unique
 		if(checkMaster(username)) {
 			roles.set(searchMasterIndex(username), role);
-			saveList();
+			save();
 			return true;
 		}
-
 		return false;
 	}
 
-	// Getters ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+	// Getters ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-		return the role of an existing user in the MasterList
-		@author Steven Castro
-		@param username username of the user's role to be returned
-		@return String
-	*/
+	 *	returns the role of an existing user in the Master List
+     *
+	 *	@author Steven Castro
+	 *	@param username username of the user
+	 *	@return String
+	 */
 	public String getMasterRole(String username) throws IndexOutOfBoundsException {
 		// Check if Username is Unique
 		if(checkMaster(username)) {
 			return roles.get(searchMasterIndex(username));
 		}
 
+		System.out.println("ERROR: Master Not Found...");
 		return null;
 	}
 	
+
 	// File Handling ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	/**
+	 *	Reloads the contents of this Object's Arrays by scanning the text file again
+	 *	
+	 *	@author Steven Castro
+	 */
+	public void refresh() {
+		numAcc = 0;
+		masters = new ArrayList<String>();
+		roles = new ArrayList<String>();
+
+		load();
+	}
 
 	/**
-	 *	returns true if scanning and loading the contents of MasterList.txt onto an array is sucessful
+	 *	Opens the text file then scan and loads the contents onto this Object's Arrays 
+	 *	
 	 *	@author Steven Castro
-	 *	@return boolean
 	 */
-	private boolean loadList() {
-		// Check if the List is Already Loaded
-		if(isLoaded) {
-			return false;
-		}
+	private void load() {
 
-		// Load List
 		try {
-			File fp = new File("MasterList.txt");
-			Scanner sc = new Scanner(fp);
+			Scanner sc = new Scanner(FILE);
 
-			// Scan MasterList.txt
+			// Scans The Text File
 			while(sc.hasNext()) {
 				numAcc++;
 				masters.add(sc.next());
 				roles.add(sc.next());
 			}
 
-			isLoaded = true;
 			sc.close();
-			return true;
 
 		} catch (IOException e) {
-			System.out.println("ERROR: MasterList File Not Found...");
-			return false;
+			System.out.println("ERROR: Master List Text File Not Found (L)...");
 		}
-
 	}
 
 	/**
-	 *	returns true if writing the contents of the arrays to MasterList.txt is sucessful
+	 *	Opens the text file writes the contents of this Object's Arrays onto it
+	 *	
 	 *	@author Steven Castro
-	 *	@return boolean
 	 */
-	private boolean saveList() {
-		// Check if the List is Not Yet Loaded
-		if(!isLoaded) {
-			return false;
-		}
-		
-		// Save List
-		try {
-			File fp = new File("MasterList.txt");
-			PrintStream ps = new PrintStream(fp);
+	private void save() {
 
-			// Write MasterList.txt
+		try {
+			PrintStream ps = new PrintStream(FILE);
+
+			// Writes The Text File
 			for(int i = 0; i < numAcc; i++) {
 				ps.println(masters.get(i) + " " + roles.get(i));
 			}
 
 			ps.close();
-			return true;
 
 		} catch (IOException e) {
-			System.out.println("ERROR: file not found! (S) :(");
-			return false;
+			System.out.println("ERROR: Master List Text File Not Found (S)...");
 		}
-
 	}
 
-	// Data Searching ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+	// Data Searching ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-	 *	returns the index of the username found in the MasterList arrays
+	 *	returns the index of the username found in this Object's field masters
+	 *	
 	 *	@author Steven Castro
-	 *	@param username username to be searched in the MasterList
+	 *	@param username username to be searched in the Master List
 	 *	@return int
 	 */
 	private int searchMasterIndex(String username) {
@@ -170,6 +180,8 @@ public class MasterList {
 				return i;
 			}
 		}
+
+		System.out.println("ERROR: Master Not Found...");
 		return -1;
 	}
 }

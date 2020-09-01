@@ -1,22 +1,40 @@
-import java.util.ArrayList;
-import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.Scanner;
 import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.*;
+
+/*
+ *	This object is dedicated to handling a text file that contains a list of all user reported postives cases.
+ *  
+ *	Version - 08-31-2020 10:32PM -
+ */
 
 public class CaseList {
 	// Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	private int numEntries;
-	private ArrayList<Integer> caseNumbers = new ArrayList<Integer>();
-	private ArrayList<String> usernames = new ArrayList<String>();
-	private ArrayList<Calendar> reportDates = new ArrayList<Calendar>();
-	private ArrayList<String> tracerNames = new ArrayList<String>();
-	private ArrayList<Character> status = new ArrayList<Character>();
+	private final File FILE;
+	private int numCases;
+	private ArrayList<Integer> caseNo = new ArrayList<>();
+	private ArrayList<String> usernames = new ArrayList<>();
+	private ArrayList<Calendar> reportDates = new ArrayList<>();
+	private ArrayList<String> tracernames = new ArrayList<>();
+	private ArrayList<Character> statuses = new ArrayList<>();
 
 
 	// Constructors
+	/**
+	 * Construct and loads a CaseList Object with default file path
+	 */
 	public CaseList() {
-		loadList();
+		this("Cases.txt");
+	}
+	
+	/**
+	 * 	Construct and loads a CaseList Object with specified file path
+	 */
+	public CaseList(String filename) {
+		FILE = new File(filename);
+		load();
 	}
 
 
@@ -24,18 +42,19 @@ public class CaseList {
 
 	// Getters ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-	 *	returns numEntries field/attribute
+	 *	returns numCases field/attribute
+	 *	
 	 * 	@author Steven Castro
 	 *	@return int
 	 */
-	public int getNumEntries() {
-		return numEntries;
+	public int getNumCases() {
+		return numCases;
 	}
 
 	/**
 	 *	returns the index parameter caseNum of ArrayList usernames field/attribute
+	 *	
 	 *	@author Steven Castro
-	 *  @param caseNum the chosen case
 	 *	@return String
 	 */
 	public String getUsername(int caseNum) {
@@ -44,8 +63,8 @@ public class CaseList {
 
 	/**
 	 *	returns the index parameter caseNum of ArrayList reportDates field/attribute
+	 *	
 	 *	@author Steven Castro
-	 *  @param caseNum the chosen case
 	 *	@return String
 	 */
 	public Calendar getReportDate(int caseNum) {
@@ -53,61 +72,64 @@ public class CaseList {
 	}
 
 	/**
-	 *	returns the index parameter caseNum of ArrayList tracerNames field/attribute
+	 *	returns the index parameter caseNum of ArrayList tracernames field/attribute
+	 *	
 	 *	@author Steven Castro
-	 *  @param caseNum	the chosen case
 	 *	@return String
 	 */
 	public String getTracerName(int caseNum) {
-		return tracerNames.get(caseNum);
+		return tracernames.get(caseNum);
 	}
 
 	/**
 	 *	returns the index parameter caseNum of ArrayList status field/attribute
 	 *	@author Steven Castro
-	 *  @param caseNum the chosen case
 	 *	@return char
 	 */
 	public char getStatus(int caseNum) {
-		return status.get(caseNum);
-	}
-
-	// Data Manipulation ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-	/**
-	 *	adds a new case onto CaseList.txt
-	 *	@author Steven Castro
-	 *	@param user the user's username
-	 *	@param date date and time of case
-	 */
-	public void addCase(String user, Calendar date) {
-		caseNumbers.add(++numEntries);
-		usernames.add(user);
-		reportDates.add(date);
-		tracerNames.add("000");
-		status.add('P');
-
-		saveList();
+		return statuses.get(caseNum);
 	}
 
 	/**
-	 *	returns a String output of a case specific case number in a format
+	 *	returns a String representation of all data of a specific case
+	 *	
 	 *	@author Steven Castro
-	 *	@param caseNum case number of the case to be returned in String
+	 *	@param caseNum case number of a case to be returned in String
 	 *	@return String
 	 */
 	public String toString(int caseNum) {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
 
-		return caseNumbers.get(caseNum) 
-				+ " " + usernames.get(caseNum) 
-				+ " " + sdf.format(reportDates.get(caseNum).getTime())
-				+ " " + tracerNames.get(caseNum) 
-				+ " " + status.get(caseNum);
+		String caseEntryText =  String.format("%-4d %-30s %-10s  %-30s %c", caseNo.get(caseNum), 
+																		    usernames.get(caseNum),
+																		    sdf.format(reportDates.get(caseNum).getTime()),
+																		    tracernames.get(caseNum),
+																		    statuses.get(caseNum));
+
+		return caseEntryText;
+	}
+
+	// Data Manipulation ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	/**
+	 *	adds or files a new reported case onto Object's Arrays
+	 *	
+	 *	@author Steven Castro
+	 *	@param user username of the user
+	 *	@param date the date the case was reported
+	 */
+	public void addCase(String user, Calendar date) {
+		caseNo.add(++numCases);
+		usernames.add(user);
+		reportDates.add(date);
+		tracernames.add("000");
+		statuses.add('P');
+
+		save();
 	}
 
 	/**
-	 *	returns true if assigning a tracer to a case is sucessful
+	 *	returns true if assigning a tracer to a case is successful
+	 *	
 	 *	@author Steven Castro
 	 *	@param caseNum case number
 	 *	@param tracer tracer username
@@ -116,10 +138,11 @@ public class CaseList {
 	public boolean assignTracer(int caseNum, String tracer) {
 		MasterList list = new MasterList();
 
-		if(0 < caseNum && caseNum < numEntries) {
+		if(0 < caseNum && caseNum < numCases) {
+			// Check tracer if it has a verified account
 			if(list.checkMaster(tracer)) {
-				tracerNames.set(caseNum - 1, tracer);
-				saveList();
+				tracernames.set(caseNum - 1, tracer);
+				save();
 				return true;
 			}
 			
@@ -128,81 +151,102 @@ public class CaseList {
 	}
 
 	/**
-	 *	returns true if updating a status of a case is sucessful
+	 *	returns true if updating a status of a case is successful
+	 *	
 	 *	@author Steven Castro
 	 *	@param caseNum case number
-	 *	@param state tracing status
+	 *	@param status tracing status
 	 *	@return boolean
 	 */
 	public boolean updateStatus(int caseNum, char state) {
 
-		if(0 < caseNum && caseNum < numEntries) {
+		if(0 < caseNum && caseNum < numCases) {
+			// Valid States of a Case
 			switch(state) {
 				case'p':
 				case'P':
 				case't':
 				case'T': 
-					status.set(caseNum - 1, state);
-					saveList();
+					statuses.set(caseNum - 1, state);
+					save();
 					return true;
 			}
 		}
 		return false;
 	}
 	
-	// File Handling ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+	// File Handling ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-	 *	scans and loads CaseList.txt onto CaseList class arrays
+	 *	Reloads the contents of this Object's Arrays by scanning the text file again
+	 *	
 	 *	@author Steven Castro
 	 */
-	private void loadList() {
-		Calendar cal;
-		String temp;
+	public void refresh() {
+		numCases = 0;
+		caseNo = new ArrayList<>();
+		usernames = new ArrayList<>();
+		reportDates = new ArrayList<>();
+		tracernames = new ArrayList<>();
+		statuses = new ArrayList<>();
+
+		load();
+	}
+
+	/**
+	 *	Opens the text file then scan and loads the contents onto this Object's Arrays 
+	 *	
+	 *	@author Steven Castro
+	 */
+	private void load() {
+		String dump;
+		Calendar date;
 
 		try {
-			File fp = new File("Cases.txt");
-			Scanner sc = new Scanner(fp);
+			Scanner sc = new Scanner(FILE);
 
 			while(sc.hasNext()) {
-				numEntries++;
+				numCases++;
 
-				// Case Number and Username
-				caseNumbers.add(sc.nextInt());
+				// Case No. and Usernames
+				caseNo.add(sc.nextInt());
 				usernames.add(sc.next());
 
 				// Report Date
-				temp = sc.next();
-				cal = new Calendar.Builder().setFields(Calendar.MONTH, (Integer.parseInt(temp.substring(0, 2)) - 1),
-                                                       Calendar.DAY_OF_MONTH, Integer.parseInt(temp.substring(3, 5)),
-                                                	   Calendar.YEAR, Integer.parseInt(temp.substring(6, 10))).build();
-				reportDates.add(cal);
+				dump = sc.next();
+				date = new Calendar.Builder().setFields(Calendar.MONTH, (Integer.parseInt(dump.substring(0, 2)) - 1),
+                                                        Calendar.DAY_OF_MONTH, Integer.parseInt(dump.substring(3, 5)),
+                                                	    Calendar.YEAR, Integer.parseInt(dump.substring(6, 10))).build();
+				reportDates.add(date);
 				
-				// Tracer Name and Status
-				tracerNames.add(sc.next());
-				status.add(sc.next().charAt(0));
+				// tracernames and Statuses
+				tracernames.add(sc.next());
+				statuses.add(sc.next().charAt(0));
 			}
-			
+
+			sc.close();
+
 		} catch (IOException e) {
-			System.out.println("|ERROR: Case File Not Found...");
+			System.out.println("ERROR: Case List File Not Found (L)...");
 		}
 	}
 
 	/**
-	 *	saves CaseList class arrays onto CaseList.txt
+	 *	Opens the text file writes the contents of this Object's Arrays onto it
+	 *	
 	 *	@author Steven Castro
 	 */
-	private void saveList() {
+	private void save() {
 
 		try {
-			File fp = new File("Cases.txt");
-			PrintStream ps = new PrintStream(fp);
+			PrintStream ps = new PrintStream(FILE);
 
-			for(int i = 0; i < numEntries; i++) {
+			for(int i = 0; i < numCases; i++) {
 				ps.println(toString(i));
-			}	
+			}
+
 		} catch (IOException e) {
-			System.out.println("|ERROR: Case File Not Found...");
+			System.out.println("ERROR: Case List File Not Found (S)...");
 		}
 	}	
 }

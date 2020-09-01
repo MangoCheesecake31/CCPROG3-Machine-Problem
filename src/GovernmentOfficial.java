@@ -1,38 +1,38 @@
-import java.util.Scanner;
 import java.text.SimpleDateFormat;
-import java.io.*;
 import java.util.Calendar;
+import java.util.Scanner;
+import java.io.*;
 
 public class GovernmentOfficial extends Citizen {
 	// Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	private MasterList mList = new MasterList();
+	private CaseList cList = new CaseList();
 
 	// Methods ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	// Data Display ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	/**
-	 * prints and display all unassigned cases
-	 *
+	 * prints and display all unassigned cases in Cases.txt
+	 * 
 	 * @author Steven Castro
 	 */
 	public void showUnassignedCases() {
-		CaseList cList = new CaseList();
+		cList.refresh();
 		Scanner sc = new Scanner(System.in);
 		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
-		// System.out.format("|    HOME  : %-59s|\n", addresses.getHomeAddress());
 
 		System.out.println("| -------------------------------- Unassigned Cases ---------------------------------- |");
 		System.out.println("|                                                                                      |");
 		System.out.println("| Case Username                       Report Date Tracername                    Status |");
 		// Print Unassigned Cases
-		for (int i = 0; i < cList.getNumEntries(); i++) {
+		for (int i = 0; i < cList.getNumCases(); i++) {
 
 			if (cList.getTracerName(i).equals("000")) {
 				System.out.format("| %-4d %-30s %-10s  %-30s %c     |\n", i + 1, cList.getUsername(i),
-						sdf.format(cList.getReportDate(i).getTime()),
-						cList.getTracerName(i),
-						cList.getStatus(i));
+																				 sdf.format(cList.getReportDate(i).getTime()),
+																				 cList.getTracerName(i),
+																				 cList.getStatus(i));
 			}
 		}
 		System.out.println("| -------------------------------------------------------------------------------------|");
@@ -43,18 +43,18 @@ public class GovernmentOfficial extends Citizen {
 	// public void showContactTracingUpdates()
 
 	/**
-	 * display analytics of cases based on user preference of city
+	 * display analytics of reported cases based on user preference of city
 	 *
 	 * @author Steven Castro
 	 * @param cityName name of the chosen city
 	 */
 	public void analytics(String cityName) {
 		int numCase = 0;
-		CaseList cList = new CaseList();
+		cList.refresh();
 		Account ac;
 
 		// Search & Count
-		for (int i = 0; i < cList.getNumEntries(); i++) {
+		for (int i = 0; i < cList.getNumCases(); i++) {
 
 			// Account
 			if (mList.checkMaster(cList.getUsername(i))) {
@@ -83,7 +83,7 @@ public class GovernmentOfficial extends Citizen {
 	}
 
 	/**
-	 * display analytics of cases based on user preference of duration
+	 * display analytics of reported cases based on user preference of duration
 	 *
 	 * @author Steven Castro
 	 * @param start the starting date
@@ -91,12 +91,12 @@ public class GovernmentOfficial extends Citizen {
 	 */
 	public void analytics(Calendar start, Calendar end) {
 		int numCase = 0;
-		CaseList cList = new CaseList();
+		cList.refresh();
 		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
 
 
 		// Search & Count Cases
-		for (int i = 0; i < cList.getNumEntries(); i++) {
+		for (int i = 0; i < cList.getNumCases(); i++) {
 			if ((cList.getReportDate(i).compareTo(start)) >= 0) {
 				if ((cList.getReportDate(i).compareTo(end)) <= 0) {
 					System.out.println(cList.toString(i));
@@ -114,7 +114,7 @@ public class GovernmentOfficial extends Citizen {
 	}
 
 	/**
-	 * display analytics of cases based on user preference of city and duration
+	 * display analytics of reported cases based on user preference of city and duration
 	 *
 	 * @author Steven Castro
 	 * @param cityName name of the chosen city
@@ -123,12 +123,12 @@ public class GovernmentOfficial extends Citizen {
 	 */
 	public void analytics(String cityName, Calendar start, Calendar end) {
 		int numCase = 0;
-		CaseList cList = new CaseList();
+		cList.refresh();
 		Account ac;
 		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
 
 		// Search & Count
-		for (int i = 0; i < cList.getNumEntries(); i++) {
+		for (int i = 0; i < cList.getNumCases(); i++) {
 
 			// Duration
 			if ((cList.getReportDate(i).compareTo(start)) >= 0) {
@@ -165,8 +165,7 @@ public class GovernmentOfficial extends Citizen {
 
 	/**
 	 * returns true if government official account creation is successful
-	 * undergo registry process if username does not exist in MasterList.txt
-	 *
+	 * 
 	 * @return boolean
 	 * @author Steven Castro
 	 * @param username the username to be turned into a government official
@@ -182,8 +181,7 @@ public class GovernmentOfficial extends Citizen {
 	}
 
 	/**
-	 * returns true if contact tracer account creation is sucessful
-	 * undergo registry process if username does not exist in MasterList.txt
+	 * returns true if contact tracer account creation is successful
 	 *
 	 * @return boolean
 	 * @author Steven Castro
@@ -200,7 +198,7 @@ public class GovernmentOfficial extends Citizen {
 	}
 
 	/**
-	 * returns true if termination of account is sucessful
+	 * returns true if termination of account is successful
 	 *
 	 * @param username username of the user to be demoted to customer account
 	 * @return boolean

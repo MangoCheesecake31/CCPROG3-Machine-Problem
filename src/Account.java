@@ -17,10 +17,17 @@ public class Account {
 
 
 	// Constructors ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	/**
+	 * Constructs a default Account Object 
+	 */
 	public Account() {
 
 	}
 
+	/**
+	 * Constructs a Account Object loaded with account information given by the username
+	 * @param username username of the account to be loaded
+	 */
 	public Account(String username) {
 		MasterList list = new MasterList();
 
@@ -35,14 +42,14 @@ public class Account {
 	// Registry, LogIn & Out ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	/** 
-	 *	starts a registry process and returns true if it is successful
-	 *	if successful creates a file containing user personal information and adds user to the Master List file
+	 *	registers or creates an account by creating a file that contains all user information and also adding the username to the master list
+	 *
 	 *	@author Steven Castro
 	 *	@param accountType type of account to be registered
 	 *  @param username username of account
 	 *  @param password account's password
-	 *  @param fullName full name of user
-	 *  @param addresses user's address
+	 *  @param fullName object Name of user
+	 *  @param addresses object Address of user
 	 *	@return boolean
 	 */
 	public boolean register(String accountType, String username, String password, Name fullName, Address addresses) {
@@ -93,10 +100,11 @@ public class Account {
 	}
 
 	/** 
-	 *	starts login process and returns true if it is successful
+	 *	logIns and loads user account information onto this Object's fields when successful
+	 *	
 	 *	@author Steven Castro
 	 *	@param username Account username
-	 *	@param password inpuuted password
+	 *	@param password inputted password
 	 *	@return boolean
 	 */
 	public boolean logIn(String username, String password) {
@@ -122,7 +130,8 @@ public class Account {
 	}
 
 	/** 
-	 *	reset Account class fields to default
+	 *	resets this Object's fields to default
+	 *	
 	 *	@author Steven Castro
 	 */
 	public void logOut() {
@@ -138,6 +147,7 @@ public class Account {
 
 	/** 
 	 *	returns username field/attribute
+	 *	
 	 *	@author Steven Castro
 	 *	@return String
 	 */
@@ -147,6 +157,7 @@ public class Account {
 
 	/** 
 	 *	returns password field/attribute
+	 *	
      *	@author Steven Castro
 	 *	@return String
 	 */
@@ -156,6 +167,7 @@ public class Account {
 
 	/** 
 	 *	returns role field/attribute
+	 *	
 	 *	@author Steven Castro
 	 *	@return String
 	 */
@@ -165,6 +177,7 @@ public class Account {
 
 	/** 
 	 *	returns online field/attribute
+	 *	
      *	@author Steven Castro
      *	@return boolean
 	 */
@@ -177,6 +190,7 @@ public class Account {
 	/**
 	 *	returns true if username exists in the MasterList.txt
 	 *	sets the fields username and role of Class Account when true
+	 *	
 	 *	@author Steven Castro
 	 *	@param username current user's inputted username
 	 *	@return boolean
@@ -199,6 +213,7 @@ public class Account {
 	/**
 	 *	returns true if parameter password is equivalent to account password
 	 *	sets the field online of Account Class to true when true
+	 *	
 	 *	@author Steven Castro
 	 *	@param password current user's inputted password
 	 *	@return boolean
@@ -219,6 +234,7 @@ public class Account {
 	/**
 	 *	returns true if parameter password is in valid format
 	 *	(Minimum of 6 characters, Includes at least 1 special character)
+	 *	
 	 *	@author Steven Castro
 	 *	@param password current user's inputted password
 	 *	@return boolean
@@ -247,6 +263,7 @@ public class Account {
 
 	/**
 	 *	scans and loads user's personnal and account information onto Account Class fields
+	 *	
 	 *	@author Steven Castro
 	 *	@param username current user's username
 	 */
@@ -290,7 +307,8 @@ public class Account {
 	}
 
 	/**
-		returns true when writing user's personal and account information to respective files is sucessful
+		returns true when writing user's personal and account information to respective files is successful
+
 		@author Steven Castro
 		@param username current user's username
 		@return boolean
@@ -323,6 +341,7 @@ public class Account {
 
 	/**
 	 *	copies all fields of paramter newUser to Account class fields
+	 *	
 	 *	@author Steven Castro
 	 *	@param newUser class parameter
 	 */
