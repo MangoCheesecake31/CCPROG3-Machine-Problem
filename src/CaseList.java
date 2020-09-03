@@ -22,16 +22,10 @@ public class CaseList {
 
 
 	// Constructors
-	/**
-	 * Construct and loads a CaseList Object with default file path
-	 */
 	public CaseList() {
 		this("Cases.txt");
 	}
-	
-	/**
-	 * 	Construct and loads a CaseList Object with specified file path
-	 */
+
 	public CaseList(String filename) {
 		FILE = new File(filename);
 		load();
@@ -43,7 +37,6 @@ public class CaseList {
 	// Getters ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
 	 *	returns numCases field/attribute
-	 *	
 	 * 	@author Steven Castro
 	 *	@return int
 	 */
@@ -53,7 +46,6 @@ public class CaseList {
 
 	/**
 	 *	returns the index parameter caseNum of ArrayList usernames field/attribute
-	 *	
 	 *	@author Steven Castro
 	 *	@return String
 	 */
@@ -63,7 +55,6 @@ public class CaseList {
 
 	/**
 	 *	returns the index parameter caseNum of ArrayList reportDates field/attribute
-	 *	
 	 *	@author Steven Castro
 	 *	@return String
 	 */
@@ -73,7 +64,6 @@ public class CaseList {
 
 	/**
 	 *	returns the index parameter caseNum of ArrayList tracernames field/attribute
-	 *	
 	 *	@author Steven Castro
 	 *	@return String
 	 */
@@ -92,7 +82,6 @@ public class CaseList {
 
 	/**
 	 *	returns a String representation of all data of a specific case
-	 *	
 	 *	@author Steven Castro
 	 *	@param caseNum case number of a case to be returned in String
 	 *	@return String
@@ -112,7 +101,6 @@ public class CaseList {
 	// Data Manipulation ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
 	 *	adds or files a new reported case onto Object's Arrays
-	 *	
 	 *	@author Steven Castro
 	 *	@param user username of the user
 	 *	@param date the date the case was reported
@@ -128,8 +116,7 @@ public class CaseList {
 	}
 
 	/**
-	 *	returns true if assigning a tracer to a case is successful
-	 *	
+	 *	returns true if assigning a tracer to a case is sucessful
 	 *	@author Steven Castro
 	 *	@param caseNum case number
 	 *	@param tracer tracer username
@@ -151,8 +138,7 @@ public class CaseList {
 	}
 
 	/**
-	 *	returns true if updating a status of a case is successful
-	 *	
+	 *	returns true if updating a status of a case is sucessful
 	 *	@author Steven Castro
 	 *	@param caseNum case number
 	 *	@param status tracing status
@@ -179,7 +165,6 @@ public class CaseList {
 	// File Handling ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
 	 *	Reloads the contents of this Object's Arrays by scanning the text file again
-	 *	
 	 *	@author Steven Castro
 	 */
 	public void refresh() {
@@ -195,7 +180,6 @@ public class CaseList {
 
 	/**
 	 *	Opens the text file then scan and loads the contents onto this Object's Arrays 
-	 *	
 	 *	@author Steven Castro
 	 */
 	private void load() {
@@ -233,7 +217,6 @@ public class CaseList {
 
 	/**
 	 *	Opens the text file writes the contents of this Object's Arrays onto it
-	 *	
 	 *	@author Steven Castro
 	 */
 	private void save() {

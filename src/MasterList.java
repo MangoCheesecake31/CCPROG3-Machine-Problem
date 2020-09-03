@@ -17,33 +17,23 @@ public class MasterList {
 
 
 	// Constructors ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	/**
-	 * Construct and loads a Master List Object with default file path
-	 */
 	public MasterList() {
 		this("Masters.txt");
 	}
 
-	/**
-	 * Construct and loads a Master List Object with specified file path
-	 * @param  filename file path
-	 */
 	public MasterList(String filename) {
 		FILE = new File(filename);
 		load();
 	}
-
 
 	// Methods ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	// Data Manipulation ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	/** 
-	 *	returns true if appending a new username in MasterList arrays is successful
-	 *	
+	 *	returns true if appending a new username in MasterList arrays is sucessful 
 	 *	@author Steven Castro *	@param username new user's username
-	 *	@param role new user's role 
-	 *	@return boolean 
+	 *	@param role new user's role *	@return boolean 
 	 */ 
 	public boolean addMaster(String username, String role) { // Check if Username is Unique
 		if(!checkMaster(username)) { masters.add(username); roles.add(role); numAcc++;
@@ -68,13 +58,12 @@ public class MasterList {
 	}
 
 	/**
-	 * returns true if updating the role of an existing username in the Master List is successful
-	 * 
-	 * 	@author Steven Castro
-	 *  @param username username of the user
-	 *  @param role user's new role
-	 *  @return boolean
-	 */
+		returns true if updating the role of an existing username in the Master List is sucessful
+		@author Steven Castro
+		@param username username of the user
+		@param role user's new role
+		@return boolean
+	*/
 	public boolean updateMaster(String username, String role) {
 		// Check if Username is Unique
 		if(checkMaster(username)) {
@@ -88,12 +77,11 @@ public class MasterList {
 
 	// Getters ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-	 *	returns the role of an existing user in the Master List
-     *
-	 *	@author Steven Castro
-	 *	@param username username of the user
-	 *	@return String
-	 */
+		returns the role of an existing user in the Master List
+		@author Steven Castro
+		@param username username of the user
+		@return String
+	*/
 	public String getMasterRole(String username) throws IndexOutOfBoundsException {
 		// Check if Username is Unique
 		if(checkMaster(username)) {
@@ -103,12 +91,14 @@ public class MasterList {
 		System.out.println("ERROR: Master Not Found...");
 		return null;
 	}
-	
+
+	public int getNumAcc() {
+		return numAcc;
+	}
 
 	// File Handling ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
 	 *	Reloads the contents of this Object's Arrays by scanning the text file again
-	 *	
 	 *	@author Steven Castro
 	 */
 	public void refresh() {
@@ -121,7 +111,6 @@ public class MasterList {
 
 	/**
 	 *	Opens the text file then scan and loads the contents onto this Object's Arrays 
-	 *	
 	 *	@author Steven Castro
 	 */
 	private void load() {
@@ -145,7 +134,6 @@ public class MasterList {
 
 	/**
 	 *	Opens the text file writes the contents of this Object's Arrays onto it
-	 *	
 	 *	@author Steven Castro
 	 */
 	private void save() {
@@ -169,7 +157,6 @@ public class MasterList {
 	// Data Searching ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
 	 *	returns the index of the username found in this Object's field masters
-	 *	
 	 *	@author Steven Castro
 	 *	@param username username to be searched in the Master List
 	 *	@return int
