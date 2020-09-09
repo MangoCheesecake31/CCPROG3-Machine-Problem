@@ -4,14 +4,14 @@ import javax.swing.*;
 
 public class MachineProjectGUI {
 	// Main Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	private Account user = new Account(); 
+	private Account currentUser = new Account(); 
 
 	// Swing Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	private JFrame frame;
 	private JTextField textBoxA, textBoxB, textBoxC, textBoxD, textBoxE, textBoxF, textBoxG, textBoxH;
 	private JPasswordField passBoxA, passBoxB;
 	private JButton buttonA, buttonB, buttonC, buttonD, buttonE; 
-	private JLabel errorBoxA;
+	private JLabel errorBoxA, messageBoxA;
 
 	// Variables
 	private String inputUsername, inputPassword, inputRole;
@@ -19,8 +19,8 @@ public class MachineProjectGUI {
 
 	// Constructors ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::	 
 	public MachineProjectGUI() {
-		//loginMenu();
-		accountFormMenu();
+		loginMenu();
+		// checkInMenu();
 	}
 
 
@@ -51,9 +51,9 @@ public class MachineProjectGUI {
 		errorBoxA.setBounds(64, 272, 160, 32);
 
 		// Icons
-		JLabel registerIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/user-plus.png");
+		JLabel registerIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/currentUser-plus.png");
 		JLabel loginIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/log-in.png");
-		JLabel userIconLabel = ComponentFactory.createIconLabel(32, 32, "./Icons/user.png");
+		JLabel userIconLabel = ComponentFactory.createIconLabel(32, 32, "./Icons/currentUser.png");
 		JLabel lockIconLabel = ComponentFactory.createIconLabel(32, 32, "./Icons/lock.png");
 		userIconLabel.setBounds(32, 164, 32, 32);
 		lockIconLabel.setBounds(32, 236, 32, 32);
@@ -125,9 +125,9 @@ public class MachineProjectGUI {
 		errorBoxA.setBounds(64, 344, 300, 32);
 
 		// Icons
-		JLabel registerIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/user-plus.png");
+		JLabel registerIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/currentUser-plus.png");
 		JLabel loginIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/log-in.png");
-		JLabel userIconLabel = ComponentFactory.createIconLabel(32, 32, "./Icons/user.png");
+		JLabel userIconLabel = ComponentFactory.createIconLabel(32, 32, "./Icons/currentUser.png");
 		JLabel lockIconLabel = ComponentFactory.createIconLabel(32, 32, "./Icons/lock.png");
 		userIconLabel.setBounds(32, 164, 32, 32);
 		lockIconLabel.setBounds(32, 236, 32, 32);
@@ -276,30 +276,311 @@ public class MachineProjectGUI {
 		// Display Frame
 		frame.setVisible(true);	
 	}
+
 	/**
 	 * 	Customer Menu GUI
 	 * 	@author Steven Castro
 	 */
 	private void customerMenu() {
 		// Frame Settings
-		frame = ComponentFactory.createFrame("Customer Menu", 500, 500);
+		frame = ComponentFactory.createFrame("Customer Menu", 520, 520);
 
 		// Panel Settings
-		JPanel panel = ComponentFactory.createPanel(500, 500);
+		JPanel panel = ComponentFactory.createPanel(520, 520);
 
 		// Label Settings
-		JLabel titleLabel = ComponentFactory.createTitleLabel("Customer Menu", 30);
-		titleLabel.setBounds(0, 0, 500, 80);
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Customer Account Menu", 32);
+		titleLabel.setBounds(0, 32, 520, 80);
 
+		// Console/Message
+		messageBoxA = ComponentFactory.createLabel("> Welcome! " + currentUser.fullName, 14);
+		messageBoxA.setBounds(65, 112, 390, 32);
 
-		// Add Compoenents
+		//Icons
+		JLabel checkInIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/arrow-up.png");
+		JLabel reportCaseIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/alert-triangle.png");
+		JLabel changeProfileIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/edit.png");
+		JLabel logOutIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/log-out.png");
+		checkInIconLabel.setBounds(21, 144, 40, 40);
+		reportCaseIconLabel.setBounds(21, 216, 40, 40);
+		changeProfileIconLabel.setBounds(21, 288, 40, 40);
+		logOutIconLabel.setBounds(21, 360, 40, 40);
+
+		// Colored Blocks
+		JLabel upperBlock  = ComponentFactory.createColoredBlockLabel();
+		JLabel lowerBlock  = ComponentFactory.createColoredBlockLabel();
+		upperBlock.setBounds(0, 0, 520, 32);
+		lowerBlock.setBounds(0, 504, 520, 16);
+
+		buttonA = ComponentFactory.createButton("Check In", new CustomerEvents());
+		buttonB = ComponentFactory.createButton("Report Positive Case", new CustomerEvents());
+		buttonC = ComponentFactory.createButton("Change Profile Information", new CustomerEvents());
+		buttonD = ComponentFactory.createButton("Log Out", new CustomerEvents());
+		buttonA.setBounds(65, 144, 390, 48);
+		buttonB.setBounds(65, 216, 390, 48);
+		buttonC.setBounds(65, 288, 390, 48);
+		buttonD.setBounds(65, 360, 390, 48);
+
+		// Add Compoenents	
 		frame.add(panel);
+		panel.add(titleLabel);
+		panel.add(messageBoxA);
+		panel.add(upperBlock);
+		panel.add(lowerBlock);
+		panel.add(checkInIconLabel);
+		panel.add(reportCaseIconLabel);
+		panel.add(changeProfileIconLabel);
+		panel.add(logOutIconLabel);
+		panel.add(buttonA);
+		panel.add(buttonB);
+		panel.add(buttonC);
+		panel.add(buttonD);
 
 		// Display
 		frame.setVisible(true); 
 	}
 
+	/**
+	 * 	Check In Menu GUI
+	 * 	@author Steven Castro
+	 */
+	private void checkInMenu() {
+		// Frame Settings
+		frame = ComponentFactory.createFrame("Checking In", 520, 280);
+
+		// Panel Settings
+		JPanel panel = ComponentFactory.createPanel(520, 280);
+
+		// Label Settings
+		// Labels
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Checking In", 32);
+		JLabel codeLabel = ComponentFactory.createLabel("Establishment Code", 16);
+		titleLabel.setBounds(0, 32, 520, 80);
+		codeLabel.setBounds(64, 144, 200, 32);
+
+		// Colored Blocks
+		JLabel upperBlock = ComponentFactory.createColoredBlockLabel();
+		JLabel lowerBlock = ComponentFactory.createColoredBlockLabel();
+		upperBlock.setBounds(0, 0, 520, 32);
+		lowerBlock.setBounds(0, 264, 520, 16);
+
+		// Text Fields
+		textBoxA = ComponentFactory.createTextField(16);
+		textBoxA.setBounds(64, 176, 200, 40);
+
+		// Button Settings
+		buttonA = ComponentFactory.createButton("Check In", new CheckInEvents());
+		buttonB = ComponentFactory.createButton("Cancel", new CheckInEvents());
+		buttonA.setBounds(292, 144, 200, 48);
+		buttonB.setBounds(292, 208, 200, 48);
+
+		// Add Components
+		frame.add(panel);
+		panel.add(titleLabel);
+		panel.add(codeLabel);
+		panel.add(upperBlock);
+		panel.add(lowerBlock);
+		panel.add(buttonA);
+		panel.add(buttonB);
+		panel.add(textBoxA);
+
+		// Display
+		frame.setVisible(true);
+	}
+
+	/**
+	 * 	Report Case Positive GUI
+	 */
+	private void reportCaseMenu() {
+
+	}
+	
+	/**
+	 * 	Change Profile Menu GUI
+	 * 	@author Steven Castro
+	 */
+	private void changeProfileMenu() {
+		// Frame Settings
+		frame = ComponentFactory.createFrame("Change currentUser Profile Information", 616, 640);
+
+		// Panel Settings
+		JPanel panel = ComponentFactory.createPanel(616, 640);
+		
+		// Label
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Account Information", 32);
+		JLabel fullNameLabel = ComponentFactory.createLabel("   Full Name ", 24);
+		JLabel firstNameLabel = ComponentFactory.createLabel("First Name ", 16);
+		JLabel middleNameLabel = ComponentFactory.createLabel("Middle Name ", 16);
+		JLabel lastNameLabel = ComponentFactory.createLabel("Last Name ", 16);
+
+		JLabel addressesLabel = ComponentFactory.createLabel("   Addresses ", 24);
+		JLabel homeLabel = ComponentFactory.createLabel("Home ", 16);
+		JLabel officeLabel = ComponentFactory.createLabel("Office ", 16);
+		JLabel emailLabel = ComponentFactory.createLabel("Email ", 16);
+		JLabel phoneLabel = ComponentFactory.createLabel("Phone ", 16);
+		
+		titleLabel.setBounds(0, 32, 616, 80);
+		fullNameLabel.setBounds(0, 144, 200, 40);
+		firstNameLabel.setBounds(32, 184, 150, 32);
+		middleNameLabel.setBounds(32, 256, 150, 32);
+		lastNameLabel.setBounds(32, 328, 150, 32);
+
+		addressesLabel.setBounds(264, 144, 200, 40);
+		homeLabel.setBounds(296, 184, 150, 32);
+		officeLabel.setBounds(296, 256, 150, 32);
+		emailLabel.setBounds(296, 328, 150, 32);
+		phoneLabel.setBounds(296, 400, 150, 32);
+
+		// Icons
+		JLabel confirmIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/check-square.png");
+		JLabel cancelIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/x-square.png");
+		confirmIconLabel.setBounds(36, 500, 40, 40);
+		cancelIconLabel.setBounds(36, 564, 40, 40);
+
+		// Error
+		errorBoxA = ComponentFactory.createLabel("", 14);
+		errorBoxA.setBounds(32, 400, 200, 32);
+
+		// Colored Blocks 
+		JLabel upperColorLabel = ComponentFactory.createColoredBlockLabel(); 
+		JLabel lowerColorLabel = ComponentFactory.createColoredBlockLabel(); 
+		upperColorLabel.setBounds(0, 0, 616, 32);
+		lowerColorLabel.setBounds(0, 624, 616, 16);
+
+		// Text Field Settings
+		textBoxB = ComponentFactory.createTextField(14);
+		textBoxC = ComponentFactory.createTextField(14);
+		textBoxD = ComponentFactory.createTextField(14);
+		textBoxE = ComponentFactory.createTextField(14);
+		textBoxF = ComponentFactory.createTextField(14);
+		textBoxG = ComponentFactory.createTextField(14);
+		textBoxH = ComponentFactory.createTextField(14);
+		textBoxB.setBounds(32, 216, 200, 40);
+		textBoxC.setBounds(32, 288, 200, 40);
+		textBoxD.setBounds(32, 360, 200, 40);
+		textBoxE.setBounds(296, 216, 300, 40);
+		textBoxF.setBounds(296, 288, 300, 40);
+		textBoxG.setBounds(296, 360, 250, 40);
+		textBoxH.setBounds(296, 432, 150, 40); 
+
+		// Button Settings
+		buttonA = ComponentFactory.createButton("Save Changes", new ChangeProfileEvents());
+		buttonB = ComponentFactory.createButton("Cancel", new ChangeProfileEvents());
+		buttonA.setBounds(80, 496, 504, 48);
+		buttonB.setBounds(80, 560, 504, 48);
+		
+		// Add Componenets
+		frame.add(panel);
+		panel.add(titleLabel);
+		panel.add(fullNameLabel);
+		panel.add(firstNameLabel);
+		panel.add(middleNameLabel);
+		panel.add(lastNameLabel);
+		panel.add(addressesLabel);
+		panel.add(homeLabel);
+		panel.add(officeLabel);
+		panel.add(emailLabel);
+		panel.add(phoneLabel);
+		panel.add(upperColorLabel);
+		panel.add(lowerColorLabel);
+		panel.add(textBoxB);
+		panel.add(textBoxC);
+		panel.add(textBoxD);
+		panel.add(textBoxE);
+		panel.add(textBoxF);
+		panel.add(textBoxG);
+		panel.add(textBoxH);
+		panel.add(buttonA);
+		panel.add(buttonB);
+		panel.add(errorBoxA);
+		panel.add(confirmIconLabel);
+		panel.add(cancelIconLabel);
+
+		// Set Texts
+		// Full Name
+		textBoxB.setText(currentUser.fullName.getFirstName());
+		textBoxC.setText(currentUser.fullName.getMiddleName());
+		textBoxD.setText(currentUser.fullName.getLastName());
+		// Addresses
+		textBoxE.setText(currentUser.addresses.getHomeAddress());
+		textBoxF.setText(currentUser.addresses.getOfficeAddress());
+		textBoxG.setText(currentUser.addresses.getEmailAddress());
+		textBoxH.setText(currentUser.addresses.getPhoneNumber());
+
+		// Display Frame
+		frame.setVisible(true);	
+
+	}
+
+
+
+
 	// Event Handling	// Inner Classess	// ActionListener Classes 	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	private class LoginEvents implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == buttonA) {						// Login Button	
+
+				MasterList masters = new MasterList();
+
+				// Get currentUser Text Field Inputs
+				inputUsername = textBoxA.getText().trim();
+				inputPassword = String.valueOf((passBoxA.getPassword())).trim();
+
+				if (masters.checkMaster(inputUsername)) {
+					if (currentUser.logIn(textBoxA.getText(), String.valueOf(passBoxA.getPassword()))) {
+						printConsoleMessage("Loading currentUser Information");
+
+						currentUser.loadUserInfo(textBoxA.getText());
+
+						printConsoleMessage("Fullname: " + currentUser.fullName);
+						printConsoleMessage("Role: " + currentUser.getRole());
+						printConsoleMessage("Online: " + currentUser.getOnline());
+
+						frame.dispose();
+
+						// Proceed to Role Specific Menus
+						if (currentUser.getRole().equals("customer")) {									// Go To Customer Menu
+							printConsoleMessage("Heading back to Customer Menu GUI");
+
+							Citizen temp = new Citizen();
+							temp.copyAccountInfo(currentUser);
+							currentUser = temp;
+
+							customerMenu();
+
+						} else if (currentUser.getRole().equals("official")) {								// Go To Government Official Menu			
+							printConsoleMessage("Heading back to Government Official Menu GUI");
+
+						} else {
+							printConsoleMessage("Heading back to Contact Tracer Menu GUI");			// Go To Contact Tracer Menu
+
+						} 	
+					} else {
+						errorBoxA.setText("> Invalid Password!");
+						printConsoleMessage("Error > Invalid Password");
+
+					}
+				} else {
+					errorBoxA.setText("> currentUser Not Found!");
+					printConsoleMessage("Error > currentUser Not Found");
+
+				}
+
+				// Clear Text Fields
+				textBoxA.setText("");
+				passBoxA.setText("");
+
+			} else {											// Create An Account Button
+				printConsoleMessage("Heading back to Register Menu GUI");
+
+				frame.dispose();
+				inputRole = "customer";
+				registerMenu();
+			}
+		}
+	}
+
 	private class RegisterEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {	
@@ -307,18 +588,18 @@ public class MachineProjectGUI {
 
 				MasterList masters = new MasterList();
 
-				// Get User Text Field Inputs
+				// Get currentUser Text Field Inputs
 				inputUsername = textBoxA.getText().trim();
 				inputPassword = String.valueOf(passBoxA.getPassword()).trim();
 				String confirmPassword = String.valueOf(passBoxB.getPassword()).trim();
 
-				// Check for User Input & Validity (Unique Username)
+				// Check for currentUser Input & Validity (Unique Username)
 				if (!(masters.checkMaster(inputUsername) || inputUsername.isEmpty())) {
 					// Check Valid Password
-					if (user.validPassword(inputPassword) && !(inputPassword.isEmpty())) {
+					if (currentUser.validPassword(inputPassword) && !(inputPassword.isEmpty())) {
 						// Check Confirmation of Password
 						if (inputPassword.equals(confirmPassword)) {
-							printConsoleMessage("Registering User > " + inputUsername + " : " + inputPassword);
+							printConsoleMessage("Registering currentUser > " + inputUsername + " : " + inputPassword);
 							printConsoleMessage("Heading to Account Info Forms GUI");
 
 							frame.dispose();
@@ -393,12 +674,12 @@ public class MachineProjectGUI {
 
 				// Check if there are Missing Inputs 	
 				if (!missing) {
-					// Create User Account Variables
+					// Create currentUser Account Variables
 					Name fullName = new Name(userInputs[0], userInputs[1], userInputs[2]);
-					Address addresses = new Address(userInputs[3], userInputs[4], userInputs[5], userInputs[6]);
+					Address addresses = new Address(userInputs[3], userInputs[4], userInputs[6], userInputs[5]);
 
-					// Register User
-					if (user.register(inputRole, inputUsername, inputPassword, fullName, addresses)) {
+					// Register currentUser
+					if (currentUser.register(inputRole, inputUsername, inputPassword, fullName, addresses)) {
 						printConsoleMessage("Registry Success");
 						printConsoleMessage("Heading back to Main Menu GUI");
 
@@ -425,53 +706,114 @@ public class MachineProjectGUI {
 		}
 	}
 
-	private class LoginEvents implements ActionListener {
+	private class CustomerEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == buttonA) {						// Login Button	
-
-				MasterList masters = new MasterList();
-
-				// Get User Text Field Inputs
-				inputUsername = textBoxA.getText().trim();
-				inputPassword = String.valueOf((passBoxA.getPassword())).trim();
-
-				if (masters.checkMaster(inputUsername)) {
-					if (user.logIn(textBoxA.getText(), String.valueOf(passBoxA.getPassword()))) {
-						printConsoleMessage("Loading User Information");
-
-						user.loadUserInfo(textBoxA.getText());
-
-						printConsoleMessage("Fullname: " + user.fullName);
-						printConsoleMessage("Role: " + user.getRole());
-						printConsoleMessage("Online: " + user.getOnline());
-
-						// TODO Head to ROLE SPECIFIC MENUS
-					
-					} else {
-						errorBoxA.setText("> Invalid Password!");
-						printConsoleMessage("Error > Invalid Password");
-
-					}
-				} else {
-					errorBoxA.setText("> User Not Found!");
-					printConsoleMessage("Error > User Not Found");
-
-				}
-
-				// Clear Text Fields
-				textBoxA.setText("");
-				passBoxA.setText("");
-
-			} else {											// Create An Account Button
-				printConsoleMessage("Heading back to Register Menu GUI");
-
+			if (e.getSource() == buttonA) {			// Check In Button		
+				printConsoleMessage("> Heading to Check In Menu GUI");
+				
 				frame.dispose();
-				inputRole = "customer";
-				registerMenu();
+				checkInMenu();
+			} else if (e.getSource() == buttonB) {	// Report Positive Button
+				
+
+
+			} else if (e.getSource() == buttonC) {	// Change Profile Information Button
+				printConsoleMessage("> Heading to Change Profile Menu GUI");
+				
+				frame.dispose();
+				changeProfileMenu();
+			} else {								// Log Out Button
+				printConsoleMessage("Heading back to Login Menu GUI");
+
+				currentUser.logOut();
+				frame.dispose();
+				loginMenu();
 			}
 		}
 	}
+
+	// Citizen Methods ::::::::::::::::::::::::::::::::::::::::::::::::::
+	private class CheckInEvents implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == buttonA) {			// Check In Button
+				String code = textBoxA.getText().trim();
+				printConsoleMessage("Checking In > " + code);
+
+				// RecordList records = new RecordList();					//	TODO USE THE CITIZEN METHOD INSTEAD
+				// 														//
+				// records.addRecordEntry(currentUser.getUsername(), code);
+				//currentUser.checkIn(code);	// Doest Work
+
+				printConsoleMessage("Heading back to Customer Menu GUI");
+				frame.dispose();
+				customerMenu();
+
+			} else {								// Cancel Button
+				printConsoleMessage("Checking In Cancelled");
+
+				printConsoleMessage("Heading back to Customer Menu GUI");
+				frame.dispose();
+				customerMenu();
+			}
+		}
+	}
+
+	private class ReportCaseEvents implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == buttonA) {			// Report Case Button
+				
+				// RecordList records = new RecordList();					//	TODO USE THE CITIZEN METHOD INSTEAD
+				// 														//
+				// records.addRecordEntry(currentUser.getUsername(), code);
+				//currentUser.checkIn(code);	// Doest Work
+
+			} else {								// Cancel Button
+				printConsoleMessage("Checking In Cancelled");
+
+				printConsoleMessage("Heading back to Customer Menu GUI");
+				frame.dispose();
+				customerMenu();
+			}
+		}
+	}
+
+	private class ChangeProfileEvents implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == buttonA) {			// Save Changes Button
+				// TODO Check currentUser inptus
+				
+				printConsoleMessage("Saving New Profile Changes");
+
+				// Set Changes
+				currentUser.fullName = new Name(textBoxB.getText(), textBoxC.getText(), textBoxD.getText());
+				currentUser.addresses.setHomeAddress(textBoxE.getText()); 
+				currentUser.addresses.setOfficeAddress(textBoxF.getText()); 
+				currentUser.addresses.setEmailAddress(textBoxG.getText()); 
+				currentUser.addresses.setPhoneNumber(textBoxH.getText()); 
+				
+				// Save
+				currentUser.saveUserInfo(currentUser.getUsername());
+
+				printConsoleMessage("Heading back to Customer Menu GUI");
+
+				frame.dispose();
+				customerMenu();
+			} else {								// Cancel Button
+				printConsoleMessage("Changing Profile Information Cancelled");
+
+				printConsoleMessage("Heading back to Customer Menu GUI");
+				frame.dispose();
+				customerMenu();
+			} 
+		}
+	}
+
+
+	
 
 
 

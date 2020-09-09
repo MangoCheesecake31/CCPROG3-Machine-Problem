@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 import java.util.Scanner;
 import java.io.*;
 
@@ -18,15 +19,19 @@ public class Account {
 
 	// Constructors ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-	 * Constructs a default Account Object 
+	 * 	Constructs a default Account Object 
+	 *
+	 * 	@author Steven Castro
 	 */
 	public Account() {
 
 	}
 
 	/**
-	 * Constructs a Account Object loaded with account information given by the username
-	 * @param username username of the account to be loaded
+	 * 	Constructs a Account Object loaded with account information given by the username
+	 *
+	 * 	@author Steven Castro
+	 *  @param username username of the account to be loaded
 	 */
 	public Account(String username) {
 		MasterList list = new MasterList();
@@ -40,16 +45,15 @@ public class Account {
 	// Methods ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	// Registry, LogIn & Out ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
 	/** 
 	 *	registers or creates an account by creating a file that contains all user information and also adding the username to the master list
 	 *
 	 *	@author Steven Castro
-	 *	@param accountType type of account to be registered
-	 *  @param username username of account
-	 *  @param password account's password
-	 *  @param fullName object Name of user
-	 *  @param addresses object Address of user
+	 *	@param 	accountType type of account to be registered
+	 *  @param 	username 	username of account
+	 *  @param 	password 	account's password
+	 *  @param 	fullName 	object Name of user
+	 *  @param 	addresses 	object Address of user
 	 *	@return boolean
 	 */
 	public boolean register(String accountType, String username, String password, Name fullName, Address addresses) {
@@ -83,28 +87,26 @@ public class Account {
 		}
 
 		// Account Password Checking (If Valid)
-
 		if(!(validPassword(password))) {
 			return false;
 		}
 
-		// Saving User Information ::::::::::::::::::::
 
+		// Saving User Information ::::::::::::::::::::::::::::::::::::::::
 		// Add Registered User to MasterList.txt
 		list.addMaster(username, accountType);
 
 		// Create & Save File for User Personal and Account Information
 		saveUserInfo(username);
-
 		return true;
 	}
 
 	/** 
-	 *	logIns and loads user account information onto this Object's fields when successful
+	 *	returns true if the inputted account credentials parameters are correct
 	 *	
 	 *	@author Steven Castro
-	 *	@param username Account username
-	 *	@param password inputted password
+	 *	@param 	username 	Account username
+	 *	@param 	password 	inputted password
 	 *	@return boolean
 	 */
 	public boolean logIn(String username, String password) {
@@ -143,8 +145,8 @@ public class Account {
 		online = false;
 	}
 
-	// Getter ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+	// Getter ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/** 
 	 *	returns username field/attribute
 	 *	
@@ -185,14 +187,14 @@ public class Account {
 		return online;
 	}
 
-	// Data Validity ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+	// Data Validity ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
 	 *	returns true if username exists in the MasterList.txt
 	 *	sets the fields username and role of Class Account when true
 	 *	
 	 *	@author Steven Castro
-	 *	@param username current user's inputted username
+	 *	@param username 	current user's inputted username
 	 *	@return boolean
 	 */
 	public boolean verifyUsername(String username) {
@@ -215,7 +217,7 @@ public class Account {
 	 *	sets the field online of Account Class to true when true
 	 *	
 	 *	@author Steven Castro
-	 *	@param password current user's inputted password
+	 *	@param 	password 	current user's inputted password
 	 *	@return boolean
 	 */
 	private boolean verifyPassword(String password) {
@@ -236,7 +238,7 @@ public class Account {
 	 *	(Minimum of 6 characters, Includes at least 1 special character)
 	 *	
 	 *	@author Steven Castro
-	 *	@param password current user's inputted password
+	 *	@param 	password 	current user's inputted password
 	 *	@return boolean
 	 */
 	public boolean validPassword(String password) {
@@ -259,13 +261,13 @@ public class Account {
 		return false;
 	}
 
-	// File Handling ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+	// File Handling ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
 	 *	scans and loads user's personnal and account information onto Account Class fields
 	 *	
 	 *	@author Steven Castro
-	 *	@param username current user's username
+	 *	@param 	username 	current user's username
 	 */
 	public void loadUserInfo(String username) {
 
@@ -285,19 +287,18 @@ public class Account {
 			// Scan Role
 			role = list.getMasterRole(username);
 
-			// Scan Fullname
-			fullName = new Name((sc.next()).replaceAll(",", ""), (sc.next()).replaceAll(",", ""), sc.next());
-
-			// Flush
+			// Flsuh
 			dump = sc.nextLine();
+
+			// Scan Fullname
+			StringTokenizer st = new StringTokenizer(sc.nextLine(), ",");
+			fullName = new Name(st.nextToken().trim(), st.nextToken().trim(), st.nextToken().trim());
 
 			// Scan Address Information
 			addresses = new Address();
 			addresses.setHomeAddress((sc.nextLine()).substring(6));
 			addresses.setOfficeAddress((sc.nextLine()).substring(8));
-			dump = sc.next();
-			addresses.setPhoneNumber((sc.next()).substring(1));
-			dump = sc.nextLine();
+			addresses.setPhoneNumber((sc.nextLine()).substring(7));
 			addresses.setEmailAddress((sc.nextLine()).substring(7));
 			sc.close();
 
@@ -307,12 +308,12 @@ public class Account {
 	}
 
 	/**
-		returns true when writing user's personal and account information to respective files is successful
-
-		@author Steven Castro
-		@param username current user's username
-		@return boolean
-	*/
+	 *	returns true when writing user's personal and account information to respective files is successful
+	 *
+	 *	@author Steven Castro
+	 *	@param 	username 	current user's username
+	 *	@return boolean
+	 */
 	public boolean saveUserInfo(String username) {
 
 		try {
@@ -337,13 +338,11 @@ public class Account {
 		}	
 	}
 
-	// Could Be Useful ::::::::::::::::::::::::::::::::::::::::::::::::::
-
 	/**
 	 *	copies all fields of paramter newUser to Account class fields
 	 *	
 	 *	@author Steven Castro
-	 *	@param newUser class parameter
+	 *	@param newUser Account object to be copied parameter
 	 */
 	public void copyAccountInfo(Account newUser) {
 

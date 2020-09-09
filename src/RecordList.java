@@ -19,10 +19,20 @@ public class RecordList {
 
 
 	// Constructors ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	/**
+	 * 	Constructs a RecordList object with default file path to Record List text file (Records.txt)
+	 * 	
+	 *  @author Steven Castro
+	 */
 	public RecordList() {
 		this("Records.txt");
 	}
 
+	/**
+	 * 	Constructs a RecordList object with desired file path to Record List text file (Records.txt)
+	 * 	
+	 *  @author Steven Castro
+	 */
 	public RecordList(String filename) {
 		FILE = new File(filename);
 		load();
@@ -51,13 +61,14 @@ public class RecordList {
 	/**
 	 *	return a Record found in the ArrayList records based on the index
 	 * 
-	 * @author Steven Castro
-	 * @param index index of the Record in ArrayList records
+	 * 	@author Steven Castro
+	 *  @param index index of the Record in ArrayList records
 	 */
 	public Record getUserRecord(int index) {
 		return records.get(index); 
 
 	}
+
 
 	// Data Handling ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
@@ -70,6 +81,18 @@ public class RecordList {
 		records.add(rc);
 		save();
 
+	}
+
+	/**
+	 *	Add a record entry to a user's Record in the ArrayList records
+	 * 
+	 *	@author Steven Castro
+	 *	@param username username of the Record holder
+	 *	@param code establishment code to be added in the new entry
+	 */
+	public void addRecordEntry(String username, String code) {
+		getUserRecord(username).addEntry(code, Calendar.getInstance());
+		save();
 	}
 
 
@@ -214,5 +237,4 @@ public class RecordList {
                 										 	 Calendar.MINUTE, minute).build();
 		return calendar;
 	}
-
 }

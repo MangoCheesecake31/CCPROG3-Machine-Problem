@@ -11,7 +11,6 @@ public class GovernmentOfficial extends Citizen {
 	// Methods ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	// Data Display ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
 	/**
 	 * prints and display all unassigned cases in Cases.txt
 	 * 
@@ -83,11 +82,11 @@ public class GovernmentOfficial extends Citizen {
 	}
 
 	/**
-	 * display analytics of reported cases based on user preference of duration
+	 * 	display analytics of reported cases based on user preference of duration
 	 *
-	 * @author Steven Castro
-	 * @param start the starting date
-	 * @param end the ending date
+	 * 	@author Steven Castro
+	 *  @param 	start	the starting date
+	 *  @param 	end 	the ending date
 	 */
 	public void analytics(Calendar start, Calendar end) {
 		int numCase = 0;
@@ -116,10 +115,10 @@ public class GovernmentOfficial extends Citizen {
 	/**
 	 * display analytics of reported cases based on user preference of city and duration
 	 *
-	 * @author Steven Castro
-	 * @param cityName name of the chosen city
-	 * @param start the starting date
-	 * @param end the ending date
+	 *  @author Steven Castro
+	 *  @param 	cityName 	name of the chosen city
+	 *  @param 	start 	 	the starting date
+	 *  @param 	end 		the ending date
 	 */
 	public void analytics(String cityName, Calendar start, Calendar end) {
 		int numCase = 0;
@@ -161,14 +160,14 @@ public class GovernmentOfficial extends Citizen {
 		Visual.pressEnterToContinue();
 	}
 
-	// Account Manipulation ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+	// Account Manipulation ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-	 * returns true if government official account creation is successful
+	 *  returns true if government official account creation is successful
 	 * 
-	 * @return boolean
-	 * @author Steven Castro
-	 * @param username the username to be turned into a government official
+	 *  @author Steven Castro
+	 *  @param 	username 	the username to be turned into a government official
+	 *  @return boolean
 	 */
 	public boolean createGovernmentOfficial(String username) {
 
@@ -181,11 +180,11 @@ public class GovernmentOfficial extends Citizen {
 	}
 
 	/**
-	 * returns true if contact tracer account creation is successful
+	 * 	returns true if contact tracer account creation is successful
 	 *
-	 * @return boolean
-	 * @author Steven Castro
-	 * @param username the username to be turned into a Contact Tracer
+	 *  @author Steven Castro
+	 *  @param 	username 	the username to be turned into a Contact Tracer
+	 * 	@return boolean
 	 */
 	public boolean createContactTracer(String username) {
 
@@ -198,11 +197,11 @@ public class GovernmentOfficial extends Citizen {
 	}
 
 	/**
-	 * returns true if termination of account is successful
+	 *  returns true if termination of account is successful
 	 *
-	 * @param username username of the user to be demoted to customer account
-	 * @return boolean
-	 * @author Steven Castro
+	 *  @author Steven Castro
+	 *  @param 	username 	username of the user to be demoted to customer account
+	 *  @return boolean
 	 */
 	public boolean terminateAccount(String username) {
 
@@ -227,13 +226,13 @@ public class GovernmentOfficial extends Citizen {
 		return false;
 	}
 
-	// Analytics ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+	// Analytics ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-	 * ask for String input of a Date in (MM,dd,yyyy) format and return a Calendar
+	 * 	ask for String input of a Date in (MM,dd,yyyy) format and return a Calendar
 	 *
-	 * @return Calendar
-	 * @author Steven Castro
+	 *  @author Steven Castro
+	 * 	@return Calendar
 	 */
 	public Calendar inputDate() {
 		Calendar myDate;
@@ -252,9 +251,3 @@ public class GovernmentOfficial extends Citizen {
 		return myDate;
 	}
  }
-
-
-
-
-
-

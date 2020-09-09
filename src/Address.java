@@ -1,16 +1,30 @@
 public class Address {
 	// Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	private String emailAddress;
 	private String homeAddress;
 	private String officeAddress;
+	private String emailAddress;
 	private String phoneNumber;
 
 
 	// Constructors ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	/**
+	 * 	Constructs a Address object with null fields
+	 *
+	 * 	@author Steven Castro
+	 */
 	public Address() {
 
 	}
 	
+	/**
+	 * 	Constructs a Address object while also settings it's fields
+	 *
+	 * 	@author Steven Castro
+	 *  @param  home   home address
+	 *  @param  office office address
+	 *  @param  phone  phone address
+	 *  @param  email  email address
+	 */
 	public Address(String home, String office, String phone, String email) {
 		setHomeAddress(home);
 		setOfficeAddress(office);
@@ -24,6 +38,7 @@ public class Address {
 	// Setters ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
 	 *	sets value of homeAddress field
+	 *	
 	 *	@author Steven Castro
 	 *	@param a home address
 	 */
@@ -33,6 +48,7 @@ public class Address {
 
 	/**
 	 *	sets value of officeAddress field
+	 *	
 	 *	@author Steven Castro
 	 *	@param a office address
 	 */
@@ -47,7 +63,6 @@ public class Address {
 	 *	@return boolean
 	 */
 	public boolean setPhoneNumber(String n) {
-		
 		if(validPhoneNumber(n)) {
 			phoneNumber = n;
 			return true;
@@ -57,6 +72,7 @@ public class Address {
 
 	/**
 	 *	sets value of emailAddress field
+	 *	
 	 *	@author Steven Castro
 	 *	@param a email address
 	 */
@@ -68,6 +84,7 @@ public class Address {
 
 	/**
 	 *	returns the value of homeAddress field
+	 *	
 	 *	@author Steven Castro
 	 *	@return String
 	 */
@@ -77,6 +94,7 @@ public class Address {
 
 	/**
 	 *	returns the value of officeAddress field
+	 *	
 	 *	@author Steven Castro
 	 *	@return String
 	 */
@@ -86,6 +104,7 @@ public class Address {
 
 	/**
 	 *	returns the value of phoneNumber field
+	 *	
 	 *	@author Steven Castro
 	 *	@return String
 	 */
@@ -95,6 +114,7 @@ public class Address {
 
 	/**
 	 *	returns the value of emailAddress field
+	 *	
 	 *	@author Steven Castro
 	 *	@return String
 	 */
@@ -102,20 +122,16 @@ public class Address {
 		return emailAddress;
 	}
 
-	// Data Validity ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+	// Data Validity ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-	 *	returns true if parameter n is a valid phone number
+	 *	returns true if the number is valid
+	 *	
 	 *	@author Steven Castro
 	 *	@param n phone number
 	 *	@return boolean
 	 */
 	private boolean validPhoneNumber(String n) {
-
-		if(n.length() != 11) {							
-			return false;
-		}
-
 		try {										
 			double num = Double.parseDouble(n);
 			
