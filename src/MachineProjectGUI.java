@@ -51,10 +51,10 @@ public class MachineProjectGUI {
 		errorBoxA.setBounds(64, 272, 160, 32);
 
 		// Icons
-		JLabel registerIconLabel = ComponentFactory.createIconLabel(40, 40, "user-plus.png");
-		JLabel loginIconLabel = ComponentFactory.createIconLabel(40, 40, "log-in.png");
-		JLabel userIconLabel = ComponentFactory.createIconLabel(32, 32, "user.png");
-		JLabel lockIconLabel = ComponentFactory.createIconLabel(32, 32, "lock.png");
+		JLabel registerIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/user-plus.png");
+		JLabel loginIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/log-in.png");
+		JLabel userIconLabel = ComponentFactory.createIconLabel(32, 32, "./Icons/user.png");
+		JLabel lockIconLabel = ComponentFactory.createIconLabel(32, 32, "./Icons/lock.png");
 		userIconLabel.setBounds(32, 164, 32, 32);
 		lockIconLabel.setBounds(32, 236, 32, 32);
 		loginIconLabel.setBounds(17, 308, 40, 40);
@@ -125,10 +125,10 @@ public class MachineProjectGUI {
 		errorBoxA.setBounds(64, 344, 300, 32);
 
 		// Icons
-		JLabel registerIconLabel = ComponentFactory.createIconLabel(40, 40, "user-plus.png");
-		JLabel loginIconLabel = ComponentFactory.createIconLabel(40, 40, "log-in.png");
-		JLabel userIconLabel = ComponentFactory.createIconLabel(32, 32, "user.png");
-		JLabel lockIconLabel = ComponentFactory.createIconLabel(32, 32, "lock.png");
+		JLabel registerIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/user-plus.png");
+		JLabel loginIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/log-in.png");
+		JLabel userIconLabel = ComponentFactory.createIconLabel(32, 32, "./Icons/user.png");
+		JLabel lockIconLabel = ComponentFactory.createIconLabel(32, 32, "./Icons/lock.png");
 		userIconLabel.setBounds(32, 164, 32, 32);
 		lockIconLabel.setBounds(32, 236, 32, 32);
 
@@ -209,8 +209,8 @@ public class MachineProjectGUI {
 		phoneLabel.setBounds(296, 400, 150, 32);
 
 		// Icons
-		JLabel confirmIconLabel = ComponentFactory.createIconLabel(40, 40, "check-square.png");
-		JLabel cancelIconLabel = ComponentFactory.createIconLabel(40, 40, "x-square.png");
+		JLabel confirmIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/check-square.png");
+		JLabel cancelIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/x-square.png");
 		confirmIconLabel.setBounds(36, 500, 40, 40);
 		cancelIconLabel.setBounds(36, 564, 40, 40);
 
