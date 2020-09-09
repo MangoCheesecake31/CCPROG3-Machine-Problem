@@ -9,97 +9,75 @@ public class MachineProjectGUI {
 	// Swing Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	private JFrame frame;
 	private JTextField textBoxA, textBoxB, textBoxC, textBoxD, textBoxE, textBoxF, textBoxG, textBoxH;
-	private JPasswordField passBoxA;
+	private JPasswordField passBoxA, passBoxB;
 	private JButton buttonA, buttonB, buttonC, buttonD, buttonE; 
+	private JLabel errorBoxA;
+
+	// Variables
 	private String inputUsername, inputPassword, inputRole;
 	
 
 	// Constructors ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::	 
 	public MachineProjectGUI() {
-		mainMenu();
-		
+		//loginMenu();
+		accountFormMenu();
 	}
 
 
 	// Methods ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 	/**
-	 * 	Main Menu GUI
+	 * 	Login Menu GUI
 	 * 	@author Steven Castro
 	 */
-	public void mainMenu() {
+	private void loginMenu() {
 		// Frame Settings
-		frame = ComponentFactory.createFrame("Main Menu", 500, 500);
+		frame = ComponentFactory.createFrame("Login Menu", 520, 480);
 
 		// Panel Settings
-		JPanel panel = ComponentFactory.createPanel(500, 500);
+		JPanel panel = ComponentFactory.createPanel(520, 480);
 
 		// Label Settings
-		JLabel titleLabel = ComponentFactory.createTitleLabel("Main Menu", 30);
-		titleLabel.setBounds(0, 30, 500, 80);
+		// Labels
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Sign In", 32);
+		JLabel usernameLabel = ComponentFactory.createLabel("Username", 16);
+		JLabel passwordLabel = ComponentFactory.createLabel("Password", 16);
+		titleLabel.setBounds(0, 32, 520, 80);
+		usernameLabel.setBounds(64, 128, 112, 32);
+		passwordLabel.setBounds(64, 200, 112, 32);
+
+		// Errors
+		errorBoxA = ComponentFactory.createLabel("", 14);
+		errorBoxA.setBounds(64, 272, 160, 32);
+
+		// Icons
+		JLabel registerIconLabel = ComponentFactory.createIconLabel(40, 40, "user-plus.png");
+		JLabel loginIconLabel = ComponentFactory.createIconLabel(40, 40, "log-in.png");
+		JLabel userIconLabel = ComponentFactory.createIconLabel(32, 32, "user.png");
+		JLabel lockIconLabel = ComponentFactory.createIconLabel(32, 32, "lock.png");
+		userIconLabel.setBounds(32, 164, 32, 32);
+		lockIconLabel.setBounds(32, 236, 32, 32);
+		loginIconLabel.setBounds(17, 308, 40, 40);
+		registerIconLabel.setBounds(17, 372, 40, 40);
 
 		JLabel upperColorLabel = ComponentFactory.createColoredBlockLabel();
 		JLabel lowerColorLabel = ComponentFactory.createColoredBlockLabel();
-		upperColorLabel.setBounds(0, 0, 500, 30);
-		lowerColorLabel.setBounds(0, 470, 500, 30);
+		upperColorLabel.setBounds(0, 0, 520, 32);
+		lowerColorLabel.setBounds(0, 464, 520, 16);
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Register", new MainEvents());
-		buttonB = ComponentFactory.createButton("Login", new MainEvents()); 
-		buttonC = ComponentFactory.createButton("Exit", new MainEvents()); 
-		buttonA.setBounds(0, 320, 500, 50);
-		buttonB.setBounds(0, 370, 500, 50);
-		buttonC.setBounds(0, 420, 500, 50);
-
-		// Add Components Together
-		frame.add(panel);
-		panel.add(titleLabel);
-		panel.add(buttonA);
-		panel.add(buttonB);
-		panel.add(buttonC);
-		panel.add(upperColorLabel);
-		panel.add(lowerColorLabel);
-
-		// Display Frame
-		frame.setVisible(true);
-	}
-
-	/**
-	 * 	Register Menu GUI
-	 * 	@author Steven Castro
-	 */
-	public void registerMenu() {
-		// Frame Settings
-		frame = ComponentFactory.createFrame("Register Menu", 500, 500);
-
-		// Panel Settings
-		JPanel panel = ComponentFactory.createPanel(500, 500);
-
-		// Label Settings
-		JLabel titleLabel = ComponentFactory.createTitleLabel("User Registry", 30);
-		JLabel usernameLabel = ComponentFactory.createLabel("Username: ", 14);
-		JLabel passwordLabel = ComponentFactory.createLabel("Password: ", 14);
-		titleLabel.setBounds(0, 30, 500, 80);
-		usernameLabel.setBounds(80, 150, 230, 40);
-		passwordLabel.setBounds(80, 230, 230, 40);
-
-		JLabel upperColorLabel = ComponentFactory.createColoredBlockLabel();
-		JLabel lowerColorLabel = ComponentFactory.createColoredBlockLabel();
-		upperColorLabel.setBounds(0, 0, 500, 30);
-		lowerColorLabel.setBounds(0, 470, 500, 30);
-
-		// Button Settings
-		buttonA = ComponentFactory.createButton("Register", new RegisterEvents());
-		buttonB = ComponentFactory.createButton("Back", new RegisterEvents());
-		buttonA.setBounds(0, 420, 250, 50);
-		buttonB.setBounds(250, 420, 250, 50);
+		buttonA = ComponentFactory.createButton("Login", new LoginEvents());
+		buttonB = ComponentFactory.createButton("Create An Account?", new LoginEvents());
+		buttonA.setBounds(65, 304, 390, 48);
+		buttonB.setBounds(65, 368, 390, 48);
 
 		// Text & Password Fields
-		textBoxA = ComponentFactory.createTextField(14);
-		passBoxA = ComponentFactory.createPassField(14);
-		textBoxA.setBounds(80, 180, 330, 40);
-		passBoxA.setBounds(80, 260, 330, 40);
+		textBoxA = ComponentFactory.createTextField(16);
+		passBoxA = ComponentFactory.createPassField(16);
+		textBoxA.setBounds(64, 160, 280, 40);
+		passBoxA.setBounds(64, 232, 280, 40);
 
-		// Add Components
+		// Add Components Together
 		frame.add(panel);
 		panel.add(titleLabel);
 		panel.add(usernameLabel);
@@ -110,6 +88,85 @@ public class MachineProjectGUI {
 		panel.add(lowerColorLabel);
 		panel.add(textBoxA);
 		panel.add(passBoxA);
+		panel.add(userIconLabel);
+		panel.add(lockIconLabel);
+		panel.add(registerIconLabel);
+		panel.add(loginIconLabel);
+		panel.add(errorBoxA);
+
+		// Display Frame
+		frame.setVisible(true);	
+	}
+
+	/**
+	 * 	Register Menu GUI (Username & Password)
+	 * 	@author Steven Castro
+	 */
+	public void registerMenu() {
+		// Frame Settings
+		frame = ComponentFactory.createFrame("Registry Menu", 520, 480);
+
+		// Panel Settings
+		JPanel panel = ComponentFactory.createPanel(520, 480);
+
+		// Label Settings
+		// Labels
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Sign Up", 32);
+		JLabel usernameLabel = ComponentFactory.createLabel("Username: ", 16);
+		JLabel passwordLabel = ComponentFactory.createLabel("Password: ", 16);
+		JLabel confirmLabel = ComponentFactory.createLabel("Confirm Password: ", 16);
+		titleLabel.setBounds(0, 32, 520, 80);
+		usernameLabel.setBounds(64, 128, 200, 32);
+		passwordLabel.setBounds(64, 200, 200, 32);
+		confirmLabel.setBounds(64, 272, 200, 32);
+
+		// Error
+		errorBoxA = ComponentFactory.createLabel("", 14);
+		errorBoxA.setBounds(64, 344, 300, 32);
+
+		// Icons
+		JLabel registerIconLabel = ComponentFactory.createIconLabel(40, 40, "user-plus.png");
+		JLabel loginIconLabel = ComponentFactory.createIconLabel(40, 40, "log-in.png");
+		JLabel userIconLabel = ComponentFactory.createIconLabel(32, 32, "user.png");
+		JLabel lockIconLabel = ComponentFactory.createIconLabel(32, 32, "lock.png");
+		userIconLabel.setBounds(32, 164, 32, 32);
+		lockIconLabel.setBounds(32, 236, 32, 32);
+
+		JLabel upperColorLabel = ComponentFactory.createColoredBlockLabel();
+		JLabel lowerColorLabel = ComponentFactory.createColoredBlockLabel();
+		upperColorLabel.setBounds(0, 0, 520, 32);
+		lowerColorLabel.setBounds(0, 464, 520, 16);
+
+		// Button Settings
+		buttonA = ComponentFactory.createButton("Next", new RegisterEvents());
+		buttonB = ComponentFactory.createButton("Cancel", new RegisterEvents());
+		buttonA.setBounds(65, 376, 179, 48);
+		buttonB.setBounds(260, 376, 179, 48);
+
+		// Text & Password Fields
+		textBoxA = ComponentFactory.createTextField(16);
+		passBoxA = ComponentFactory.createPassField(16);
+		passBoxB = ComponentFactory.createPassField(16);
+		textBoxA.setBounds(64, 160, 280, 40);
+		passBoxA.setBounds(64, 232, 280, 40);
+		passBoxB.setBounds(64, 304, 280, 40);
+
+		// Add Components Together
+		frame.add(panel);
+		panel.add(titleLabel);
+		panel.add(usernameLabel);
+		panel.add(passwordLabel);
+		panel.add(confirmLabel);
+		panel.add(buttonA);
+		panel.add(buttonB);
+		panel.add(upperColorLabel);
+		panel.add(lowerColorLabel);
+		panel.add(textBoxA);
+		panel.add(passBoxA);
+		panel.add(passBoxB);
+		panel.add(userIconLabel);
+		panel.add(lockIconLabel);
+		panel.add(errorBoxA);
 
 		// Display Frame
 		frame.setVisible(true);	
@@ -119,42 +176,53 @@ public class MachineProjectGUI {
 	 * 	Account Information Form GUI
 	 * 	@author Steven Castro
 	 */
-	public void accountInfoMenu() {
+	public void accountFormMenu() {
 		// Frame Settings
-		frame = ComponentFactory.createFrame("Account Information Form", 500, 650);
+		frame = ComponentFactory.createFrame("Account Information Form", 616, 640);
 
 		// Panel Settings
-		JPanel panel = ComponentFactory.createPanel(500, 650);
+		JPanel panel = ComponentFactory.createPanel(616, 640);
 		
 		// Label
-		JLabel titleLabel = ComponentFactory.createTitleLabel("Account Details", 30);
-		JLabel fullNameLabel = ComponentFactory.createLabel("   Name ", 24);
-		JLabel firstNameLabel = ComponentFactory.createLabel("First Name: ", 16);
-		JLabel middleNameLabel = ComponentFactory.createLabel("Middle Name: ", 16);
-		JLabel lastNameLabel = ComponentFactory.createLabel("Last Name: ", 16);
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Account Details", 32);
+		JLabel fullNameLabel = ComponentFactory.createLabel("   Full Name ", 24);
+		JLabel firstNameLabel = ComponentFactory.createLabel("First Name ", 16);
+		JLabel middleNameLabel = ComponentFactory.createLabel("Middle Name ", 16);
+		JLabel lastNameLabel = ComponentFactory.createLabel("Last Name ", 16);
 
 		JLabel addressesLabel = ComponentFactory.createLabel("   Addresses ", 24);
-		JLabel homeLabel = ComponentFactory.createLabel("Home: ", 16);
-		JLabel officeLabel = ComponentFactory.createLabel("Office: ", 16);
-		JLabel emailLabel = ComponentFactory.createLabel("Email: ", 16);
-		JLabel phoneLabel = ComponentFactory.createLabel("Phone: ", 16);
+		JLabel homeLabel = ComponentFactory.createLabel("Home ", 16);
+		JLabel officeLabel = ComponentFactory.createLabel("Office ", 16);
+		JLabel emailLabel = ComponentFactory.createLabel("Email ", 16);
+		JLabel phoneLabel = ComponentFactory.createLabel("Phone ", 16);
 		
-		titleLabel.setBounds(0, 30, 500, 80);
-		fullNameLabel.setBounds(0, 120, 500, 60);
-		firstNameLabel.setBounds(50, 200, 120, 30);
-		middleNameLabel.setBounds(50, 240, 120, 30);
-		lastNameLabel.setBounds(50, 280, 120, 30);
+		titleLabel.setBounds(0, 32, 616, 80);
+		fullNameLabel.setBounds(0, 144, 200, 40);
+		firstNameLabel.setBounds(32, 184, 150, 32);
+		middleNameLabel.setBounds(32, 256, 150, 32);
+		lastNameLabel.setBounds(32, 328, 150, 32);
 
-		addressesLabel.setBounds(0, 320, 500, 60);
-		homeLabel.setBounds(50, 400, 120, 30);
-		officeLabel.setBounds(50, 440, 120, 30);
-		emailLabel.setBounds(50, 480, 120, 30);
-		phoneLabel.setBounds(50, 520, 120, 30);
+		addressesLabel.setBounds(264, 144, 200, 40);
+		homeLabel.setBounds(296, 184, 150, 32);
+		officeLabel.setBounds(296, 256, 150, 32);
+		emailLabel.setBounds(296, 328, 150, 32);
+		phoneLabel.setBounds(296, 400, 150, 32);
 
+		// Icons
+		JLabel confirmIconLabel = ComponentFactory.createIconLabel(40, 40, "check-square.png");
+		JLabel cancelIconLabel = ComponentFactory.createIconLabel(40, 40, "x-square.png");
+		confirmIconLabel.setBounds(36, 500, 40, 40);
+		cancelIconLabel.setBounds(36, 564, 40, 40);
+
+		// Error
+		errorBoxA = ComponentFactory.createLabel("", 14);
+		errorBoxA.setBounds(32, 400, 200, 32);
+
+		// Colored Blocks 
 		JLabel upperColorLabel = ComponentFactory.createColoredBlockLabel(); 
 		JLabel lowerColorLabel = ComponentFactory.createColoredBlockLabel(); 
-		upperColorLabel.setBounds(0, 0, 500, 30);
-		lowerColorLabel.setBounds(0, 620, 500, 30);
+		upperColorLabel.setBounds(0, 0, 616, 32);
+		lowerColorLabel.setBounds(0, 624, 616, 16);
 
 		// Text Field Settings
 		textBoxB = ComponentFactory.createTextField(14);
@@ -164,19 +232,19 @@ public class MachineProjectGUI {
 		textBoxF = ComponentFactory.createTextField(14);
 		textBoxG = ComponentFactory.createTextField(14);
 		textBoxH = ComponentFactory.createTextField(14);
-		textBoxB.setBounds(200, 200, 270, 30);
-		textBoxC.setBounds(200, 240, 270, 30);
-		textBoxD.setBounds(200, 280, 270, 30);
-		textBoxE.setBounds(200, 400, 270, 30);
-		textBoxF.setBounds(200, 440, 270, 30);
-		textBoxG.setBounds(200, 480, 270, 30);
-		textBoxH.setBounds(200, 520, 270, 30);
+		textBoxB.setBounds(32, 216, 200, 40);
+		textBoxC.setBounds(32, 288, 200, 40);
+		textBoxD.setBounds(32, 360, 200, 40);
+		textBoxE.setBounds(296, 216, 300, 40);
+		textBoxF.setBounds(296, 288, 300, 40);
+		textBoxG.setBounds(296, 360, 250, 40);
+		textBoxH.setBounds(296, 432, 150, 40); 
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Register", new AccountInfoEvents());
-		buttonB = ComponentFactory.createButton("Cancel", new AccountInfoEvents());
-		buttonA.setBounds(0, 570, 250, 50);
-		buttonB.setBounds(250, 570, 250, 50);
+		buttonA = ComponentFactory.createButton("Confirm Register", new AccountFormEvents());
+		buttonB = ComponentFactory.createButton("Cancel Registry", new AccountFormEvents());
+		buttonA.setBounds(80, 496, 504, 48);
+		buttonB.setBounds(80, 560, 504, 48);
 		
 		// Add Componenets
 		frame.add(panel);
@@ -201,176 +269,131 @@ public class MachineProjectGUI {
 		panel.add(textBoxH);
 		panel.add(buttonA);
 		panel.add(buttonB);
+		panel.add(errorBoxA);
+		panel.add(confirmIconLabel);
+		panel.add(cancelIconLabel);
 
 		// Display Frame
 		frame.setVisible(true);	
 	}
-
 	/**
-	 * 	Login Menu GUI
+	 * 	Customer Menu GUI
 	 * 	@author Steven Castro
 	 */
-	private void loginMenu() {
+	private void customerMenu() {
 		// Frame Settings
-		frame = ComponentFactory.createFrame("Login Menu", 500, 500);
+		frame = ComponentFactory.createFrame("Customer Menu", 500, 500);
 
 		// Panel Settings
 		JPanel panel = ComponentFactory.createPanel(500, 500);
 
 		// Label Settings
-		JLabel titleLabel = ComponentFactory.createTitleLabel("User Login", 30);
-		JLabel usernameLabel = ComponentFactory.createLabel("Username: ", 14);
-		JLabel passwordLabel = ComponentFactory.createLabel("Password: ", 14);
-		titleLabel.setBounds(0, 30, 500, 80);
-		usernameLabel.setBounds(80, 150, 230, 40);
-		passwordLabel.setBounds(80, 230, 230, 40);
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Customer Menu", 30);
+		titleLabel.setBounds(0, 0, 500, 80);
 
-		JLabel upperColorLabel = ComponentFactory.createColoredBlockLabel();
-		JLabel lowerColorLabel = ComponentFactory.createColoredBlockLabel();
-		upperColorLabel.setBounds(0, 0, 500, 30);
-		lowerColorLabel.setBounds(0, 470, 500, 30);
 
-		// Button Settings
-		buttonA = ComponentFactory.createButton("Login", new LoginEvents());
-		buttonB = ComponentFactory.createButton("Back", new LoginEvents());
-		buttonA.setBounds(0, 420, 250, 50);
-		buttonB.setBounds(250, 420, 250, 50);
-
-		// Text & Password Fields
-		textBoxA = ComponentFactory.createTextField(14);
-		passBoxA = ComponentFactory.createPassField(14);
-		textBoxA.setBounds(80, 180, 330, 40);
-		passBoxA.setBounds(80, 260, 330, 40);
-
-		// Add Components Together
+		// Add Compoenents
 		frame.add(panel);
-		panel.add(titleLabel);
-		panel.add(usernameLabel);
-		panel.add(passwordLabel);
-		panel.add(buttonA);
-		panel.add(buttonB);
-		panel.add(upperColorLabel);
-		panel.add(lowerColorLabel);
-		panel.add(textBoxA);
-		panel.add(passBoxA);
 
-		// Display Frame
-		frame.setVisible(true);	
+		// Display
+		frame.setVisible(true); 
 	}
 
 	// Event Handling	// Inner Classess	// ActionListener Classes 	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	private class MainEvents implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == buttonA) {				// Register Button
-				printConsoleMessage("Register Button Pressed");
-				printConsoleMessage("Heading to Register GUI");
-
-				frame.dispose();						
-				inputRole = "customer";
-				registerMenu();							// Call & Proceed to Register GUI
-
-			} else if (e.getSource() == buttonB) {		// Login Button
-				printConsoleMessage("Login Button Pressed");
-				printConsoleMessage("Heading to Login GUI");
-
-				frame.dispose();
-				loginMenu();							// Call & Proceed to Login GUI
-
-			} else {									// Exit Button
-				printConsoleMessage("Exit Button Pressed");
-				printConsoleMessage("Program Terminated");
-
-				frame.dispose();
-				System.exit(0);							// Terminate Program
-
-			}
-		}
-	}
-
 	private class RegisterEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {	
-			if (e.getSource() == buttonA) {				// Register Button (Confirm Username & Password Validity)
-				printConsoleMessage("Register Button Pressed");
+			if (e.getSource() == buttonA) {				// Next Button (Confirm Username & Password Validity)
 
 				MasterList masters = new MasterList();
 
-				// Get Text Field Inputs
-				inputUsername = textBoxA.getText();
-				inputPassword = String.valueOf(passBoxA.getPassword());
+				// Get User Text Field Inputs
+				inputUsername = textBoxA.getText().trim();
+				inputPassword = String.valueOf(passBoxA.getPassword()).trim();
+				String confirmPassword = String.valueOf(passBoxB.getPassword()).trim();
 
-				// Check Unique Username
-				if (!(masters.checkMaster(inputUsername)) && inputUsername.length() > 0) {
-
+				// Check for User Input & Validity (Unique Username)
+				if (!(masters.checkMaster(inputUsername) || inputUsername.isEmpty())) {
 					// Check Valid Password
-					if (user.validPassword(inputPassword)) {
-						printConsoleMessage("Registering User > " + inputUsername + " : " + inputPassword);
-						printConsoleMessage("Heading to Account Info Forms GUI");
+					if (user.validPassword(inputPassword) && !(inputPassword.isEmpty())) {
+						// Check Confirmation of Password
+						if (inputPassword.equals(confirmPassword)) {
+							printConsoleMessage("Registering User > " + inputUsername + " : " + inputPassword);
+							printConsoleMessage("Heading to Account Info Forms GUI");
 
-						frame.dispose();
-						accountInfoMenu();
+							frame.dispose();
+							accountFormMenu();
 
+						} else {
+							// Error Messages
+							errorBoxA.setText("> Invalid Confirmation of Password");
+							printConsoleMessage("Error > Invalid Confirmation of Password");
+						}
 					} else {
 						// Error Messages
-						if (inputPassword.length() == 0) {
+						if (inputPassword.isEmpty()) {
+							errorBoxA.setText("> Missing Password Input");
 							printConsoleMessage("Error > No Password Input");
 						} else {
+							errorBoxA.setText("> Invalid Password Format");
 							printConsoleMessage("Error > Invalid Password Format");
 						}
 					}
 
 				} else {
 					// Error Messages
-					if (inputUsername.length() == 0) {  
+					if (inputUsername.isEmpty()) {  
+						errorBoxA.setText("> Missing Username Input");
 						printConsoleMessage("Error > No Username Input");
 					} else {
+						errorBoxA.setText("> Username is Already Taken");
 					 	printConsoleMessage("Error > Username Input is Taken");
 					}
 				}
 
-				// Clear Text Fields
-				textBoxA.setText("");
+				// Clear Password Text Fields
 				passBoxA.setText("");
+				passBoxB.setText("");
 
 			} else {									// Cancel Button
-				printConsoleMessage("Cancel Button Pressed");
-				printConsoleMessage("Heading Back to Main Menu GUI");
+				printConsoleMessage("Heading Back to Login Menu GUI");
 				
+				clearInputVariables();
 				frame.dispose();
-				mainMenu();								// Call & Proceed back to Main Menu GUI
-
+				loginMenu();							// Call & Proceed back to Login Menu GUI
 			}
 		}
 	}
 
-	private class AccountInfoEvents implements ActionListener {
+	private class AccountFormEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			int i = 1;
+			boolean missing = false;
 			String[] userInputs = new String[7];
 			
 			if (e.getSource() == buttonA) {			// Register Button
-				printConsoleMessage("Register Button Pressed (Forms)");
 
 				// Get Form's Inputs
-				userInputs[0] = textBoxB.getText();	// First Name
-				userInputs[1] = textBoxC.getText();	// Middle Name
-				userInputs[2] = textBoxD.getText();	// Last name
-				userInputs[3] = textBoxE.getText();	// Home Address
-				userInputs[4] = textBoxF.getText();	// Office Address
-				userInputs[5] = textBoxG.getText();	// Phone Address
-				userInputs[6] = textBoxH.getText();	// Email Addresse
+				userInputs[0] = textBoxB.getText().trim();	// First Name
+				userInputs[1] = textBoxC.getText().trim();	// Middle Name
+				userInputs[2] = textBoxD.getText().trim();	// Last name
+				userInputs[3] = textBoxE.getText().trim();	// Home Address
+				userInputs[4] = textBoxF.getText().trim();	// Office Address
+				userInputs[5] = textBoxG.getText().trim();	// Phone Address
+				userInputs[6] = textBoxH.getText().trim();	// Email Addresse
 				
 				// Check for Missing Inputs
 				for (String x: userInputs) {
-					i *= x.length();
+					if(x.length() == 0) {
+						missing = true;
+						break;
+					}
 				}
 
 				// Check if there are Missing Inputs 	
-				if (i != 0) {
-					// Create User Variables
+				if (!missing) {
+					// Create User Account Variables
 					Name fullName = new Name(userInputs[0], userInputs[1], userInputs[2]);
 					Address addresses = new Address(userInputs[3], userInputs[4], userInputs[5], userInputs[6]);
 
@@ -381,23 +404,23 @@ public class MachineProjectGUI {
 
 						frame.dispose();
 						clearInputVariables();
-						mainMenu();
+						loginMenu();
 
 					} else {
 						printConsoleMessage("Registry Failed");
 
 					}
 				} else {
+					errorBoxA.setText("> Missing Inputs");
 					printConsoleMessage("Error > Incomplete Form Inputs");
 
 				}
 			} else {								// Cancel Button
-				System.out.println("Cancel Button Pressed");
-				printConsoleMessage("Heading back to Main Menu GUI");
+				printConsoleMessage("Heading back to Login Menu GUI");
 
 				frame.dispose();
 				clearInputVariables();
-				mainMenu();
+				loginMenu();
 			}
 		}
 	}
@@ -406,18 +429,33 @@ public class MachineProjectGUI {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == buttonA) {						// Login Button	
-				if (user.logIn(textBoxA.getText(), String.valueOf(passBoxA.getPassword()))) {
-					printConsoleMessage("Login Button Pressed");
-					printConsoleMessage("Loading User Information");
 
-					user.loadUserInfo(textBoxA.getText());
+				MasterList masters = new MasterList();
 
-					printConsoleMessage("Fullname: " + user.fullName);
-					printConsoleMessage("Role: " + user.getRole());
-					printConsoleMessage("Online: " + user.getOnline());
+				// Get User Text Field Inputs
+				inputUsername = textBoxA.getText().trim();
+				inputPassword = String.valueOf((passBoxA.getPassword())).trim();
+
+				if (masters.checkMaster(inputUsername)) {
+					if (user.logIn(textBoxA.getText(), String.valueOf(passBoxA.getPassword()))) {
+						printConsoleMessage("Loading User Information");
+
+						user.loadUserInfo(textBoxA.getText());
+
+						printConsoleMessage("Fullname: " + user.fullName);
+						printConsoleMessage("Role: " + user.getRole());
+						printConsoleMessage("Online: " + user.getOnline());
+
+						// TODO Head to ROLE SPECIFIC MENUS
 					
+					} else {
+						errorBoxA.setText("> Invalid Password!");
+						printConsoleMessage("Error > Invalid Password");
+
+					}
 				} else {
-					printConsoleMessage("Error > Invalid Username or Password");
+					errorBoxA.setText("> User Not Found!");
+					printConsoleMessage("Error > User Not Found");
 
 				}
 
@@ -425,12 +463,12 @@ public class MachineProjectGUI {
 				textBoxA.setText("");
 				passBoxA.setText("");
 
-			} else {											// Back Button	
-				printConsoleMessage("Back Button Pressed");
-				printConsoleMessage("Heading back to Main Menu GUI");
+			} else {											// Create An Account Button
+				printConsoleMessage("Heading back to Register Menu GUI");
 
 				frame.dispose();
-				mainMenu();
+				inputRole = "customer";
+				registerMenu();
 			}
 		}
 	}
@@ -439,7 +477,7 @@ public class MachineProjectGUI {
 
 	// Others ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-	 * 	clear the place holder attributes of this object
+	 * 	clear the place holder variables/attributes of this object
 	 */
 	private void clearInputVariables() {
 		inputUsername = null;

@@ -10,11 +10,20 @@ public class ComponentFactory {
 	 */
 	// Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	// Component Color's Hexcodes (Color Settings)
-	private static final String FRAMECOLOR = "#181915";	// DARK GREY	// Color of Frame
-	private static final String COMPOCOLOR = "#282923";	// LIGHT GREY	// Color of Components
-	private static final String BLOCKCOLOR = "#FF9800";	// ORANGE		// Color of Decorative Blocks
+	private static final String FRAMECOLOR = "#24292E";	// DARK GREY	// Color of Frame
+	private static final String COMPOCOLOR = "#2F363D";	// LIGHT GREY	// Color of Components
+	private static final String BLOCKCOLOR = "#0066FF";	// BLUE			// Color of Decorative Blocks
+	//private static final String BLOCKCOLOR = "#0066FF";	// BLUE			// Color of Decorative Blocks
+	
 
 
+	private static final String FONTSTYLE = "Robotico";	// FONT
+	
+	// Old Color Settings
+	// private static final String FRAMECOLOR = "#181915";	// DARK GREY	
+	// private static final String COMPOCOLOR = "#282923";	// LIGHT GREY	
+	// private static final String BLOCKCOLOR = "#FF9800";	// ORANGE	
+	
 	// Methods ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
 	 * returns a JFrame object with settings based from the given parameters
@@ -63,7 +72,7 @@ public class ComponentFactory {
 	public static JLabel createTitleLabel(String title, int fontsize) {
 		JLabel label = new JLabel(title, SwingConstants.CENTER);
 		
-		label.setFont(new Font("Robotico", Font.BOLD, fontsize));
+		label.setFont(new Font(FONTSTYLE, Font.BOLD, fontsize));
 		label.setBackground(Color.decode(COMPOCOLOR));
 		label.setForeground(Color.WHITE);
 		label.setOpaque(true);
@@ -81,7 +90,7 @@ public class ComponentFactory {
 	public static JLabel createLabel(String title, int fontsize) {
 		JLabel label = new JLabel(title);
 		
-		label.setFont(new Font("Robotico", Font.BOLD, fontsize));
+		label.setFont(new Font(FONTSTYLE, Font.BOLD, fontsize));
 		label.setBackground(Color.decode(FRAMECOLOR));
 		label.setForeground(Color.WHITE);
 		label.setOpaque(true);
@@ -114,7 +123,7 @@ public class ComponentFactory {
 		JButton button = new JButton(title);
 		button.addActionListener(event);
 
-		button.setFont(new Font("Robotico", Font.PLAIN, 16));
+		button.setFont(new Font(FONTSTYLE, Font.PLAIN, 16));
 		button.setBackground(Color.decode(COMPOCOLOR));
 		button.setForeground(Color.WHITE);
 		button.setBorder(BorderFactory.createEtchedBorder());
@@ -132,11 +141,11 @@ public class ComponentFactory {
 	public static JTextField createTextField(int fontsize) {
 		JTextField textfield = new JTextField();
 
-		textfield.setFont(new Font("Robotico", Font.PLAIN, fontsize));
+		textfield.setFont(new Font(FONTSTYLE, Font.PLAIN, fontsize));
 		textfield.setBackground(Color.decode(COMPOCOLOR));
 		textfield.setForeground(Color.WHITE);
 		textfield.setOpaque(true);
-		textfield.setBorder(BorderFactory.createEtchedBorder());
+		textfield.setBorder(BorderFactory.createLoweredBevelBorder());
 
 		return textfield;
 	}
@@ -150,12 +159,34 @@ public class ComponentFactory {
 	public static JPasswordField createPassField(int fontsize) {
 		JPasswordField passfield = new JPasswordField();
 
-		passfield.setFont(new Font("Robotico", Font.PLAIN, fontsize));
+		passfield.setFont(new Font(FONTSTYLE, Font.PLAIN, fontsize));
 		passfield.setBackground(Color.decode(COMPOCOLOR));
 		passfield.setForeground(Color.WHITE);
 		passfield.setOpaque(true);
-		passfield.setBorder(BorderFactory.createEtchedBorder());
+		passfield.setBorder(BorderFactory.createLoweredBevelBorder());
 
 		return passfield;
 	}
+
+	/**
+	 * returns a JLabel object with an icon based on given parameters
+	 * @param  width    width of the Image
+	 * @param  height   height of the Image
+	 * @param  filename file path to the Image file
+	 * @return          JLabel
+	 */
+	public static JLabel createIconLabel(int width, int height, String filename) {
+		ImageIcon icon = new ImageIcon(filename);
+
+		Image image = icon.getImage();
+		Image modifiedImage = image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
+		icon = new ImageIcon(modifiedImage);
+
+		JLabel label = new JLabel(icon);
+
+		return label;
+	}
 }
+//	ImageIcon icon = new ImageIcon(filename);
+//	JLabel label = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH)));
+//	return label;	
