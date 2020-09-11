@@ -51,9 +51,9 @@ public class MachineProjectGUI {
 		errorBoxA.setBounds(64, 272, 160, 32);
 
 		// Icons
-		JLabel registerIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/currentUser-plus.png");
+		JLabel registerIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/user-plus.png");
 		JLabel loginIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/log-in.png");
-		JLabel userIconLabel = ComponentFactory.createIconLabel(32, 32, "./Icons/currentUser.png");
+		JLabel userIconLabel = ComponentFactory.createIconLabel(32, 32, "./Icons/user.png");
 		JLabel lockIconLabel = ComponentFactory.createIconLabel(32, 32, "./Icons/lock.png");
 		userIconLabel.setBounds(32, 164, 32, 32);
 		lockIconLabel.setBounds(32, 236, 32, 32);
@@ -125,9 +125,9 @@ public class MachineProjectGUI {
 		errorBoxA.setBounds(64, 344, 300, 32);
 
 		// Icons
-		JLabel registerIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/currentUser-plus.png");
+		JLabel registerIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/user-plus.png");
 		JLabel loginIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/log-in.png");
-		JLabel userIconLabel = ComponentFactory.createIconLabel(32, 32, "./Icons/currentUser.png");
+		JLabel userIconLabel = ComponentFactory.createIconLabel(32, 32, "./Icons/user.png");
 		JLabel lockIconLabel = ComponentFactory.createIconLabel(32, 32, "./Icons/lock.png");
 		userIconLabel.setBounds(32, 164, 32, 32);
 		lockIconLabel.setBounds(32, 236, 32, 32);
@@ -529,7 +529,7 @@ public class MachineProjectGUI {
 
 				if (masters.checkMaster(inputUsername)) {
 					if (currentUser.logIn(textBoxA.getText(), String.valueOf(passBoxA.getPassword()))) {
-						printConsoleMessage("Loading currentUser Information");
+						printConsoleMessage("Loading User Information");
 
 						currentUser.loadUserInfo(textBoxA.getText());
 
@@ -562,8 +562,8 @@ public class MachineProjectGUI {
 
 					}
 				} else {
-					errorBoxA.setText("> currentUser Not Found!");
-					printConsoleMessage("Error > currentUser Not Found");
+					errorBoxA.setText("> User Not Found!");
+					printConsoleMessage("Error > User Not Found");
 
 				}
 
