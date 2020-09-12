@@ -94,6 +94,23 @@ public class MasterList {
 
 	// Getters ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
+	 *	returns the username of an existing user in the Master List
+	 *	
+	 *	@author Steven Castro
+	 *	@param 	index index of username
+	 *	@return String
+	 */
+	public String getMasterUsername(int index) {
+		try {
+			return masters.get(index);
+
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("Get Username index out of bounds");
+			return null;
+		}	
+	}
+
+	/**
 	 *	returns the role of an existing user in the Master List
 	 *	
 	 *	@author Steven Castro

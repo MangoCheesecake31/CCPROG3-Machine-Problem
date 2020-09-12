@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.table.*;
+
 
 public class ComponentFactory {
 	/*
@@ -186,6 +188,50 @@ public class ComponentFactory {
 
 		return label;
 	}
+
+	/**
+	 * 	returns a JScrollPane object with a JTable with settings based from given parameters
+	 *
+	 * 	@author Steven Castro
+	 * 	@param 	data 	2D array of data
+	 * 	@param 	col 	array of strings for column head
+	 */
+	public static JScrollPane createJTableScrollPane(Object[][] data, String[] col) {
+		TableModel model = new DefaultTableModel(data, col) {
+			@Override
+			public boolean isCellEditable(int row, int col) {
+				return false;
+			}
+		};
+
+		JTable table = new JTable(model);
+		table.setPreferredScrollableViewportSize(new Dimension(400, 40));
+		table.setFillsViewportHeight(true);
+
+		// Header Style
+		JTableHeader head = table.getTableHeader();
+		head.setBackground(Color.decode(BLOCKCOLOR)); 
+		head.setForeground(Color.WHITE);
+		head.setFont(new Font(FONTSTYLE, Font.BOLD, 24)); 
+		head.setReorderingAllowed(false);
+		head.setBorder(BorderFactory.createLineBorder(Color.decode(BLOCKCOLOR), 4, false));
+
+		// Body Style
+		table.setGridColor(Color.decode(COMPOCOLOR));
+		table.setBackground(Color.decode(FRAMECOLOR)); 
+		table.setForeground(Color.WHITE);
+		table.setFont(new Font(FONTSTYLE, Font.BOLD, 16));
+		//table.setBorder(BorderFactory.createLineBorder(Color.decode(FRAMECOLOR), 8, false));
+		
+		table.setRowHeight(40);
+
+		JScrollPane pane = new JScrollPane(table);
+		pane.setBackground(Color.decode(BLOCKCOLOR));
+		pane.setBorder(BorderFactory.createLineBorder(Color.decode(COMPOCOLOR), 8, false));
+
+		return pane;
+	}
+	
 }
 //	ImageIcon icon = new ImageIcon(filename);
 //	JLabel label = new JLabel(new ImageIcon(icon.getImage().getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH)));

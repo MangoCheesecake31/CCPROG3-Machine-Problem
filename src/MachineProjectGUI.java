@@ -1,26 +1,26 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.StringTokenizer;
+import java.util.Calendar;
 
 public class MachineProjectGUI {
 	// Main Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	private Account currentUser = new Account(); 
+	private Account currentAccount = new Account(); 
 
 	// Swing Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	private JFrame frame;
 	private JTextField textBoxA, textBoxB, textBoxC, textBoxD, textBoxE, textBoxF, textBoxG, textBoxH;
 	private JPasswordField passBoxA, passBoxB;
-	private JButton buttonA, buttonB, buttonC, buttonD, buttonE; 
+	private JButton buttonA, buttonB, buttonC, buttonD, buttonE, buttonF, buttonG, buttonH, buttonI, buttonJ; 
 	private JLabel errorBoxA, messageBoxA;
 
-	// Variables
-	private String inputUsername, inputPassword, inputRole;
-	
 
 	// Constructors ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::	 
 	public MachineProjectGUI() {
+		// Start Program
 		loginMenu();
-		// checkInMenu();
+
 	}
 
 
@@ -28,6 +28,7 @@ public class MachineProjectGUI {
 
 	/**
 	 * 	Login Menu GUI
+	 * 	
 	 * 	@author Steven Castro
 	 */
 	private void loginMenu() {
@@ -100,9 +101,11 @@ public class MachineProjectGUI {
 
 	/**
 	 * 	Register Menu GUI (Username & Password)
+	 * 	
 	 * 	@author Steven Castro
+	 * 	@param 	accountType	desired Account Type to be registered (customer, official, tracer)
 	 */
-	public void registerMenu() {
+	public void registerMenu(String accountType) {
 		// Frame Settings
 		frame = ComponentFactory.createFrame("Registry Menu", 520, 480);
 
@@ -138,8 +141,8 @@ public class MachineProjectGUI {
 		lowerColorLabel.setBounds(0, 464, 520, 16);
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Next", new RegisterEvents());
-		buttonB = ComponentFactory.createButton("Cancel", new RegisterEvents());
+		buttonA = ComponentFactory.createButton("Next", new RegisterEvents(accountType));
+		buttonB = ComponentFactory.createButton("Cancel", new RegisterEvents(accountType));
 		buttonA.setBounds(65, 376, 179, 48);
 		buttonB.setBounds(260, 376, 179, 48);
 
@@ -174,9 +177,13 @@ public class MachineProjectGUI {
 
 	/**
 	 * 	Account Information Form GUI
+	 * 	
 	 * 	@author Steven Castro
+	 * 	@param 	role 		desired Account type to be registered
+	 * 	@param 	username 	desired unique username to be registered
+	 * 	@param 	password 	desired valid password to be registered
 	 */
-	public void accountFormMenu() {
+	public void accountFormMenu(String role, String username, String password) {
 		// Frame Settings
 		frame = ComponentFactory.createFrame("Account Information Form", 616, 640);
 
@@ -241,8 +248,8 @@ public class MachineProjectGUI {
 		textBoxH.setBounds(296, 432, 150, 40); 
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Confirm Register", new AccountFormEvents());
-		buttonB = ComponentFactory.createButton("Cancel Registry", new AccountFormEvents());
+		buttonA = ComponentFactory.createButton("Confirm Register", new AccountFormEvents(role, username, password));
+		buttonB = ComponentFactory.createButton("Cancel Registry", new AccountFormEvents(role, username, password));
 		buttonA.setBounds(80, 496, 504, 48);
 		buttonB.setBounds(80, 560, 504, 48);
 		
@@ -279,6 +286,7 @@ public class MachineProjectGUI {
 
 	/**
 	 * 	Customer Menu GUI
+	 * 	
 	 * 	@author Steven Castro
 	 */
 	private void customerMenu() {
@@ -293,7 +301,7 @@ public class MachineProjectGUI {
 		titleLabel.setBounds(0, 32, 520, 80);
 
 		// Console/Message
-		messageBoxA = ComponentFactory.createLabel("> Welcome! " + currentUser.fullName, 14);
+		messageBoxA = ComponentFactory.createLabel("> Welcome! " + currentAccount.fullName, 14);
 		messageBoxA.setBounds(65, 112, 390, 32);
 
 		//Icons
@@ -312,10 +320,10 @@ public class MachineProjectGUI {
 		upperBlock.setBounds(0, 0, 520, 32);
 		lowerBlock.setBounds(0, 504, 520, 16);
 
-		buttonA = ComponentFactory.createButton("Check In", new CustomerEvents());
-		buttonB = ComponentFactory.createButton("Report Positive Case", new CustomerEvents());
-		buttonC = ComponentFactory.createButton("Change Profile Information", new CustomerEvents());
-		buttonD = ComponentFactory.createButton("Log Out", new CustomerEvents());
+		buttonA = ComponentFactory.createButton("Check In", new CitizenEvents());
+		buttonB = ComponentFactory.createButton("Report Positive Case", new CitizenEvents());
+		buttonC = ComponentFactory.createButton("Change Profile Information", new CitizenEvents());
+		buttonD = ComponentFactory.createButton("Log Out", new CitizenEvents());
 		buttonA.setBounds(65, 144, 390, 48);
 		buttonB.setBounds(65, 216, 390, 48);
 		buttonC.setBounds(65, 288, 390, 48);
@@ -341,7 +349,121 @@ public class MachineProjectGUI {
 	}
 
 	/**
+	 * 	Customer Menu GUI
+	 * 	
+	 * 	@author Steven Castro
+	 */
+	private void governmentOfficialMenu() {
+		// Frame Settings
+		frame = ComponentFactory.createFrame("Government Menu", 1040, 520);
+
+		// Panel Settings
+		JPanel panel = ComponentFactory.createPanel(1040, 520);
+
+		// Label Settings
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Government Official Account Menu", 32);
+		titleLabel.setBounds(0, 32, 1040, 80);
+
+		// Console/Message
+		messageBoxA = ComponentFactory.createLabel("> Welcome! " + currentAccount.fullName, 14);
+		messageBoxA.setBounds(65, 112, 780, 32);
+
+		//Icons
+		JLabel checkInIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/arrow-up.png");
+		JLabel reportCaseIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/alert-triangle.png");
+		JLabel changeProfileIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/edit.png");
+		JLabel logOutIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/log-out.png");
+
+		JLabel showListIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/list.png");
+		JLabel showCaseIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/file-text.png");
+		JLabel analyticIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/activity.png");
+		JLabel createOfficialIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/user-plus.png");
+		JLabel createTracerIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/user-plus.png");
+		JLabel terminateIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/user-minus.png");
+
+		checkInIconLabel.setBounds(21, 144, 40, 40);
+		reportCaseIconLabel.setBounds(21, 216, 40, 40);
+		changeProfileIconLabel.setBounds(21, 288, 40, 40);
+		logOutIconLabel.setBounds(21, 432, 40, 40);
+
+		showListIconLabel.setBounds(21, 364, 40, 40);
+
+		showCaseIconLabel.setBounds(541, 144, 40, 40);
+		analyticIconLabel.setBounds(541, 216, 40, 40);
+		createOfficialIconLabel.setBounds(541, 288, 40, 40);
+		createTracerIconLabel.setBounds(541, 364, 40, 40);
+		terminateIconLabel.setBounds(541, 432, 40, 40);
+
+		// Colored Blocks
+		JLabel upperBlock  = ComponentFactory.createColoredBlockLabel();
+		JLabel lowerBlock  = ComponentFactory.createColoredBlockLabel();
+		upperBlock.setBounds(0, 0, 1040, 32);
+		lowerBlock.setBounds(0, 504, 1040, 16);
+
+		// Citizen & Account Methods
+		buttonA = ComponentFactory.createButton("Check In", new CitizenEvents());
+		buttonB = ComponentFactory.createButton("Report Positive Case", new CitizenEvents());
+		buttonC = ComponentFactory.createButton("Change Profile Information", new CitizenEvents());
+		buttonD = ComponentFactory.createButton("Log Out", new CitizenEvents());
+
+		// Government Offical Methods
+		buttonE = ComponentFactory.createButton("Show Account Listings", new GovernmentOfficialEvents());
+		buttonF = ComponentFactory.createButton("Show Unassigned Cases", new GovernmentOfficialEvents());
+		buttonG = ComponentFactory.createButton("Show Analytics", new GovernmentOfficialEvents());
+		buttonH = ComponentFactory.createButton("Create Government Official Account", new GovernmentOfficialEvents());
+		buttonI = ComponentFactory.createButton("Create Contact Tracer Account", new GovernmentOfficialEvents());
+		buttonJ = ComponentFactory.createButton("Terminate Account", new GovernmentOfficialEvents());
+
+		// Left
+		buttonA.setBounds(65, 144, 390, 48);
+		buttonB.setBounds(65, 216, 390, 48);
+		buttonC.setBounds(65, 288, 390, 48);
+		buttonD.setBounds(65, 432, 390, 48);
+
+		buttonE.setBounds(65, 360, 390, 48);
+
+		// Right
+		buttonF.setBounds(585, 144, 390, 48);
+		buttonG.setBounds(585, 216, 390, 48);
+		buttonH.setBounds(585, 288, 390, 48);
+		buttonI.setBounds(585, 360, 390, 48);
+		buttonJ.setBounds(585, 432, 390, 48);
+
+		// Add Compoenents	
+		frame.add(panel);
+		panel.add(titleLabel);
+		panel.add(messageBoxA);
+		panel.add(upperBlock);
+		panel.add(lowerBlock);
+		panel.add(checkInIconLabel);
+		panel.add(reportCaseIconLabel);
+		panel.add(changeProfileIconLabel);
+		panel.add(logOutIconLabel);
+		panel.add(showListIconLabel);
+		panel.add(showCaseIconLabel);
+		panel.add(analyticIconLabel);
+		panel.add(createOfficialIconLabel);
+		panel.add(createTracerIconLabel);
+		panel.add(terminateIconLabel);
+
+		panel.add(buttonA);
+		panel.add(buttonB);
+		panel.add(buttonC);
+		panel.add(buttonD);
+		panel.add(buttonE);
+		panel.add(buttonF);
+		panel.add(buttonG);
+		panel.add(buttonH);
+		panel.add(buttonI);
+		panel.add(buttonJ);
+
+		// Display
+		frame.setVisible(true); 
+	}
+
+	/**
 	 * 	Check In Menu GUI
+	 * 	
 	 * 	@author Steven Castro
 	 */
 	private void checkInMenu() {
@@ -390,18 +512,56 @@ public class MachineProjectGUI {
 
 	/**
 	 * 	Report Case Positive GUI
+	 *
+	 * 	@author Steven Castro
 	 */
 	private void reportCaseMenu() {
+		// Frame Settings
+		frame = ComponentFactory.createFrame("Reporting Case", 520, 280);
 
+		// Panel Settings
+		JPanel panel = ComponentFactory.createPanel(520, 280);
+
+		// Label Settings
+		// Labels
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Report Case Positive", 32);
+		JLabel codeLabel = ComponentFactory.createLabel("Confirm?", 16);
+		titleLabel.setBounds(0, 32, 520, 80);
+		codeLabel.setBounds(64, 144, 200, 32);
+
+		// Colored Blocks
+		JLabel upperBlock = ComponentFactory.createColoredBlockLabel();
+		JLabel lowerBlock = ComponentFactory.createColoredBlockLabel();
+		upperBlock.setBounds(0, 0, 520, 32);
+		lowerBlock.setBounds(0, 264, 520, 16);
+
+		// Button Settings
+		buttonA = ComponentFactory.createButton("Report", new ReportCaseEvents());
+		buttonB = ComponentFactory.createButton("Cancel", new ReportCaseEvents());
+		buttonA.setBounds(65, 144, 390, 48);
+		buttonB.setBounds(65, 208, 390, 48);
+
+		// Add Components
+		frame.add(panel);
+		panel.add(titleLabel);
+		panel.add(codeLabel);
+		panel.add(upperBlock);
+		panel.add(lowerBlock);
+		panel.add(buttonA);
+		panel.add(buttonB);
+
+		// Display
+		frame.setVisible(true);
 	}
 	
 	/**
 	 * 	Change Profile Menu GUI
+	 * 	
 	 * 	@author Steven Castro
 	 */
 	private void changeProfileMenu() {
 		// Frame Settings
-		frame = ComponentFactory.createFrame("Change currentUser Profile Information", 616, 640);
+		frame = ComponentFactory.createFrame("Change User Profile Information", 616, 640);
 
 		// Panel Settings
 		JPanel panel = ComponentFactory.createPanel(616, 640);
@@ -498,64 +658,387 @@ public class MachineProjectGUI {
 
 		// Set Texts
 		// Full Name
-		textBoxB.setText(currentUser.fullName.getFirstName());
-		textBoxC.setText(currentUser.fullName.getMiddleName());
-		textBoxD.setText(currentUser.fullName.getLastName());
+		textBoxB.setText(currentAccount.fullName.getFirstName());
+		textBoxC.setText(currentAccount.fullName.getMiddleName());
+		textBoxD.setText(currentAccount.fullName.getLastName());
 		// Addresses
-		textBoxE.setText(currentUser.addresses.getHomeAddress());
-		textBoxF.setText(currentUser.addresses.getOfficeAddress());
-		textBoxG.setText(currentUser.addresses.getEmailAddress());
-		textBoxH.setText(currentUser.addresses.getPhoneNumber());
+		textBoxE.setText(currentAccount.addresses.getHomeAddress());
+		textBoxF.setText(currentAccount.addresses.getOfficeAddress());
+		textBoxG.setText(currentAccount.addresses.getEmailAddress());
+		textBoxH.setText(currentAccount.addresses.getPhoneNumber());
 
 		// Display Frame
 		frame.setVisible(true);	
 
 	}
 
+	/**
+	 * 	Display Account List GUI
+	 *
+	 * 	@author Steven Castro
+	 */
+	private void showAccountListMenu() {
+		// Frame Settings
+		frame = ComponentFactory.createFrame("Account List", 520, 520);
+
+		// Panel Settings
+		JPanel panel = ComponentFactory.createPanel(520, 520);
+
+		// Label Settings
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Account List", 32);
+		titleLabel.setBounds(0, 32, 520, 80);
+
+		// Colored Blocks
+		JLabel upperBlock = ComponentFactory.createColoredBlockLabel(); 
+		JLabel lowerBlock = ComponentFactory.createColoredBlockLabel(); 
+		upperBlock.setBounds(0, 0, 520, 32);
+		lowerBlock.setBounds(0, 504, 520, 16);
+
+		// Button Settings
+		buttonA = ComponentFactory.createButton("Back", new DisplayTableEvents());
+		buttonA.setBounds(65, 424, 390, 48);
+
+		// Table Settings
+		String[] col = {"Username", "Role"};
+		
+		MasterList masters = new MasterList();
+		String[][] data = new String[masters.getNumAcc()][2];
+
+		// Obtain Table Data
+		for (int i = 0; i < masters.getNumAcc(); i++) {
+			data[i][0] = masters.getMasterUsername(i);
+			data[i][1] = masters.getMasterRole(masters.getMasterUsername(i));
+		}
+		 
+		JScrollPane table = ComponentFactory.createJTableScrollPane(data, col);
+		table.setBounds(32, 144, 456, 248);
+
+		// Add Components
+		frame.add(panel);
+		panel.add(titleLabel);
+		panel.add(upperBlock);
+		panel.add(lowerBlock);
+		panel.add(buttonA);
+		panel.add(table);
+		
+		// Display
+		frame.setVisible(true);
+	}
+
+	/**
+	 * 	Display Unassigned Cases GUI
+	 * 	
+	 *  @author Steven Castro
+	 *  @param 	data 	two dimensional array of strings containing table data  
+	 */
+	private void showUnassignedCasesMenu(String[][] data) {
+		// Frame Settings
+		frame = ComponentFactory.createFrame("Unassigned Cases", 780, 520);
+
+		// Panel Settings
+		JPanel panel = ComponentFactory.createPanel(780, 520);
+
+		// Label Settings
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Unassigned Cases", 32);
+		titleLabel.setBounds(0, 32, 780, 80);
+
+		// Colored Blocks
+		JLabel upperBlock = ComponentFactory.createColoredBlockLabel(); 
+		JLabel lowerBlock = ComponentFactory.createColoredBlockLabel(); 
+		upperBlock.setBounds(0, 0, 780, 32);
+		lowerBlock.setBounds(0, 504, 780, 16);
+
+		// Button Settings
+		buttonA = ComponentFactory.createButton("Back", new DisplayTableEvents());
+		buttonA.setBounds(65, 424, 585, 48);
+
+		// Table Settings
+		String[] col = {"Case No.", "Username", "Date", "Tracer", "Status"};
+	
+		JScrollPane table = ComponentFactory.createJTableScrollPane(data, col);
+		table.setBounds(32, 144, 716, 248);
+
+		// Add Components
+		frame.add(panel);
+		panel.add(titleLabel);
+		panel.add(upperBlock);
+		panel.add(lowerBlock);
+		panel.add(buttonA);
+		panel.add(table);
+		
+		// Display
+		frame.setVisible(true);
+	}
+
+	/**
+	 * 	Display Analytics GUI
+	 *
+	 * 	@author Steven Castro
+	 */
+	private void showAnalyticsMenu() {
+		// Frame Settings
+		frame = ComponentFactory.createFrame("Analytics", 520, 520);
+
+		// Panel Settings
+		JPanel panel = ComponentFactory.createPanel(520, 520);
+
+		// Label Settings
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Analytics", 32);
+		JLabel cityLabel = ComponentFactory.createLabel("City", 16);
+		JLabel startDateLabel = ComponentFactory.createLabel("Start Date", 16);
+		JLabel endDateLabel = ComponentFactory.createLabel("End Date", 16);
+
+		titleLabel.setBounds(0, 32, 520, 80);
+		cityLabel.setBounds(32, 146, 200, 32);
+		startDateLabel.setBounds(32, 218, 200, 32);
+		endDateLabel.setBounds(32, 290, 200, 32);
+
+		// Colored Blocks
+		JLabel upperBlock = ComponentFactory.createColoredBlockLabel(); 
+		JLabel lowerBlock = ComponentFactory.createColoredBlockLabel(); 
+		upperBlock.setBounds(0, 0, 520, 32);
+		lowerBlock.setBounds(0, 504, 520, 16);
+
+		// Message & Error
+		messageBoxA = ComponentFactory.createTitleLabel("0", 64);
+		errorBoxA = ComponentFactory.createLabel("", 16);
+		messageBoxA.setBounds(260, 146, 200, 200);
+		errorBoxA.setBounds(32, 352, 250, 40);
+
+		// Button Settings
+		buttonA = ComponentFactory.createButton("Display", new ShowAnalyticEvents());
+		buttonB = ComponentFactory.createButton("Clear", new ShowAnalyticEvents());
+		buttonC = ComponentFactory.createButton("Back", new ShowAnalyticEvents());
+		buttonA.setBounds(260, 360, 200, 48);
+		buttonB.setBounds(32, 424, 200, 48);
+		buttonC.setBounds(260, 424, 200, 48);
+
+		// Text Fields
+		textBoxA = ComponentFactory.createTextField(16);	
+		textBoxB = ComponentFactory.createTextField(16);
+		textBoxC = ComponentFactory.createTextField(16);
+		textBoxA.setBounds(32, 176, 200, 40);
+		textBoxB.setBounds(32, 248, 120, 40);
+		textBoxC.setBounds(32, 320, 120, 40);
+
+		// Add Components
+		frame.add(panel);
+		panel.add(titleLabel);
+		panel.add(upperBlock);
+		panel.add(lowerBlock);
+		panel.add(buttonA);
+		panel.add(buttonB);
+		panel.add(buttonC);
+
+		panel.add(cityLabel);
+		panel.add(startDateLabel);
+		panel.add(endDateLabel);
+		panel.add(textBoxA);
+		panel.add(textBoxB);
+		panel.add(textBoxC);
+		panel.add(messageBoxA);
+		panel.add(errorBoxA);
+
+		// Display
+		frame.setVisible(true);
+	}
+
+	/**
+	 * 	Create Government Official Account GUI
+	 *
+	 * 	@author Steven Castro
+	 */
+	private void createOfficialMenu() {
+		// Frame Settings
+		frame = ComponentFactory.createFrame("Creating Government Official Account", 520, 280);
+
+		// Panel Settings
+		JPanel panel = ComponentFactory.createPanel(520, 280);
+
+		// Label Settings
+		// Labels
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Account Creation", 32);
+		JLabel codeLabel = ComponentFactory.createLabel("Username", 16);
+		titleLabel.setBounds(0, 32, 520, 80);
+		codeLabel.setBounds(64, 144, 200, 32);
+
+		// Message
+		errorBoxA = ComponentFactory.createLabel("", 12);
+		errorBoxA.setBounds(32, 216, 240, 48);
+
+		// Colored Blocks
+		JLabel upperBlock = ComponentFactory.createColoredBlockLabel();
+		JLabel lowerBlock = ComponentFactory.createColoredBlockLabel();
+		upperBlock.setBounds(0, 0, 520, 32);
+		lowerBlock.setBounds(0, 264, 520, 16);
+
+		// Text Fields
+		textBoxA = ComponentFactory.createTextField(16);
+		textBoxA.setBounds(64, 176, 200, 40);
+
+		// Button Settings
+		buttonA = ComponentFactory.createButton("Create Official", new CreateTerminateAccountEvents());
+		buttonB = ComponentFactory.createButton("Back", new CreateTerminateAccountEvents());
+		buttonA.setBounds(292, 144, 200, 48);
+		buttonB.setBounds(292, 208, 200, 48);
+
+		// Add Components
+		frame.add(panel);
+		panel.add(titleLabel);
+		panel.add(codeLabel);
+		panel.add(upperBlock);
+		panel.add(lowerBlock);
+		panel.add(buttonA);
+		panel.add(buttonB);
+		panel.add(textBoxA);
+		panel.add(errorBoxA);
+
+		// Display
+		frame.setVisible(true);
+	}
+
+	/**
+	 * 	Create Contact Tracer Account GUI
+	 *
+	 * 	@author Steven Castro
+	 */
+	private void createTracerMenu() {
+		// Frame Settings
+		frame = ComponentFactory.createFrame("Creating Contact Tracer Account", 520, 280);
+
+		// Panel Settings
+		JPanel panel = ComponentFactory.createPanel(520, 280);
+
+		// Label Settings
+		// Labels
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Account Creation", 32);
+		JLabel codeLabel = ComponentFactory.createLabel("Username", 16);
+		titleLabel.setBounds(0, 32, 520, 80);
+		codeLabel.setBounds(64, 144, 200, 32);
+
+		// Message
+		errorBoxA = ComponentFactory.createLabel("", 12);
+		errorBoxA.setBounds(32, 216, 240, 48);
+
+		// Colored Blocks
+		JLabel upperBlock = ComponentFactory.createColoredBlockLabel();
+		JLabel lowerBlock = ComponentFactory.createColoredBlockLabel();
+		upperBlock.setBounds(0, 0, 520, 32);
+		lowerBlock.setBounds(0, 264, 520, 16);
+
+		// Text Fields
+		textBoxA = ComponentFactory.createTextField(16);
+		textBoxA.setBounds(64, 176, 200, 40);
+
+		// Button Settings
+		buttonA = ComponentFactory.createButton("Create Tracer", new CreateTerminateAccountEvents());
+		buttonB = ComponentFactory.createButton("Back", new CreateTerminateAccountEvents());
+		buttonA.setBounds(292, 144, 200, 48);
+		buttonB.setBounds(292, 208, 200, 48);
+
+		// Add Components
+		frame.add(panel);
+		panel.add(titleLabel);
+		panel.add(codeLabel);
+		panel.add(upperBlock);
+		panel.add(lowerBlock);
+		panel.add(buttonA);
+		panel.add(buttonB);
+		panel.add(textBoxA);
+		panel.add(errorBoxA);
+
+		// Display
+		frame.setVisible(true);
+	}
+
+	/**
+	 * 	Terminate Account GUI
+	 *
+	 * 	@author Steven Castro
+	 */
+	private void terminateAccountMenu() {
+		// Frame Settings
+		frame = ComponentFactory.createFrame("Terminating Account", 520, 280);
+
+		// Panel Settings
+		JPanel panel = ComponentFactory.createPanel(520, 280);
+
+		// Label Settings
+		// Labels
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Terminate Account", 32);
+		JLabel codeLabel = ComponentFactory.createLabel("Username", 16);
+		titleLabel.setBounds(0, 32, 520, 80);
+		codeLabel.setBounds(64, 144, 200, 32);
+
+		// Message
+		errorBoxA = ComponentFactory.createLabel("", 12);
+		errorBoxA.setBounds(32, 216, 240, 48);
+
+		// Colored Blocks
+		JLabel upperBlock = ComponentFactory.createColoredBlockLabel();
+		JLabel lowerBlock = ComponentFactory.createColoredBlockLabel();
+		upperBlock.setBounds(0, 0, 520, 32);
+		lowerBlock.setBounds(0, 264, 520, 16);
+
+		// Text Fields
+		textBoxA = ComponentFactory.createTextField(16);
+		textBoxA.setBounds(64, 176, 200, 40);
+
+		// Button Settings
+		buttonA = ComponentFactory.createButton("Terminate", new CreateTerminateAccountEvents());
+		buttonB = ComponentFactory.createButton("Back", new CreateTerminateAccountEvents());
+		buttonA.setBounds(292, 144, 200, 48);
+		buttonB.setBounds(292, 208, 200, 48);
+
+		// Add Components
+		frame.add(panel);
+		panel.add(titleLabel);
+		panel.add(codeLabel);
+		panel.add(upperBlock);
+		panel.add(lowerBlock);
+		panel.add(buttonA);
+		panel.add(buttonB);
+		panel.add(textBoxA);
+		panel.add(errorBoxA);
+
+		// Display
+		frame.setVisible(true);
+	}
+
+
+
 
 
 
 	// Event Handling	// Inner Classess	// ActionListener Classes 	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+	// Account Methods ::::::::::::::::::::::::::::::::::::::::::::::::::
 	private class LoginEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == buttonA) {						// Login Button	
 
+				// Get currentAccount Text Field Inputs
+				String inputUsername = textBoxA.getText().trim();
+				String inputPassword = String.valueOf((passBoxA.getPassword())).trim();
 				MasterList masters = new MasterList();
 
-				// Get currentUser Text Field Inputs
-				inputUsername = textBoxA.getText().trim();
-				inputPassword = String.valueOf((passBoxA.getPassword())).trim();
-
+				// Search Username in Masters.txt
 				if (masters.checkMaster(inputUsername)) {
-					if (currentUser.logIn(textBoxA.getText(), String.valueOf(passBoxA.getPassword()))) {
+					if (currentAccount.logIn(inputUsername, inputPassword)) {
 						printConsoleMessage("Loading User Information");
 
-						currentUser.loadUserInfo(textBoxA.getText());
+						currentAccount.loadUserInfo(inputUsername);
 
-						printConsoleMessage("Fullname: " + currentUser.fullName);
-						printConsoleMessage("Role: " + currentUser.getRole());
-						printConsoleMessage("Online: " + currentUser.getOnline());
+						printConsoleMessage("Fullname: " + currentAccount.fullName);
+						printConsoleMessage("Role: " + currentAccount.getRole());
+						printConsoleMessage("Online: " + currentAccount.getOnline());
 
 						frame.dispose();
 
 						// Proceed to Role Specific Menus
-						if (currentUser.getRole().equals("customer")) {									// Go To Customer Menu
-							printConsoleMessage("Heading back to Customer Menu GUI");
+						returnToAccountMenu();
 
-							Citizen temp = new Citizen();
-							temp.copyAccountInfo(currentUser);
-							currentUser = temp;
-
-							customerMenu();
-
-						} else if (currentUser.getRole().equals("official")) {								// Go To Government Official Menu			
-							printConsoleMessage("Heading back to Government Official Menu GUI");
-
-						} else {
-							printConsoleMessage("Heading back to Contact Tracer Menu GUI");			// Go To Contact Tracer Menu
-
-						} 	
 					} else {
 						errorBoxA.setText("> Invalid Password!");
 						printConsoleMessage("Error > Invalid Password");
@@ -572,38 +1055,43 @@ public class MachineProjectGUI {
 				passBoxA.setText("");
 
 			} else {											// Create An Account Button
-				printConsoleMessage("Heading back to Register Menu GUI");
+				printConsoleMessage("Register Menu GUI");
 
 				frame.dispose();
-				inputRole = "customer";
-				registerMenu();
+				registerMenu("customer");
 			}
 		}
 	}
 
 	private class RegisterEvents implements ActionListener {
+		private String inputRole;
+
+		public RegisterEvents(String role) {
+			inputRole = role;
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent e) {	
 			if (e.getSource() == buttonA) {				// Next Button (Confirm Username & Password Validity)
 
 				MasterList masters = new MasterList();
 
-				// Get currentUser Text Field Inputs
-				inputUsername = textBoxA.getText().trim();
-				inputPassword = String.valueOf(passBoxA.getPassword()).trim();
+				// Get currentAccount Text Field Inputs
+				String inputUsername = textBoxA.getText().trim();
+				String inputPassword = String.valueOf(passBoxA.getPassword()).trim();
 				String confirmPassword = String.valueOf(passBoxB.getPassword()).trim();
 
-				// Check for currentUser Input & Validity (Unique Username)
+				// Check for currentAccount Input & Validity (Unique Username)
 				if (!(masters.checkMaster(inputUsername) || inputUsername.isEmpty())) {
 					// Check Valid Password
-					if (currentUser.validPassword(inputPassword) && !(inputPassword.isEmpty())) {
+					if (currentAccount.validPassword(inputPassword) && !(inputPassword.isEmpty())) {
 						// Check Confirmation of Password
 						if (inputPassword.equals(confirmPassword)) {
-							printConsoleMessage("Registering currentUser > " + inputUsername + " : " + inputPassword);
-							printConsoleMessage("Heading to Account Info Forms GUI");
+							printConsoleMessage("Registering currentAccount > " + inputUsername + " : " + inputPassword);
+							printConsoleMessage("Account Info Forms GUI");
 
 							frame.dispose();
-							accountFormMenu();
+							accountFormMenu(inputRole, inputUsername, inputPassword);
 
 						} else {
 							// Error Messages
@@ -637,9 +1125,9 @@ public class MachineProjectGUI {
 				passBoxB.setText("");
 
 			} else {									// Cancel Button
-				printConsoleMessage("Heading Back to Login Menu GUI");
+				printConsoleMessage("Login Menu GUI");
 				
-				clearInputVariables();
+				
 				frame.dispose();
 				loginMenu();							// Call & Proceed back to Login Menu GUI
 			}
@@ -647,6 +1135,16 @@ public class MachineProjectGUI {
 	}
 
 	private class AccountFormEvents implements ActionListener {
+		private String inputRole;
+		private String inputUsername;
+		private String inputPassword;
+
+		public AccountFormEvents(String role, String username, String password) {
+			inputRole = role;
+			inputUsername = username;
+			inputPassword = password;
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
@@ -674,17 +1172,16 @@ public class MachineProjectGUI {
 
 				// Check if there are Missing Inputs 	
 				if (!missing) {
-					// Create currentUser Account Variables
+					// Create currentAccount Account Variables
 					Name fullName = new Name(userInputs[0], userInputs[1], userInputs[2]);
 					Address addresses = new Address(userInputs[3], userInputs[4], userInputs[6], userInputs[5]);
 
-					// Register currentUser
-					if (currentUser.register(inputRole, inputUsername, inputPassword, fullName, addresses)) {
+					// Register currentAccount
+					if (currentAccount.register(inputRole, inputUsername, inputPassword, fullName, addresses)) {
 						printConsoleMessage("Registry Success");
-						printConsoleMessage("Heading back to Main Menu GUI");
+						printConsoleMessage("Main Menu GUI");
 
 						frame.dispose();
-						clearInputVariables();
 						loginMenu();
 
 					} else {
@@ -697,41 +1194,112 @@ public class MachineProjectGUI {
 
 				}
 			} else {								// Cancel Button
-				printConsoleMessage("Heading back to Login Menu GUI");
+				printConsoleMessage("Login Menu GUI");
 
 				frame.dispose();
-				clearInputVariables();
 				loginMenu();
 			}
 		}
 	}
 
-	private class CustomerEvents implements ActionListener {
+
+	// Account Type Menus ::::::::::::::::::::::::::::::::::::::::::::::::::
+	private class CitizenEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == buttonA) {			// Check In Button		
-				printConsoleMessage("> Heading to Check In Menu GUI");
+				printConsoleMessage("Check In Menu GUI");
 				
 				frame.dispose();
 				checkInMenu();
 			} else if (e.getSource() == buttonB) {	// Report Positive Button
-				
+				printConsoleMessage("Report Case Menu GUI");
 
-
+				frame.dispose();
+				reportCaseMenu();
 			} else if (e.getSource() == buttonC) {	// Change Profile Information Button
-				printConsoleMessage("> Heading to Change Profile Menu GUI");
-				
+				printConsoleMessage("Change Profile Menu GUI");
+
 				frame.dispose();
 				changeProfileMenu();
 			} else {								// Log Out Button
-				printConsoleMessage("Heading back to Login Menu GUI");
+				printConsoleMessage("Login Menu GUI");
 
-				currentUser.logOut();
+				currentAccount.logOut();
 				frame.dispose();
 				loginMenu();
 			}
 		}
 	}
+
+	private class GovernmentOfficialEvents implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == buttonA) {								// Check In Button		
+				printConsoleMessage("Check In Menu GUI");
+				
+				frame.dispose();
+				checkInMenu();
+			} else if (e.getSource() == buttonB) {						// Report Positive Button
+				printConsoleMessage("Report Case Menu GUI");
+
+				frame.dispose();
+				reportCaseMenu();
+			} else if (e.getSource() == buttonC) {						// Change Profile Information Button
+				printConsoleMessage("Change Profile Menu GUI");
+
+				frame.dispose();
+				changeProfileMenu();
+			} else if (e.getSource() == buttonE) {						// Show Account Listings Button
+				printConsoleMessage("Show Account Listings Menu GUI");	
+
+				frame.dispose();
+				showAccountListMenu();
+			} else if (e.getSource() == buttonF) {						// Show Unassigned Cases Button
+				printConsoleMessage("Show Unassigned Menu GUI");
+
+				frame.dispose();
+				GovernmentOfficial gv = new GovernmentOfficial();
+				gv.copyAccountInfo(currentAccount);
+
+				showUnassignedCasesMenu(gv.showUnassignedCases());
+			} else if (e.getSource() == buttonG) {						// Show Analytics
+				printConsoleMessage("Show Analytics Menu GUI");
+
+				frame.dispose();
+				showAnalyticsMenu();
+			} else if (e.getSource() == buttonH) {						// Create Government Official Account
+				printConsoleMessage("Create Government Official Menu GUI");
+
+				frame.dispose();
+				createOfficialMenu();
+			} else if (e.getSource() == buttonI) {						// Create Contact Tracer Account
+				printConsoleMessage("Create Contact Tracer Menu GUI");
+
+				frame.dispose();
+				createTracerMenu();
+			} else if (e.getSource() == buttonJ) {						// Terminate Account
+				printConsoleMessage("Terminate Account Menu GUI");
+
+				frame.dispose();
+				terminateAccountMenu();
+			} else {								// Log Out Button
+				printConsoleMessage("Login Menu GUI");
+
+				currentAccount.logOut();
+				frame.dispose();
+				loginMenu();
+			}
+		}
+	}
+
+	private class ContactTracerEvents implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+		}
+	}
+
 
 	// Citizen Methods ::::::::::::::::::::::::::::::::::::::::::::::::::
 	private class CheckInEvents implements ActionListener {
@@ -741,21 +1309,20 @@ public class MachineProjectGUI {
 				String code = textBoxA.getText().trim();
 				printConsoleMessage("Checking In > " + code);
 
-				// RecordList records = new RecordList();					//	TODO USE THE CITIZEN METHOD INSTEAD
-				// 														//
-				// records.addRecordEntry(currentUser.getUsername(), code);
-				//currentUser.checkIn(code);	// Doest Work
+				// Checking In
+				Citizen cz = new Citizen();
+				cz.copyAccountInfo(currentAccount);
+				cz.checkIn(code);
 
-				printConsoleMessage("Heading back to Customer Menu GUI");
 				frame.dispose();
-				customerMenu();
+				returnToAccountMenu();
+				messageBoxA.setText("> Checked In - " + code);
 
 			} else {								// Cancel Button
-				printConsoleMessage("Checking In Cancelled");
+				printConsoleMessage("Checking In Canceled");
 
-				printConsoleMessage("Heading back to Customer Menu GUI");
 				frame.dispose();
-				customerMenu();
+				returnToAccountMenu();
 			}
 		}
 	}
@@ -764,18 +1331,22 @@ public class MachineProjectGUI {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == buttonA) {			// Report Case Button
-				
-				// RecordList records = new RecordList();					//	TODO USE THE CITIZEN METHOD INSTEAD
-				// 														//
-				// records.addRecordEntry(currentUser.getUsername(), code);
-				//currentUser.checkIn(code);	// Doest Work
+				printConsoleMessage("Reported Case");
+
+				// Reporting Case
+				Citizen cz = new Citizen();
+				cz.copyAccountInfo(currentAccount);
+				cz.reportPositive(Calendar.getInstance());
+
+				frame.dispose();
+				returnToAccountMenu();
+				messageBoxA.setText("> Case Reported!");
 
 			} else {								// Cancel Button
-				printConsoleMessage("Checking In Cancelled");
+				printConsoleMessage("Reporting Case Canceled");
 
-				printConsoleMessage("Heading back to Customer Menu GUI");
 				frame.dispose();
-				customerMenu();
+				returnToAccountMenu();
 			}
 		}
 	}
@@ -784,33 +1355,162 @@ public class MachineProjectGUI {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == buttonA) {			// Save Changes Button
-				// TODO Check currentUser inptus
+				// TODO Check currentAccount inptus
 				
 				printConsoleMessage("Saving New Profile Changes");
 
 				// Set Changes
-				currentUser.fullName = new Name(textBoxB.getText(), textBoxC.getText(), textBoxD.getText());
-				currentUser.addresses.setHomeAddress(textBoxE.getText()); 
-				currentUser.addresses.setOfficeAddress(textBoxF.getText()); 
-				currentUser.addresses.setEmailAddress(textBoxG.getText()); 
-				currentUser.addresses.setPhoneNumber(textBoxH.getText()); 
+				currentAccount.fullName = new Name(textBoxB.getText(), textBoxC.getText(), textBoxD.getText());
+				currentAccount.addresses.setHomeAddress(textBoxE.getText()); 
+				currentAccount.addresses.setOfficeAddress(textBoxF.getText()); 
+				currentAccount.addresses.setEmailAddress(textBoxG.getText()); 
+				currentAccount.addresses.setPhoneNumber(textBoxH.getText()); 
 				
 				// Save
-				currentUser.saveUserInfo(currentUser.getUsername());
-
-				printConsoleMessage("Heading back to Customer Menu GUI");
+				currentAccount.saveUserInfo(currentAccount.getUsername());
 
 				frame.dispose();
-				customerMenu();
+				returnToAccountMenu();
 			} else {								// Cancel Button
-				printConsoleMessage("Changing Profile Information Cancelled");
+				printConsoleMessage("Changing Profile Information Canceled");
 
-				printConsoleMessage("Heading back to Customer Menu GUI");
 				frame.dispose();
-				customerMenu();
+				returnToAccountMenu();
 			} 
 		}
 	}
+
+
+	// Government Methods ::::::::::::::::::::::::::::::::::::::::::::::::::
+	private class DisplayTableEvents implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {		// Back Button
+
+			frame.dispose();
+			returnToAccountMenu();
+		}
+	}
+
+	private class ShowAnalyticEvents implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == buttonA) {			// Display Button
+				GovernmentOfficial gv = new GovernmentOfficial();
+				gv.copyAccountInfo(currentAccount);
+
+				int numCases = -1;
+				String city = textBoxA.getText().trim();
+				String start = textBoxB.getText().trim();
+				String end = textBoxC.getText().trim();
+
+				Calendar startDate = RecordList.buildCalendar(start, "0000");
+				Calendar endDate = RecordList.buildCalendar(end, "0000");
+
+				errorBoxA.setText("");
+				// Get Analytics
+				if (startDate == null && endDate == null) {
+					if (city.length() == 0) {
+						messageBoxA.setText("0");
+						errorBoxA.setText("> No Inputs");
+
+					} else if (start.length() == 0 && end.length() == 0) {
+						numCases = gv.analytics(city);
+						messageBoxA.setText("C" + String.valueOf(numCases));
+
+					} else {
+						messageBoxA.setText("E");
+						errorBoxA.setText("> Invalid Date Inputs");
+
+					}
+				} else {
+					if (startDate != null && endDate != null) {
+						if (city.length() == 0) {
+							numCases = gv.analytics(startDate, endDate);
+							messageBoxA.setText("D" + String.valueOf(numCases));
+						
+						} else {
+							numCases = gv.analytics(city, startDate, endDate);
+							messageBoxA.setText("CD" + String.valueOf(numCases));
+
+						}
+					} else {
+						messageBoxA.setText("E");
+
+						if (startDate == null) {
+							errorBoxA.setText("> Missing Start Date Input!");
+						} else {
+							errorBoxA.setText("> Missing End Date Input!");
+						}
+					}
+				}
+			} else if (e.getSource() == buttonB) {		// Clear Button
+				textBoxA.setText("");
+				textBoxB.setText("");
+				textBoxC.setText("");
+
+			} else {									// Back Button
+				frame.dispose();
+				returnToAccountMenu();
+			}
+		}
+	}
+
+	private class CreateTerminateAccountEvents implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == buttonA) {
+				MasterList masters = new MasterList();
+
+				GovernmentOfficial gv = new GovernmentOfficial();
+				gv.copyAccountInfo(currentAccount);
+
+				String username = textBoxA.getText().trim();
+
+				errorBoxA.setText("");
+				
+				if (masters.checkMaster(username)) {
+					if (buttonA.getText().equals("Create Official")) {
+					 	if (gv.createGovernmentOfficial(username)) {
+					 		errorBoxA.setText("> Username is now a Government Official!");
+
+						} else {
+							errorBoxA.setText("> Username Already has This Role!!");
+						}
+
+					} else if (buttonA.getText().equals("Create Tracer")) {
+						if (gv.createContactTracer(username)) {
+							errorBoxA.setText("> Username is now a Contact Tracer!");
+
+						} else {
+							errorBoxA.setText("> Username Already has This Role!");
+						}
+					} else {
+						if (gv.terminateAccount(username)) {
+							errorBoxA.setText("> Account Terminated!");
+
+						} else {
+							errorBoxA.setText("> You Cannot Terminate Yourself");
+						}
+					}
+				} else {
+					if (username.length() == 0) {
+						errorBoxA.setText("> No Input!");
+					} else {
+						errorBoxA.setText("> Username Does Not Exist!");
+					}
+				}
+				textBoxA.setText("");
+
+			} else {
+
+				frame.dispose();
+				returnToAccountMenu();
+			}
+		}
+	}
+
+
+
 
 
 	
@@ -819,20 +1519,29 @@ public class MachineProjectGUI {
 
 	// Others ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-	 * 	clear the place holder variables/attributes of this object
-	 */
-	private void clearInputVariables() {
-		inputUsername = null;
-		inputPassword = null;
-		inputRole = null;
-	}
-
-	/**
 	 * 	prints a message in the console
-	 *  @param message error message
+	 *  @param message console message
 	 */
 	private void printConsoleMessage(String message) {
 		System.out.println("> " + message);
 
+	}
+
+	/**
+	 * 	return to respective account menu
+	 */
+	private void returnToAccountMenu() {
+		if(currentAccount.getRole().equals("customer")) {
+			printConsoleMessage("Customer Menu GUI");
+			customerMenu();
+
+		} else if (currentAccount.getRole().equals("official")) {
+			printConsoleMessage("Government Official Menu GUI");
+			governmentOfficialMenu();
+
+		} else {
+			// tracermenu
+			// 
+		}
 	}
 }

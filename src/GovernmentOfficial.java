@@ -4,160 +4,143 @@ import java.util.Scanner;
 import java.io.*;
 
 public class GovernmentOfficial extends Citizen {
-	// Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	private MasterList mList = new MasterList();
-	private CaseList cList = new CaseList();
-
 	// Methods ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	// Data Display ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-	 * prints and display all unassigned cases in Cases.txt
+	 * 	returns a two dimensional array of strings containing data of unassigned cases
 	 * 
-	 * @author Steven Castro
+	 * 	@author Steven Castro
 	 */
-	public void showUnassignedCases() {
-		cList.refresh();
-		Scanner sc = new Scanner(System.in);
+	public String[][] showUnassignedCases() {
+		CaseList cases = new CaseList();
 		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
 
-		System.out.println("| -------------------------------- Unassigned Cases ---------------------------------- |");
-		System.out.println("|                                                                                      |");
-		System.out.println("| Case Username                       Report Date Tracername                    Status |");
-		// Print Unassigned Cases
-		for (int i = 0; i < cList.getNumCases(); i++) {
+		int count = 0;
+		String[][] temp = new String[cases.getNumCases()][5];
 
-			if (cList.getTracerName(i).equals("000")) {
-				System.out.format("| %-4d %-30s %-10s  %-30s %c     |\n", i + 1, cList.getUsername(i),
-																				 sdf.format(cList.getReportDate(i).getTime()),
-																				 cList.getTracerName(i),
-																				 cList.getStatus(i));
+		// Size of Number of Cases
+		for (int i = 0; i < cases.getNumCases(); i++) {
+			if (cases.getTracerName(i).equals("000")) {
+				temp[count][0] = String.valueOf(i + 1);
+				temp[count][1] = cases.getUsername(i);
+				temp[count][2] = sdf.format(cases.getReportDate(i).getTime());
+				temp[count][3] = cases.getTracerName(i);
+				temp[count][4] = String.valueOf(cases.getStatus(i));
+
+				count++;
 			}
 		}
-		System.out.println("| -------------------------------------------------------------------------------------|");
-		Visual.pressEnterToContinue();
+
+		// Size of Number of Unassigned Cases
+		String[][] data = new String[count][5];
+		for (int i = 0; i < count; i ++) {
+			data[i][0] = temp[i][0];
+			data[i][1] = temp[i][1];
+			data[i][2] = temp[i][2];
+			data[i][3] = temp[i][3];
+			data[i][4] = temp[i][4];
+		}
+		return data;		
 	}
 
 	// B. Show Contact Tracing Updates
 	// public void showContactTracingUpdates()
 
 	/**
-	 * display analytics of reported cases based on user preference of city
+	 * 	returns the number of cases in a given city
 	 *
-	 * @author Steven Castro
-	 * @param cityName name of the chosen city
+	 * 	@author Steven Castro
+	 *  @param cityName name of the chosen city
 	 */
-	public void analytics(String cityName) {
-		int numCase = 0;
-		cList.refresh();
+	public int analytics(String cityName) {
+		int numCases = 0;
+		MasterList masters = new MasterList();
+		CaseList cases = new CaseList();
 		Account ac;
 
 		// Search & Count
-		for (int i = 0; i < cList.getNumCases(); i++) {
+		for (int i = 0; i < cases.getNumCases(); i++) {
 
 			// Account
-			if (mList.checkMaster(cList.getUsername(i))) {
+			if (masters.checkMaster(cases.getUsername(i))) {
 
 				// Load Account
-				ac = new Account(cList.getUsername(i));
+				ac = new Account(cases.getUsername(i));
 
-				// Print Address (Remove)
-				System.out.println(ac.addresses.getHomeAddress());
-
-				// Search & Count
+				// Compare Address with City
 				if (ac.addresses.getHomeAddress().toUpperCase().contains(cityName.toUpperCase())) {
-					System.out.println(cList.toString(i));
-					numCase++;
-				}
+					numCases++;
 
+				}
 			}
 		}
-
-		// Output
-		System.out.println("| --------------------------------------------------------------------- |");
-		System.out.println("| City: " + cityName);
-		System.out.println("| Number of Cases: " + numCase);
-		System.out.println("| --------------------------------------------------------------------- |");
-		Visual.pressEnterToContinue();
+		return numCases;
 	}
 
 	/**
-	 * 	display analytics of reported cases based on user preference of duration
+	 * 	returns the number of cases in a given duration
 	 *
 	 * 	@author Steven Castro
 	 *  @param 	start	the starting date
 	 *  @param 	end 	the ending date
 	 */
-	public void analytics(Calendar start, Calendar end) {
-		int numCase = 0;
-		cList.refresh();
+	public int analytics(Calendar start, Calendar end) {
+		int numCases = 0;
+		MasterList masters = new MasterList();
+		CaseList cases = new CaseList();
 		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
 
-
 		// Search & Count Cases
-		for (int i = 0; i < cList.getNumCases(); i++) {
-			if ((cList.getReportDate(i).compareTo(start)) >= 0) {
-				if ((cList.getReportDate(i).compareTo(end)) <= 0) {
-					System.out.println(cList.toString(i));
-					numCase++;
+		for (int i = 0; i < cases.getNumCases(); i++) {
+			// Duration
+			if ((cases.getReportDate(i).compareTo(start)) >= 0) {
+				if ((cases.getReportDate(i).compareTo(end)) <= 0) {
+					numCases++;
+
 				}
 			}
 		}
-
-		// Output
-		System.out.println("| --------------------------------------------------------------------- |");
-		System.out.println("| Duration: " + sdf.format(start.getTime()) + " ---> " + sdf.format(end.getTime()));
-		System.out.println("| Number of Cases: " + numCase);
-		System.out.println("| --------------------------------------------------------------------- |");
-		Visual.pressEnterToContinue();
+		return numCases;
 	}
 
 	/**
-	 * display analytics of reported cases based on user preference of city and duration
+	 * 	returns the number of cases in a given duration
 	 *
 	 *  @author Steven Castro
 	 *  @param 	cityName 	name of the chosen city
 	 *  @param 	start 	 	the starting date
 	 *  @param 	end 		the ending date
 	 */
-	public void analytics(String cityName, Calendar start, Calendar end) {
-		int numCase = 0;
-		cList.refresh();
-		Account ac;
+	public int analytics(String cityName, Calendar start, Calendar end) {
+		int numCases = 0;
+		MasterList masters = new MasterList();
+		CaseList cases = new CaseList();
 		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
+		Account ac;
 
 		// Search & Count
-		for (int i = 0; i < cList.getNumCases(); i++) {
-
+		for (int i = 0; i < cases.getNumCases(); i++) {
 			// Duration
-			if ((cList.getReportDate(i).compareTo(start)) >= 0) {
-				if ((cList.getReportDate(i).compareTo(end)) <= 0) {
+			if ((cases.getReportDate(i).compareTo(start)) >= 0) {
+				if ((cases.getReportDate(i).compareTo(end)) <= 0) {
 
 					// Account
-					if (mList.checkMaster(cList.getUsername(i))) {
+					if (masters.checkMaster(cases.getUsername(i))) {
 
 						// Load Account
-						ac = new Account(cList.getUsername(i));
+						ac = new Account(cases.getUsername(i));
 
-						// Print Address (Remove)
-						System.out.println(ac.addresses.getHomeAddress());
-
-						// City
+						// Compare Address with City
 						if (ac.addresses.getHomeAddress().toUpperCase().contains(cityName.toUpperCase())) {
-							System.out.println(cList.toString(i));
-							numCase++;
+							numCases++;
+
 						}
 					}
 				}
 			}
 		}
-
-		System.out.println("| --------------------------------------------------------------------- |");
-		System.out.println("| Duration: " + sdf.format(start.getTime()) + " ---> " + sdf.format(end.getTime()));
-		System.out.println("| City: " + cityName);
-		System.out.println("| Number of Cases: " + numCase);
-		System.out.println("| --------------------------------------------------------------------- |");
-		Visual.pressEnterToContinue();
+		return numCases;
 	}
 
 
@@ -170,12 +153,16 @@ public class GovernmentOfficial extends Citizen {
 	 *  @return boolean
 	 */
 	public boolean createGovernmentOfficial(String username) {
+		MasterList masters = new MasterList();
 
-		if (mList.checkMaster(username)) {
-			mList.updateMaster(username, "official");
-			return true;
+		if (masters.checkMaster(username)) {
+			if (!(masters.getMasterRole(username).equals("official"))) {
+				masters.updateMaster(username, "official");
+				return true;
+			} 
+			//System.out.println("User Already has This Role!");
+
 		}
-
 		return false;
 	}
 
@@ -183,16 +170,19 @@ public class GovernmentOfficial extends Citizen {
 	 * 	returns true if contact tracer account creation is successful
 	 *
 	 *  @author Steven Castro
-	 *  @param 	username 	the username to be turned into a Contact Tracer
+	 *  @param 	username 	the username of the account
 	 * 	@return boolean
 	 */
 	public boolean createContactTracer(String username) {
+		MasterList masters = new MasterList();
 
-		if (mList.checkMaster(username)) {
-			mList.updateMaster(username, "tracer");
-			return true;
+		if (masters.checkMaster(username)) {
+			if (!(masters.getMasterRole(username).equals("tracer"))) {
+				masters.updateMaster(username, "tracer");
+				return true;
+			}
+			//System.out.println("User Already has This Role!");
 		}
-
 		return false;
 	}
 
@@ -204,50 +194,23 @@ public class GovernmentOfficial extends Citizen {
 	 *  @return boolean
 	 */
 	public boolean terminateAccount(String username) {
+		MasterList masters = new MasterList();
 
 		// Check If username is the current User
 		if (username.equalsIgnoreCase(getUsername())) {
-			System.out.println("|INVALID: Cannot Terminate Own Account...");
-			Visual.pressEnterToContinue();
+			// System.out.println("|INVALID: Cannot Terminate Own Account...");	
 			return false;
 		}
 
 		// Search Username in MasterList
-		if (mList.checkMaster(username)) {
+		if (masters.checkMaster(username)) {
 			// Demote User's Role to Customer
-			mList.updateMaster(username, "customer");
-			System.out.println("|> Termination of Account is Successful...");
-			Visual.pressEnterToContinue();
+			masters.updateMaster(username, "customer");
+			// System.out.println("|> Termination of Account is Successful...");
 			return true;
 		}
 
-		System.out.println("|INVALID: Account Does Not Exist...");
-		Visual.pressEnterToContinue();
+		//System.out.println("|INVALID: Account Does Not Exist...");
 		return false;
 	}
-
-
-	// Analytics ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	/**
-	 * 	ask for String input of a Date in (MM,dd,yyyy) format and return a Calendar
-	 *
-	 *  @author Steven Castro
-	 * 	@return Calendar
-	 */
-	public Calendar inputDate() {
-		Calendar myDate;
-		Scanner sc = new Scanner(System.in);
-		String temp = sc.nextLine();
-
-		try {
-			// Build Calendar
-			myDate = new Calendar.Builder().setFields(Calendar.MONTH, (Integer.parseInt(temp.substring(0, 2)) - 1),
-					Calendar.DAY_OF_MONTH, Integer.parseInt(temp.substring(3, 5)),
-					Calendar.YEAR, Integer.parseInt(temp.substring(6, 10))).build();
-		} catch (NumberFormatException e) {
-			System.out.println("|INVALID: Invalid Date or Format...");
-			return null;
-		}
-		return myDate;
-	}
- }
+}

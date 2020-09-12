@@ -1,8 +1,6 @@
-import java.util.Calendar;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.StringTokenizer;
 import java.io.*;
+import java.text.*;
+import java.util.*;
 
 /*
  *	This object is dedicated to handling a text file that contains all user's records.
@@ -80,7 +78,7 @@ public class RecordList {
 	public void addRecord(Record rc) {
 		records.add(rc);
 		save();
-
+		numAcc++;
 	}
 
 	/**
@@ -91,7 +89,15 @@ public class RecordList {
 	 *	@param code establishment code to be added in the new entry
 	 */
 	public void addRecordEntry(String username, String code) {
-		getUserRecord(username).addEntry(code, Calendar.getInstance());
+		if (getUserRecord(username) != null) {
+			getUserRecord(username).addEntry(code, Calendar.getInstance());
+
+		} else {
+			Record rc = new Record(username);
+			rc.addEntry(code, Calendar.getInstance());
+			addRecord(rc);
+
+		}
 		save();
 	}
 
@@ -213,28 +219,78 @@ public class RecordList {
 	 * 	builds and return a Calendar Object based on the String parameters
 	 *
 	 * 	@author Steven Castro
-	 * 	@param date String represendation of a date
-	 * 	@param time String represendation of a military time
+	 * 	@param date String represendation of a date (MM,dd,yyyy)
+	 * 	@param time String represendation of a military time (hhmm)
 	 */
-	public Calendar buildCalendar(String date, String time) {
-		StringTokenizer st = new StringTokenizer(date, ",");
+	public static Calendar buildCalendar(String date, String time) {
+		try {
+			// Tokenize Information
+			StringTokenizer st = new StringTokenizer(date, ",");
+	
+			// Date
+			int month = Integer.parseInt(st.nextToken());
+			int day = Integer.parseInt(st.nextToken());
+			int year = Integer.parseInt(st.nextToken());
+	
+			// Time
+			int hour = Integer.parseInt(time.substring(0, 2));
+			int minute = Integer.parseInt(time.substring(2, 4));
+	
+			// Check Validity
+			// Date
+			if (!(1 <= month && month <= 12) || !(1 <= year && year < 9999)) {
+				// System.out.println("Month or Year");
+				return null;
+			}
 
-		// Tokenize Information
-		// Date
-		int month = Integer.parseInt(st.nextToken());
-		int day = Integer.parseInt(st.nextToken());
-		int year = Integer.parseInt(st.nextToken());
+			if (1 <= day) {
+				switch (month) {
+					case 1, 3, 5, 7, 8, 10, 12:
+						if (!(day <= 31)) {
+						// System.out.println("Invalid Day (31)");
+						return null;
+						}
+					break;
+					case 4, 6, 9,11:
+						if (!(day <= 30)) {
+							// System.out.println("Invalid Day (30)");
+							return null;
+						}
+					break;
+					default:
+						if (!(day <= 28)) {
+							// System.out.println("Invalid Day (28)");
+							return null;
+						}
+					}
+			} else {
+				return null;
 
-		// Time
-		int hour = Integer.parseInt(time.substring(0, 2));
-		int minute = Integer.parseInt(time.substring(2, 4));
+			}
 
-		// Build Calendar Object
-		Calendar calendar = new Calendar.Builder().setFields(Calendar.MONTH, month - 1,
+			// Time
+			if (!(0 <= hour && hour <= 24) || !(0 <= minute && minute <= 60)) {
+				// System.out.println("Invalid Time");
+				return null;
+			}  
+
+			// Build Calendar Object
+			Calendar calendar = new Calendar.Builder().setFields(Calendar.MONTH, month - 1,
 															 Calendar.DAY_OF_MONTH, day,
 															 Calendar.YEAR, year,
                 										 	 Calendar.HOUR_OF_DAY, hour,
                 										 	 Calendar.MINUTE, minute).build();
-		return calendar;
+			return calendar;
+
+		} catch (NullPointerException e) {
+			return null;
+
+		} catch (NumberFormatException e) {
+			return null;
+
+		} catch (NoSuchElementException e) {
+			return null;
+			
+		}
 	}
 }

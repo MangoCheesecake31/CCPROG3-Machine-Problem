@@ -1,4 +1,4 @@
 :: BATCH CODE
 @ECHO OFF
 :: COMPILE 
-javac -d ../out MachineProject.java
+javac -d ../out MachineProjectGUI.java
