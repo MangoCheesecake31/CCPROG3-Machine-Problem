@@ -135,30 +135,29 @@ public class CaseList {
 	}
 
 	/**
-	 *	returns true if assigning a tracer to a case is sucessful
+	 *	returns true if assigning a tracer to a case is successful
 	 *	
 	 *	@author Steven Castro
-	 *	@param caseNum case number
-	 *	@param tracer tracer username
+	 *	@param 	caseNum 	case number
+	 *	@param 	tracer 		tracer username
 	 *	@return boolean
 	 */
 	public boolean assignTracer(int caseNum, String tracer) {
-		MasterList list = new MasterList();
+		MasterList masters = new MasterList();
 
 		if(0 < caseNum && caseNum < numCases) {
 			// Check tracer if it has a verified account
-			if(list.checkMaster(tracer)) {
+			if(masters.checkMaster(tracer) && masters.getMasterRole(tracer).equals("tracer")) {
 				tracernames.set(caseNum - 1, tracer);
 				save();
 				return true;
-			}
-			
+			}	
 		}
 		return false;
 	}
 
 	/**
-	 *	returns true if updating a status of a case is sucessful
+	 *	returns true if updating a status of a case is successful
 	 *	
 	 *	@author Steven Castro
 	 *	@param caseNum case number

@@ -12,7 +12,7 @@ public class MachineProjectGUI {
 	private JFrame frame;
 	private JTextField textBoxA, textBoxB, textBoxC, textBoxD, textBoxE, textBoxF, textBoxG, textBoxH;
 	private JPasswordField passBoxA, passBoxB;
-	private JButton buttonA, buttonB, buttonC, buttonD, buttonE, buttonF, buttonG, buttonH, buttonI, buttonJ; 
+	private JButton buttonA, buttonB, buttonC, buttonD, buttonE, buttonF, buttonG, buttonH, buttonI, buttonJ, buttonK, buttonL; 
 	private JLabel errorBoxA, messageBoxA;
 
 
@@ -20,12 +20,11 @@ public class MachineProjectGUI {
 	public MachineProjectGUI() {
 		// Start Program
 		loginMenu();
-
 	}
 
 
-	// Methods ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
+	// Views ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	
 	/**
 	 * 	Login Menu GUI
 	 * 	
@@ -308,11 +307,13 @@ public class MachineProjectGUI {
 		JLabel checkInIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/arrow-up.png");
 		JLabel reportCaseIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/alert-triangle.png");
 		JLabel changeProfileIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/edit.png");
+		JLabel changePasswordIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/lock.png");
 		JLabel logOutIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/log-out.png");
 		checkInIconLabel.setBounds(21, 144, 40, 40);
 		reportCaseIconLabel.setBounds(21, 216, 40, 40);
 		changeProfileIconLabel.setBounds(21, 288, 40, 40);
-		logOutIconLabel.setBounds(21, 360, 40, 40);
+		changePasswordIconLabel.setBounds(21, 360, 40, 40);
+		logOutIconLabel.setBounds(21, 432, 40, 40);
 
 		// Colored Blocks
 		JLabel upperBlock  = ComponentFactory.createColoredBlockLabel();
@@ -323,11 +324,13 @@ public class MachineProjectGUI {
 		buttonA = ComponentFactory.createButton("Check In", new CitizenEvents());
 		buttonB = ComponentFactory.createButton("Report Positive Case", new CitizenEvents());
 		buttonC = ComponentFactory.createButton("Change Profile Information", new CitizenEvents());
-		buttonD = ComponentFactory.createButton("Log Out", new CitizenEvents());
+		buttonD = ComponentFactory.createButton("Change Password", new CitizenEvents());
+		buttonE = ComponentFactory.createButton("Log Out", new CitizenEvents());
 		buttonA.setBounds(65, 144, 390, 48);
 		buttonB.setBounds(65, 216, 390, 48);
 		buttonC.setBounds(65, 288, 390, 48);
 		buttonD.setBounds(65, 360, 390, 48);
+		buttonE.setBounds(65, 432, 390, 48);
 
 		// Add Compoenents	
 		frame.add(panel);
@@ -338,24 +341,26 @@ public class MachineProjectGUI {
 		panel.add(checkInIconLabel);
 		panel.add(reportCaseIconLabel);
 		panel.add(changeProfileIconLabel);
+		panel.add(changePasswordIconLabel);
 		panel.add(logOutIconLabel);
 		panel.add(buttonA);
 		panel.add(buttonB);
 		panel.add(buttonC);
 		panel.add(buttonD);
+		panel.add(buttonE);
 
 		// Display
 		frame.setVisible(true); 
 	}
 
 	/**
-	 * 	Customer Menu GUI
+	 * 	Government Official Menu GUI
 	 * 	
 	 * 	@author Steven Castro
 	 */
 	private void governmentOfficialMenu() {
 		// Frame Settings
-		frame = ComponentFactory.createFrame("Government Menu", 1040, 520);
+		frame = ComponentFactory.createFrame("Government Menu", 1040, 600);
 
 		// Panel Settings
 		JPanel panel = ComponentFactory.createPanel(1040, 520);
@@ -364,7 +369,7 @@ public class MachineProjectGUI {
 		JLabel titleLabel = ComponentFactory.createTitleLabel("Government Official Account Menu", 32);
 		titleLabel.setBounds(0, 32, 1040, 80);
 
-		// Console/Message
+		// Console / Message 
 		messageBoxA = ComponentFactory.createLabel("> Welcome! " + currentAccount.fullName, 14);
 		messageBoxA.setBounds(65, 112, 780, 32);
 
@@ -372,10 +377,12 @@ public class MachineProjectGUI {
 		JLabel checkInIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/arrow-up.png");
 		JLabel reportCaseIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/alert-triangle.png");
 		JLabel changeProfileIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/edit.png");
+		JLabel changePasswordIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/lock.png");
+		JLabel showListIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/list.png");
 		JLabel logOutIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/log-out.png");
 
-		JLabel showListIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/list.png");
 		JLabel showCaseIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/file-text.png");
+		JLabel showUpdateIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/bell.png");
 		JLabel analyticIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/activity.png");
 		JLabel createOfficialIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/user-plus.png");
 		JLabel createTracerIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/user-plus.png");
@@ -384,50 +391,54 @@ public class MachineProjectGUI {
 		checkInIconLabel.setBounds(21, 144, 40, 40);
 		reportCaseIconLabel.setBounds(21, 216, 40, 40);
 		changeProfileIconLabel.setBounds(21, 288, 40, 40);
-		logOutIconLabel.setBounds(21, 432, 40, 40);
-
-		showListIconLabel.setBounds(21, 364, 40, 40);
+		changePasswordIconLabel.setBounds(21, 360, 40, 40);
+		showListIconLabel.setBounds(21, 432, 40, 40);
+		logOutIconLabel.setBounds(21, 504, 40, 40);
 
 		showCaseIconLabel.setBounds(541, 144, 40, 40);
-		analyticIconLabel.setBounds(541, 216, 40, 40);
-		createOfficialIconLabel.setBounds(541, 288, 40, 40);
-		createTracerIconLabel.setBounds(541, 364, 40, 40);
-		terminateIconLabel.setBounds(541, 432, 40, 40);
+		showUpdateIconLabel.setBounds(541, 216, 40, 40);
+		analyticIconLabel.setBounds(541, 288, 40, 40);
+		createOfficialIconLabel.setBounds(541, 360, 40, 40);
+		createTracerIconLabel.setBounds(541, 432, 40, 40);
+		terminateIconLabel.setBounds(541, 504, 40, 40);
 
 		// Colored Blocks
 		JLabel upperBlock  = ComponentFactory.createColoredBlockLabel();
 		JLabel lowerBlock  = ComponentFactory.createColoredBlockLabel();
 		upperBlock.setBounds(0, 0, 1040, 32);
-		lowerBlock.setBounds(0, 504, 1040, 16);
+		lowerBlock.setBounds(0, 584, 1040, 16);
 
 		// Citizen & Account Methods
 		buttonA = ComponentFactory.createButton("Check In", new CitizenEvents());
 		buttonB = ComponentFactory.createButton("Report Positive Case", new CitizenEvents());
 		buttonC = ComponentFactory.createButton("Change Profile Information", new CitizenEvents());
-		buttonD = ComponentFactory.createButton("Log Out", new CitizenEvents());
+		buttonD = ComponentFactory.createButton("Change Password", new CitizenEvents());
+		buttonF = ComponentFactory.createButton("Show Account Listings", new GovernmentOfficialEvents());
+		buttonE = ComponentFactory.createButton("Log Out", new CitizenEvents());
 
 		// Government Offical Methods
-		buttonE = ComponentFactory.createButton("Show Account Listings", new GovernmentOfficialEvents());
-		buttonF = ComponentFactory.createButton("Show Unassigned Cases", new GovernmentOfficialEvents());
-		buttonG = ComponentFactory.createButton("Show Analytics", new GovernmentOfficialEvents());
-		buttonH = ComponentFactory.createButton("Create Government Official Account", new GovernmentOfficialEvents());
-		buttonI = ComponentFactory.createButton("Create Contact Tracer Account", new GovernmentOfficialEvents());
-		buttonJ = ComponentFactory.createButton("Terminate Account", new GovernmentOfficialEvents());
+		buttonG = ComponentFactory.createButton("Show Unassigned Cases", new GovernmentOfficialEvents());
+		buttonH = ComponentFactory.createButton("Show Contact Tracing Updates", new GovernmentOfficialEvents());
+		buttonI = ComponentFactory.createButton("Show Analytics", new GovernmentOfficialEvents());
+		buttonJ = ComponentFactory.createButton("Create Government Official Account", new GovernmentOfficialEvents());
+		buttonK = ComponentFactory.createButton("Create Contact Tracer Account", new GovernmentOfficialEvents());
+		buttonL = ComponentFactory.createButton("Terminate Account", new GovernmentOfficialEvents());
 
 		// Left
-		buttonA.setBounds(65, 144, 390, 48);
-		buttonB.setBounds(65, 216, 390, 48);
-		buttonC.setBounds(65, 288, 390, 48);
-		buttonD.setBounds(65, 432, 390, 48);
-
-		buttonE.setBounds(65, 360, 390, 48);
+		buttonA.setBounds(65, 144, 390, 48);	// Check In
+		buttonB.setBounds(65, 216, 390, 48);	// Report Case
+		buttonC.setBounds(65, 288, 390, 48);	// Change Profile
+		buttonD.setBounds(65, 360, 390, 48);	// Change Password
+		buttonF.setBounds(65, 432, 390, 48);	// Account List
+		buttonE.setBounds(65, 504, 390, 48);	// Log Out
 
 		// Right
-		buttonF.setBounds(585, 144, 390, 48);
-		buttonG.setBounds(585, 216, 390, 48);
-		buttonH.setBounds(585, 288, 390, 48);
-		buttonI.setBounds(585, 360, 390, 48);
-		buttonJ.setBounds(585, 432, 390, 48);
+		buttonG.setBounds(585, 144, 390, 48);	// Show Unassigned Cases
+		buttonH.setBounds(585, 216, 390, 48);	// Show Contact Tracing Updates
+		buttonI.setBounds(585, 288, 390, 48);	// Show Analytics
+		buttonJ.setBounds(585, 360, 390, 48);	// Create Government Official
+		buttonK.setBounds(585, 432, 390, 48);	// Create Contact Tracer
+		buttonL.setBounds(585, 504, 390, 48);	// Terminate Account
 
 		// Add Compoenents	
 		frame.add(panel);
@@ -435,12 +446,16 @@ public class MachineProjectGUI {
 		panel.add(messageBoxA);
 		panel.add(upperBlock);
 		panel.add(lowerBlock);
+
 		panel.add(checkInIconLabel);
 		panel.add(reportCaseIconLabel);
 		panel.add(changeProfileIconLabel);
-		panel.add(logOutIconLabel);
+		panel.add(changePasswordIconLabel);
 		panel.add(showListIconLabel);
+		panel.add(logOutIconLabel);
+
 		panel.add(showCaseIconLabel);
+		panel.add(showUpdateIconLabel);
 		panel.add(analyticIconLabel);
 		panel.add(createOfficialIconLabel);
 		panel.add(createTracerIconLabel);
@@ -456,9 +471,20 @@ public class MachineProjectGUI {
 		panel.add(buttonH);
 		panel.add(buttonI);
 		panel.add(buttonJ);
+		panel.add(buttonK);
+		panel.add(buttonL);
 
 		// Display
 		frame.setVisible(true); 
+	}
+
+	/**
+	 * 	Contact Tracer Menu GUI
+	 * 	
+	 * 	@author Steven Castro
+	 */
+	private void contactTracerMenu() {
+	 
 	}
 
 	/**
@@ -669,7 +695,60 @@ public class MachineProjectGUI {
 
 		// Display Frame
 		frame.setVisible(true);	
+	}
 
+	/**
+	 * 	Change Password Menu GUI
+	 * 	
+	 * 	@author Steven Castro
+	 */
+	private void changePasswordMenu() {
+		// Frame Settings
+		frame = ComponentFactory.createFrame("Changing Password Account", 520, 280);
+
+		// Panel Settings
+		JPanel panel = ComponentFactory.createPanel(520, 280);
+
+		// Label Settings
+		// Labels
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Change Password", 32);
+		JLabel codeLabel = ComponentFactory.createLabel("New Password", 16);
+		titleLabel.setBounds(0, 32, 520, 80);
+		codeLabel.setBounds(64, 144, 200, 32);
+
+		// Message
+		errorBoxA = ComponentFactory.createLabel("", 12);
+		errorBoxA.setBounds(32, 216, 240, 48);
+
+		// Colored Blocks
+		JLabel upperBlock = ComponentFactory.createColoredBlockLabel();
+		JLabel lowerBlock = ComponentFactory.createColoredBlockLabel();
+		upperBlock.setBounds(0, 0, 520, 32);
+		lowerBlock.setBounds(0, 264, 520, 16);
+
+		// Text Fields
+		textBoxA = ComponentFactory.createTextField(16);
+		textBoxA.setBounds(64, 176, 200, 40);
+
+		// Button Settings
+		buttonA = ComponentFactory.createButton("Change Password", new ChangePasswordEvents());
+		buttonB = ComponentFactory.createButton("Back", new ChangePasswordEvents());
+		buttonA.setBounds(292, 144, 200, 48);
+		buttonB.setBounds(292, 208, 200, 48);
+
+		// Add Components
+		frame.add(panel);
+		panel.add(titleLabel);
+		panel.add(codeLabel);
+		panel.add(upperBlock);
+		panel.add(lowerBlock);
+		panel.add(buttonA);
+		panel.add(buttonB);
+		panel.add(textBoxA);
+		panel.add(errorBoxA);
+
+		// Display
+		frame.setVisible(true);
 	}
 
 	/**
@@ -765,6 +844,94 @@ public class MachineProjectGUI {
 		panel.add(lowerBlock);
 		panel.add(buttonA);
 		panel.add(table);
+		
+		// Display
+		frame.setVisible(true);
+	}
+
+	/**
+	 * 	Display Contact Tracing Updates GUI
+	 *
+	 * 	@author Steven Castro
+	 */
+	private void showContactTracingUpdatesMenu(String[][] data) {
+		// Frame Settings
+		frame = ComponentFactory.createFrame("Show Contact Tracng Updates", 1040, 680);
+
+		// Panel Settings
+		JPanel panel = ComponentFactory.createPanel(1040, 680);
+
+		// Label Settings
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Contact Tracing Updates", 32);
+		JLabel startDateLabel = ComponentFactory.createLabel("Start Date (MM,dd,yyyy)", 16);
+		JLabel endDateLabel = ComponentFactory.createLabel("End Date (MM,dd,yyyy)", 16);
+		JLabel statusLabel = ComponentFactory.createLabel("Status (P or T)", 16);
+		JLabel tracerLabel = ComponentFactory.createLabel("Tracer", 16);
+		JLabel caseNumLabel = ComponentFactory.createLabel("Case No.", 16);
+		titleLabel.setBounds(0, 32, 1040, 80);
+		startDateLabel.setBounds(780, 144, 336, 32);
+		endDateLabel.setBounds(780, 216, 336, 32);
+		statusLabel.setBounds(780, 288, 116, 32);
+		tracerLabel.setBounds(780, 464, 120, 40);
+		caseNumLabel.setBounds(912, 464, 120, 40);	
+		
+		// Message Box
+		messageBoxA = ComponentFactory.createLabel("", 16);
+		messageBoxA.setBounds(32, 568, 488	, 48);	
+
+		// Colored Blocks
+		JLabel upperBlock = ComponentFactory.createColoredBlockLabel(); 
+		JLabel lowerBlock = ComponentFactory.createColoredBlockLabel(); 
+		upperBlock.setBounds(0, 0, 1040, 32);
+		lowerBlock.setBounds(0, 664, 1040, 16);
+
+		// Button Settings
+		buttonA = ComponentFactory.createButton("Display", new showContactTracingUpdatesEvents());
+		buttonB = ComponentFactory.createButton("Assign", new showContactTracingUpdatesEvents());
+		buttonC = ComponentFactory.createButton("Back", new showContactTracingUpdatesEvents());
+		buttonA.setBounds(780, 384, 196, 48);
+		buttonB.setBounds(780, 568, 196, 48);
+		buttonC.setBounds(552, 568, 196, 48);
+		
+
+		// Text Fields
+		textBoxA = ComponentFactory.createTextField(16);	
+		textBoxB = ComponentFactory.createTextField(16);
+		textBoxC = ComponentFactory.createTextField(16);	
+		textBoxD = ComponentFactory.createTextField(16);	
+		textBoxE = ComponentFactory.createTextField(16);	
+		textBoxA.setBounds(780, 176, 196, 40);
+		textBoxB.setBounds(780, 248, 196, 40);
+		textBoxC.setBounds(780, 320, 196, 40);
+		textBoxD.setBounds(780, 504, 116, 40);	
+		textBoxE.setBounds(912, 504, 64, 40);
+
+		// Table Settings
+		String[] col = {"Case No.", "Username", "Date", "Tracer", "Status"};
+	
+		JScrollPane table = ComponentFactory.createJTableScrollPane(data, col);
+		table.setBounds(32, 144, 716, 400);
+
+		// Add Components
+		frame.add(panel);
+		panel.add(titleLabel);
+		panel.add(startDateLabel);
+		panel.add(endDateLabel);
+		panel.add(statusLabel);
+		panel.add(tracerLabel);
+		panel.add(caseNumLabel);
+		panel.add(upperBlock);
+		panel.add(lowerBlock);
+		panel.add(buttonA);
+		panel.add(buttonB);
+		panel.add(buttonC);
+		panel.add(textBoxA);
+		panel.add(textBoxB);
+		panel.add(textBoxC);
+		panel.add(textBoxD);
+		panel.add(textBoxE);
+		panel.add(table);
+		panel.add(messageBoxA);
 		
 		// Display
 		frame.setVisible(true);
@@ -1006,11 +1173,7 @@ public class MachineProjectGUI {
 	}
 
 
-
-
-
-
-	// Event Handling	// Inner Classess	// ActionListener Classes 	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+	// Controller	// Event Handling	// Inner Classess	// ActionListener Classes 	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 	// Account Methods ::::::::::::::::::::::::::::::::::::::::::::::::::
 	private class LoginEvents implements ActionListener {
@@ -1207,22 +1370,27 @@ public class MachineProjectGUI {
 	private class CitizenEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == buttonA) {			// Check In Button		
+			if (e.getSource() == buttonA) {						// Check In Button		
 				printConsoleMessage("Check In Menu GUI");
 				
 				frame.dispose();
 				checkInMenu();
-			} else if (e.getSource() == buttonB) {	// Report Positive Button
+			} else if (e.getSource() == buttonB) {				// Report Positive Button
 				printConsoleMessage("Report Case Menu GUI");
 
 				frame.dispose();
 				reportCaseMenu();
-			} else if (e.getSource() == buttonC) {	// Change Profile Information Button
+			} else if (e.getSource() == buttonC) {				// Change Profile Information Button
 				printConsoleMessage("Change Profile Menu GUI");
 
 				frame.dispose();
 				changeProfileMenu();
-			} else {								// Log Out Button
+			} else if (e.getSource() == buttonD) {				// Change Password Button
+				printConsoleMessage("Change Password Menu GUI");
+
+				frame.dispose();
+				changePasswordMenu();
+			} else {											// Log Out Button
 				printConsoleMessage("Login Menu GUI");
 
 				currentAccount.logOut();
@@ -1250,12 +1418,18 @@ public class MachineProjectGUI {
 
 				frame.dispose();
 				changeProfileMenu();
-			} else if (e.getSource() == buttonE) {						// Show Account Listings Button
+
+			} else if (e.getSource() == buttonD) {						// Change Password Button
+				printConsoleMessage("Change Profile Menu GUI");
+
+				frame.dispose();
+				changeProfileMenu();
+			} else if (e.getSource() == buttonF) {						// Show Account Listings Button
 				printConsoleMessage("Show Account Listings Menu GUI");	
 
 				frame.dispose();
 				showAccountListMenu();
-			} else if (e.getSource() == buttonF) {						// Show Unassigned Cases Button
+			} else if (e.getSource() == buttonG) {						// Show Unassigned Cases Button
 				printConsoleMessage("Show Unassigned Menu GUI");
 
 				frame.dispose();
@@ -1263,27 +1437,39 @@ public class MachineProjectGUI {
 				gv.copyAccountInfo(currentAccount);
 
 				showUnassignedCasesMenu(gv.showUnassignedCases());
-			} else if (e.getSource() == buttonG) {						// Show Analytics
+			} else if (e.getSource() == buttonH){						// Show Contact Tracing Updates Button
+				GovernmentOfficial gv = new GovernmentOfficial();
+				gv.copyAccountInfo(currentAccount);
+
+				frame.dispose();
+
+				// Default Duration
+				Calendar startDate = RecordList.buildCalendar("01,01,2000", "0000");
+				Calendar endDate = Calendar.getInstance();
+				showContactTracingUpdatesMenu(gv.showContactTracingUpdates(startDate, endDate, 'P'));
+				messageBoxA.setText("> Displaying Cases from " + "01,01,2000" + " -> Today");
+
+			} else if (e.getSource() == buttonI) {						// Show Analytics
 				printConsoleMessage("Show Analytics Menu GUI");
 
 				frame.dispose();
 				showAnalyticsMenu();
-			} else if (e.getSource() == buttonH) {						// Create Government Official Account
+			} else if (e.getSource() == buttonJ) {						// Create Government Official Account
 				printConsoleMessage("Create Government Official Menu GUI");
 
 				frame.dispose();
 				createOfficialMenu();
-			} else if (e.getSource() == buttonI) {						// Create Contact Tracer Account
+			} else if (e.getSource() == buttonK) {						// Create Contact Tracer Account
 				printConsoleMessage("Create Contact Tracer Menu GUI");
 
 				frame.dispose();
 				createTracerMenu();
-			} else if (e.getSource() == buttonJ) {						// Terminate Account
+			} else if (e.getSource() == buttonL) {						// Terminate Account
 				printConsoleMessage("Terminate Account Menu GUI");
 
 				frame.dispose();
 				terminateAccountMenu();
-			} else {								// Log Out Button
+			} else {													// Log Out Button
 				printConsoleMessage("Login Menu GUI");
 
 				currentAccount.logOut();
@@ -1301,7 +1487,7 @@ public class MachineProjectGUI {
 	}
 
 
-	// Citizen Methods ::::::::::::::::::::::::::::::::::::::::::::::::::
+	// Citizen Account Options ::::::::::::::::::::::::::::::::::::::::::::::::::
 	private class CheckInEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -1380,8 +1566,33 @@ public class MachineProjectGUI {
 		}
 	}
 
+	private class ChangePasswordEvents implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == buttonA) {						// Change Password Button
+				String password = textBoxA.getText().trim();
 
-	// Government Methods ::::::::::::::::::::::::::::::::::::::::::::::::::
+				if (currentAccount.changePassword(password)) {
+					errorBoxA.setText("> Password Chnaged!");
+
+				} else {										
+
+					// Error Messages >	
+					if (password.length() == 0) {
+						errorBoxA.setText("> No Input!");
+					} else {
+						errorBoxA.setText("> Invalid Password Format!");
+					}
+				}
+			} else {											// Back Button
+				frame.dispose();
+				returnToAccountMenu();
+			}
+		}
+	}
+
+
+	// Government Account Options ::::::::::::::::::::::::::::::::::::::::::::::::::
 	private class DisplayTableEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {		// Back Button
@@ -1458,50 +1669,66 @@ public class MachineProjectGUI {
 	private class CreateTerminateAccountEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == buttonA) {
+			if (e.getSource() == buttonA) {							// Create & Terminate Buttons
 				MasterList masters = new MasterList();
+				String username = textBoxA.getText().trim();
+				errorBoxA.setText("");
 
 				GovernmentOfficial gv = new GovernmentOfficial();
 				gv.copyAccountInfo(currentAccount);
-
-				String username = textBoxA.getText().trim();
-
-				errorBoxA.setText("");
 				
-				if (masters.checkMaster(username)) {
-					if (buttonA.getText().equals("Create Official")) {
-					 	if (gv.createGovernmentOfficial(username)) {
-					 		errorBoxA.setText("> Username is now a Government Official!");
+				// Check Unique Username
+				if (username.length() != 0) {
+					if (buttonA.getText().equals("Create Official")) {					// Create Offical Button
 
+						// Create Government Official by Updating
+					 	if (gv.createGovernmentOfficial(username)) {
+
+					 		// Messages
+					 		if (masters.checkMaster(username)) {
+					 			errorBoxA.setText("> Username is now a Government Official!");
+					 		} else {
+					 			errorBoxA.setText("> Account Created! with Initial Password: password123");
+					 		}
 						} else {
 							errorBoxA.setText("> Username Already has This Role!!");
 						}
 
-					} else if (buttonA.getText().equals("Create Tracer")) {
-						if (gv.createContactTracer(username)) {
-							errorBoxA.setText("> Username is now a Contact Tracer!");
+					} else if (buttonA.getText().equals("Create Tracer")) {				// Create Tracer Button
 
+						// Create Contact Tracer by Updating
+						if (gv.createContactTracer(username)) {
+
+							// Messages
+							if (masters.checkMaster(username)) {
+								errorBoxA.setText("> Username is now a Contact Tracer!");
+							} else {
+								errorBoxA.setText("> Account Created! with Initial Password: password123");
+							}
 						} else {
-							errorBoxA.setText("> Username Already has This Role!");
+
+							// Error Messages > Updating Own Gov Acc to Contact Tracer || Updating Tracer Acc to Tracer Acc
+							if (username.equals(gv.getUsername())) {
+								errorBoxA.setText("> You Cannot Update Your Own Role!");
+							} else {
+								errorBoxA.setText("> Username Already has This Role!");
+							}
 						}
 					} else {
+
+						// Terminate Account 											// Terminate Account Button
 						if (gv.terminateAccount(username)) {
 							errorBoxA.setText("> Account Terminated!");
-
 						} else {
 							errorBoxA.setText("> You Cannot Terminate Yourself");
 						}
 					}
 				} else {
-					if (username.length() == 0) {
-						errorBoxA.setText("> No Input!");
-					} else {
-						errorBoxA.setText("> Username Does Not Exist!");
-					}
+					
+					// Error Message
+					errorBoxA.setText("> No Input!");
 				}
-				textBoxA.setText("");
-
-			} else {
+			} else {												// Back Buttons		
 
 				frame.dispose();
 				returnToAccountMenu();
@@ -1509,11 +1736,79 @@ public class MachineProjectGUI {
 		}
 	}
 
+	private class showContactTracingUpdatesEvents implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == buttonA) {				// Display Button
+				String start = textBoxA.getText().trim();
+				String end = textBoxB.getText().trim();
+				String state = textBoxC.getText().trim();
+
+				Calendar startDate = RecordList.buildCalendar(start, "0000");
+				Calendar endDate = RecordList.buildCalendar(end, "0000	");
+
+				if (startDate != null && endDate != null) {
+					if (state.length() != 0) {
+						switch (state.charAt(0)) {
+							case 'P','p','T','t':
+								GovernmentOfficial gv = new GovernmentOfficial();
+								gv.copyAccountInfo(currentAccount);
+
+								frame.dispose();
+								showContactTracingUpdatesMenu(gv.showContactTracingUpdates(startDate, endDate, state.charAt(0)));
+								
+								messageBoxA.setText("> Displaying Cases from " + start + " -> " + end);
+
+								break;
+							default:
+								messageBoxA.setText("> Invaid Status Input!");
+						}
+					} else {
+						messageBoxA.setText("> Missing Status Input!");
+					}
+				} else {
+					// Error Message
+					if (start.length() == 0 || end.length() == 0) {
+						messageBoxA.setText("> Missing Date Input!");
+					} else {
+						messageBoxA.setText("> Invalid Date Input!");
+					}
+				}
+			} else if (e.getSource() == buttonB) {		// Assign Button
+				try {
+					int caseNum = Integer.parseInt(textBoxE.getText().trim());
+					String tracername = textBoxD.getText().trim();
+
+					MasterList masters = new MasterList();
+					CaseList cases = new CaseList();
+
+					if (0 < caseNum && caseNum <= cases.getNumCases()) {
+						if (cases.assignTracer(caseNum, tracername)) {
+						messageBoxA.setText("> Tracer: " + tracername + " Assigned to Case No. " + caseNum);
+					
+						} else {
+		
+							// Error Messages
+							if (masters.checkMaster(tracername)) {
+								messageBoxA.setText("> Username is Not a Contact Tracer");
+							} else {
+								messageBoxA.setText("> Username Does Not Exist!");
+							}		
+						}
+					} else {
+						messageBoxA.setText("> Invalid Case No.!");
+					}
+				} catch (NumberFormatException ex) {
+					messageBoxA.setText("> Invalid Case No. Input!");
+				}
+			} else {									// Back Button
+				frame.dispose();
+				returnToAccountMenu();
+			}
+		}
+	}
 
 
-
-
-	
 
 
 
@@ -1529,6 +1824,8 @@ public class MachineProjectGUI {
 
 	/**
 	 * 	return to respective account menu
+	 *
+	 * 	@author Steven Castro
 	 */
 	private void returnToAccountMenu() {
 		if(currentAccount.getRole().equals("customer")) {
@@ -1540,8 +1837,8 @@ public class MachineProjectGUI {
 			governmentOfficialMenu();
 
 		} else {
-			// tracermenu
-			// 
+			printConsoleMessage("Contact Tracer Menu GUI");
+			contactTracerMenu(); 
 		}
 	}
 }

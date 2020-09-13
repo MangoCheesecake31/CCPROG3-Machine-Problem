@@ -145,6 +145,22 @@ public class Account {
 		online = false;
 	}
 
+	/**
+	 * 	changes the account's password
+	 *
+	 * 	@author Steven Castro
+	 * 	@param 	newPass 	new desired password
+	 * 	@return boolean
+	 */
+	public boolean changePassword(String newPass) {
+		if (validPassword(newPass)) {
+			password = newPass;
+			saveUserInfo(username);
+			return true;
+		} 
+		return false;
+	}
+
 
 	// Getter ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/** 
