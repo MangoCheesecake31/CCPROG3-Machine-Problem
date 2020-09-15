@@ -105,33 +105,31 @@ public class CaseList {
 	public String toString(int caseNum) {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
 
-		// Formatted
-		// String caseEntryText =  String.format("%-4d %-30s %-10s  %-30s %c", caseNo.get(caseNum), 
-		// 																    usernames.get(caseNum),
-		// 																    sdf.format(reportDates.get(caseNum).getTime()),
-		// 																    tracernames.get(caseNum),
-		// 																    statuses.get(caseNum));
-
 		return caseNo.get(caseNum) + " " + usernames.get(caseNum) + " " + sdf.format(reportDates.get(caseNum).getTime()) + " " + tracernames.get(caseNum) + " " + statuses.get(caseNum);
 	}
 
 
 	// Data Manipulation ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-	 *	adds or files a new reported case onto Object's Arrays
+	 *	returns true if a case is added or filed onto Object's Arrays
 	 *	
 	 *	@author Steven Castro
 	 *	@param user username of the user
 	 *	@param date the date the case was reported
 	 */
-	public void addCase(String user, Calendar date) {
-		caseNo.add(++numCases);
-		usernames.add(user);
-		reportDates.add(date);
-		tracernames.add("000");
-		statuses.add('P');
+	public boolean addCase(String user, Calendar date) {
+		
+		if (!(hasReportedCase(user))) {
+			caseNo.add(++numCases);
+			usernames.add(user);
+			reportDates.add(date);
+			tracernames.add("000");
+			statuses.add('P');
 
-		save();
+			save();
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -181,6 +179,22 @@ public class CaseList {
 		return false;
 	}
 	
+	/**
+	 *	returns true if the username has already reported a case
+	 * 
+	 * 	@author Steven Castro
+	 *  @param  username username of the user report a case
+	 *  @return boolean
+	 */
+	public boolean hasReportedCase(String username) {
+		for (String n: usernames) {
+			if (n.equals(username)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 	// File Handling ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**

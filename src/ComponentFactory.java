@@ -3,7 +3,6 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
 
-
 public class ComponentFactory {
 	/*
 		This class is dedicated for creating Swing components with common settings for 
@@ -11,21 +10,13 @@ public class ComponentFactory {
 
 	 */
 	// Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	// Component Color's Hexcodes (Color Settings)
+	// Component Color's Hexcodes (Color & Font Settings)
 	private static final String FRAMECOLOR = "#24292E";	// DARK GREY	// Color of Frame
 	private static final String COMPOCOLOR = "#2F363D";	// LIGHT GREY	// Color of Components
 	private static final String BLOCKCOLOR = "#0066FF";	// BLUE			// Color of Decorative Blocks
-	//private static final String BLOCKCOLOR = "#0066FF";	// BLUE			// Color of Decorative Blocks
-	
-
-
 	private static final String FONTSTYLE = "Robotico";	// FONT
 	
-	// Old Color Settings
-	// private static final String FRAMECOLOR = "#181915";	// DARK GREY	
-	// private static final String COMPOCOLOR = "#282923";	// LIGHT GREY	
-	// private static final String BLOCKCOLOR = "#FF9800";	// ORANGE	
-	
+
 	// Methods ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
 	 * returns a JFrame object with settings based from the given parameters
@@ -190,7 +181,7 @@ public class ComponentFactory {
 	}
 
 	/**
-	 * 	returns a JScrollPane object with a JTable with settings based from given parameters
+	 * 	returns a JScrollPane object with added JTable with settings and data based from given parameters
 	 *
 	 * 	@author Steven Castro
 	 * 	@param 	data 	2D array of data
@@ -220,9 +211,7 @@ public class ComponentFactory {
 		table.setGridColor(Color.decode(COMPOCOLOR));
 		table.setBackground(Color.decode(FRAMECOLOR)); 
 		table.setForeground(Color.WHITE);
-		table.setFont(new Font(FONTSTYLE, Font.BOLD, 16));
-		//table.setBorder(BorderFactory.createLineBorder(Color.decode(FRAMECOLOR), 8, false));
-		
+		table.setFont(new Font(FONTSTYLE, Font.BOLD, 16));		
 		table.setRowHeight(40);
 
 		JScrollPane pane = new JScrollPane(table);

@@ -26,9 +26,15 @@ public class Citizen extends Account {
 	 *	
 	 *	@author Roymaxson Li
 	 *  @param cal the calendar object
+	 *  @return boolean
 	 */
-	public void reportPositive(Calendar cal) {
+	public boolean reportPositive(Calendar cal) {
 		CaseList caseList = new CaseList();
-		caseList.addCase(getUsername(), cal);
+		
+		if (caseList.addCase(getUsername(), cal)) {
+			return true;
+		}
+
+		return false;
 	}
 }

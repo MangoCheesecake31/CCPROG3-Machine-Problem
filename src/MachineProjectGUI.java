@@ -1517,16 +1517,22 @@ public class MachineProjectGUI {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == buttonA) {			// Report Case Button
-				printConsoleMessage("Reported Case");
-
+				
 				// Reporting Case
 				Citizen cz = new Citizen();
 				cz.copyAccountInfo(currentAccount);
-				cz.reportPositive(Calendar.getInstance());
-
+				
 				frame.dispose();
 				returnToAccountMenu();
-				messageBoxA.setText("> Case Reported!");
+
+				if (cz.reportPositive(Calendar.getInstance())) {
+					printConsoleMessage("Reported Case");
+					messageBoxA.setText("> Case Reported!");
+				} else {
+					printConsoleMessage("Reporting Case Failed (Already Reported Before)");
+					messageBoxA.setText("> You Already Reported a Case!");
+				}
+				
 
 			} else {								// Cancel Button
 				printConsoleMessage("Reporting Case Canceled");
