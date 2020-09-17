@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.io.*;
 
 /*
- *	This object is dedicated to handling a text file that contains a list of all user reported postives cases.
+ *	This object is dedicated to handling a text file that contains a list of all user reported positive cases.
  *  
  *	Version - 08-31-2020 10:32PM -
  */
@@ -32,7 +32,7 @@ public class CaseList {
 	}
 
 	/**
-	 * 	Constructs a Caselist object with desired file path to a Case List text file
+	 * 	Constructs a CaseList object with desired file path to a Case List text file
 	 *
 	 * 	@author Steven Castro
 	 */

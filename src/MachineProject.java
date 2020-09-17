@@ -40,7 +40,7 @@ public class MachineProject {
 								} else if (myAccount.getRole().equalsIgnoreCase("official")) {
 									GovernmentOfficialMenus(myAccount);
 								} else {
-									ContactTracerMenus();    // Pass Account
+									ContactTracerMenus(myAccount);    // Pass Account
 								}
 							}
 						} catch (NullPointerException e) {
@@ -114,7 +114,14 @@ public class MachineProject {
 				// Change Profile Information
 				case '3' -> changeUserProfileProcess(gv);
 				// Display Unassigned Cases
-				case '4' -> gv.showUnassignedCases();
+				case '4' -> {
+					for(String[] s: gv.showUnassignedCases()) {
+						System.out.println();
+							for(String s2: s)
+								System.out.print(s2 + " | ");
+						System.out.println();
+					}
+				}
 				// Display Contact Tracing Updates (PHASE 2 IMPLEMENTATION)
 				case '5' -> System.out.println("Contact Tracing Updates!");
 				// Display Analytics
@@ -136,35 +143,43 @@ public class MachineProject {
 	}
 
 
-	public static void ContactTracerMenus() {
-		// ContactTracer contactTracer = new ContactTracer();
-		// Scanner	sc = new Scanner(System.in);
+	public static void ContactTracerMenus(Account user) {
+		boolean inContactTracerMenu = true;
+		Scanner sc = new Scanner(System.in);
 
-		// boolean inContactTracerMenu = true;
+		ContactTracer contactTracer = new ContactTracer();
+		contactTracer.copyAccountInfo(user);
 
-		// while(inContactTracerMenu) {
-		// 	Visual.cls();
-		// 	Visual.contactTracerMenu();
+		while(inContactTracerMenu) {
+			Visual.cls();
+		 	Visual.contactTracerMenu();
 
-		// 	switch(sc.next().charAt(0)) {
-		// 		// Check In
-		// 		case '1' -> contactTracer.checkIn();
-		// 		// Report Positive Case
-		// 		case '2' -> contactTracer.reportPositive();
-		// 		// Change Profile Information
-		// 		case '3' -> contactTracer.changeUserInfo();
-		// 		// Show Cases (PHASE 2 IMPLEMENTATION)
-		// 		case '4' -> System.out.println("Show Cases!");
-		// 		// Trace Specific Case (PHASE 2 IMPLEMENTATION)
-		// 		case '5' -> System.out.println("Trace Specific Case!");
-		// 		// Inform Citizens Possibly Exposed (PHASE 2 IMPLEMENTATION)
-		// 		case '6' -> System.out.println("Inform Citizens Possibly Exposed!");
-		// 		case '7'-> {
-		// 			contactTracer.logOut();
-		// 			inContactTracerMenu = false;
-		// 		}
-		// 	}
-		// }
+		 	switch(sc.next().charAt(0)) {
+//		 		// Check In
+//		 		case '1' -> contactTracer.checkIn();
+//		 		// Report Positive Case
+//		 		case '2' -> contactTracer.reportPositive();
+//		 		// Change Profile Information
+//		 		case '3' -> contactTracer.changeUserInfo();
+		 		// Show Case
+		 		case '4' -> {
+					for(String[] s: contactTracer.showCases()) {
+						System.out.println();
+						for(String s2: s)
+							System.out.print(s2 + " | ");
+						System.out.println();
+					}
+				}
+		 		// Trace Specific Case
+//		 		case '5' -> contactTracer.traceSpecificCase(); // input parameter
+//		 		// Inform Citizens Possibly Exposed
+//				case '6' -> contactTracer.possiblyExposed();
+		 		case '7'-> {
+		 			contactTracer.logOut();
+		 			inContactTracerMenu = false;
+		 		}
+		 	}
+		 }
 	}
 
 	/**
@@ -214,22 +229,8 @@ public class MachineProject {
 		System.out.println("Checking In!");
 		System.out.print("Please enter establishment code: ");
 		String code = sc.nextLine();
-		System.out.print("Enter year: ");
-		year = sc.nextInt();
-		System.out.print("Enter month (1-12): ");
-		do {
-			month = sc.nextInt();
-			if (month > 12 || month < 1)
-				System.out.println("Invalid input.");
-		} while (month > 12 || month < 1);
-		System.out.print("Enter day of month: ");
-		do {
-			day = sc.nextInt();
-			if (day > 31 || day < 1)
-				System.out.println("Invalid input.");
-		} while (day > 31 || day < 1);
 
-		acc.checkIn(code, year, month, day);
+		acc.checkIn(code);
 	}
 
 	// Main Menu ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
