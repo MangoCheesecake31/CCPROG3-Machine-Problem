@@ -115,8 +115,14 @@ public class ContactTracer extends Citizen {
                                         possiblyInfectedCodes.add(temp.getCodeEntry(k));
                                         break;
 
-                                        // Same Check In / Check out || Temp Check In / Check Out within Span of Case Check In Time
+                                    // Same Check In / Check out || Temp Check In / Check Out within Span of Case Check In Time
                                     } else if (((dateT2.after(dateC1) && dateT2.before(dateC2)) || dateT2.equals(dateC1))) {
+                                        possiblyInfectedUsers.add(temp.getUsername());
+                                        possiblyInfectedCodes.add(temp.getCodeEntry(k));
+                                        break;
+
+                                    // Case Check In within Span of Temp Check In Time
+                                    } else if ((dateC1.after(dateT1) && dateC1.before(dateT2))) {
                                         possiblyInfectedUsers.add(temp.getUsername());
                                         possiblyInfectedCodes.add(temp.getCodeEntry(k));
                                         break;
@@ -127,7 +133,11 @@ public class ContactTracer extends Citizen {
                     }
                 }
             }
+        } else {
+            return null;
+
         }
+        
         String[][] data = new String[possiblyInfectedUsers.size()][2];
 
         // Create 2D array of Strings containing a list of possibly infected users
