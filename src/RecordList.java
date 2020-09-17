@@ -41,6 +41,16 @@ public class RecordList {
  
 	// Getter ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
+	 *	return the number of Records in the Records.txt
+	 *
+	 *	@author Steven Castro
+	 */
+	public int getNumRecord() {
+		return numAcc;
+
+	}
+
+	/**
 	 *	return a Record found in the ArrayList records based on the username
 	 * 
 	 *	@author Steven Castro

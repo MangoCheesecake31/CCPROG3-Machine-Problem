@@ -163,7 +163,7 @@ public class MachineProject {
 //		 		case '3' -> contactTracer.changeUserInfo();
 		 		// Show Case
 		 		case '4' -> {
-					for(String[] s: contactTracer.showCases(contactTracer)) {
+					for(String[] s: contactTracer.showCases()) {
 						System.out.println();
 						for(String s2: s)
 							System.out.print(s2 + " | ");
@@ -171,7 +171,7 @@ public class MachineProject {
 					}
 				}
 		 		// Trace Specific Case
-		 		case '5' -> contactTracer.traceSpecificCase();
+//		 		case '5' -> contactTracer.traceSpecificCase(); // input parameter
 //		 		// Inform Citizens Possibly Exposed
 //				case '6' -> contactTracer.possiblyExposed();
 		 		case '7'-> {
