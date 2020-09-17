@@ -9,10 +9,7 @@ public class Citizen extends Account {
 	 *	then adds it to the User's record.
 	 *	
 	 *	@author Roymaxson Li, Steven Castro
-	 *  @param code 	the establishment code
-	 *  @param year 	the input year
-	 *  @param month 	the input month
-	 *  @param day 		the input day
+	 *  @param code the establishment code
 	 */
 	public void checkIn(String code) {
 		RecordList records = new RecordList();
