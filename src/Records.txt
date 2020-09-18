@@ -9,6 +9,7 @@ WAKANDA4EVA 09,12,2020 1104
 WonderWall 09,12,2020 2142
 
 maxson
+Mcdonalds 05,31,2001 1045
 burgerking 01,01,2007 1405
 dairyqueen 10,22,2008 0605
 siocha 02,14,2009 1205

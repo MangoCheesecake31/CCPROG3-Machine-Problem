@@ -19,6 +19,7 @@ public class MachineProjectGUI {
 	// Constructors ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::	 
 	public MachineProjectGUI() {
 		// Start Program
+		//traceSpecificCaseMenu();
 		loginMenu();
 	}
 
@@ -484,7 +485,81 @@ public class MachineProjectGUI {
 	 * 	@author Steven Castro
 	 */
 	private void contactTracerMenu() {
-	 
+	 	// Frame Settings
+		frame = ComponentFactory.createFrame("Contact Tracer Menu", 520, 656);
+
+		// Panel Settings
+		JPanel panel = ComponentFactory.createPanel(520, 656);
+
+		// Label Settings
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Contact Tracer Account Menu", 32);
+		titleLabel.setBounds(0, 32, 520, 80);
+
+		// Console/Message
+		messageBoxA = ComponentFactory.createLabel("> Welcome! " + currentAccount.fullName, 14);
+		messageBoxA.setBounds(65, 112, 390, 32);
+
+		//Icons
+		JLabel checkInIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/arrow-up.png");
+		JLabel reportCaseIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/alert-triangle.png");
+		JLabel changeProfileIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/edit.png");
+		JLabel changePasswordIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/lock.png");
+		JLabel logOutIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/log-out.png");
+		JLabel showCaseIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/file-text.png");
+		JLabel traceCaseIconLabel = ComponentFactory.createIconLabel(40, 40, "./Icons/map-pin.png");
+		checkInIconLabel.setBounds(21, 144, 40, 40);
+		reportCaseIconLabel.setBounds(21, 216, 40, 40);
+		changeProfileIconLabel.setBounds(21, 288, 40, 40);
+		changePasswordIconLabel.setBounds(21, 360, 40, 40);
+		showCaseIconLabel.setBounds(21, 432, 40, 40);
+		traceCaseIconLabel.setBounds(21, 504, 40, 40);
+		logOutIconLabel.setBounds(21, 576, 40, 40);
+
+		// Colored Blocks
+		JLabel upperBlock  = ComponentFactory.createColoredBlockLabel();
+		JLabel lowerBlock  = ComponentFactory.createColoredBlockLabel();
+		upperBlock.setBounds(0, 0, 520, 32);
+		lowerBlock.setBounds(0, 640, 520, 16);
+
+		buttonA = ComponentFactory.createButton("Check In", new CitizenEvents());
+		buttonB = ComponentFactory.createButton("Report Positive Case", new CitizenEvents());
+		buttonC = ComponentFactory.createButton("Change Profile Information", new CitizenEvents());
+		buttonD = ComponentFactory.createButton("Change Password", new CitizenEvents());
+		buttonE = ComponentFactory.createButton("Log Out", new CitizenEvents());
+
+		buttonF = ComponentFactory.createButton("Show Assigned Cases", new ContactTracerEvents());
+		buttonG = ComponentFactory.createButton("Trace Specific Case", new ContactTracerEvents());
+		buttonA.setBounds(65, 144, 390, 48);
+		buttonB.setBounds(65, 216, 390, 48);
+		buttonC.setBounds(65, 288, 390, 48);
+		buttonD.setBounds(65, 360, 390, 48);
+		buttonF.setBounds(65, 432, 390, 48);
+		buttonG.setBounds(65, 504, 390, 48);
+		buttonE.setBounds(65, 576, 390, 48);
+
+		// Add Compoenents	
+		frame.add(panel);
+		panel.add(titleLabel);
+		panel.add(messageBoxA);
+		panel.add(upperBlock);
+		panel.add(lowerBlock);
+		panel.add(checkInIconLabel);
+		panel.add(reportCaseIconLabel);
+		panel.add(changeProfileIconLabel);
+		panel.add(changePasswordIconLabel);
+		panel.add(logOutIconLabel);
+		panel.add(showCaseIconLabel);
+		panel.add(traceCaseIconLabel);
+		panel.add(buttonA);
+		panel.add(buttonB);
+		panel.add(buttonC);
+		panel.add(buttonD);
+		panel.add(buttonE);
+		panel.add(buttonF);
+		panel.add(buttonG);
+
+		// Display
+		frame.setVisible(true); 
 	}
 
 	/**
@@ -1172,6 +1247,103 @@ public class MachineProjectGUI {
 		frame.setVisible(true);
 	}
 
+	/**
+	 * 	Show Assgined Cases Menu GUI
+	 *
+	 * 	@author Steven Castro
+	 */
+	private void showAssignedCases(String[][] data) {
+		// Frame Settings
+		frame = ComponentFactory.createFrame("Show Assigned Cases", 520, 520);
+
+		// Panel Settings
+		JPanel panel = ComponentFactory.createPanel(520, 520);
+
+		// Label Settings
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Assigned Cases", 32);
+		titleLabel.setBounds(0, 32, 520, 80);
+
+		// Colored Blocks
+		JLabel upperBlock = ComponentFactory.createColoredBlockLabel(); 
+		JLabel lowerBlock = ComponentFactory.createColoredBlockLabel(); 
+		upperBlock.setBounds(0, 0, 520, 32);
+		lowerBlock.setBounds(0, 504, 520, 16);
+
+		// Button Settings
+		buttonA = ComponentFactory.createButton("Back", new DisplayTableEvents());
+		buttonA.setBounds(65, 424, 390, 48);
+
+		// Table Settings
+		String[] col = {"Case No.", "Date", "Status"};
+	
+		JScrollPane table = ComponentFactory.createJTableScrollPane(data, col);
+		table.setBounds(32, 144, 456, 248);
+
+		// Add Components
+		frame.add(panel);
+		panel.add(titleLabel);
+		panel.add(upperBlock);
+		panel.add(lowerBlock);
+		panel.add(buttonA);
+		panel.add(table);
+		
+		// Display
+		frame.setVisible(true);
+	}
+
+	/**
+	 * 	Trace Spefic Cases Menu GUI
+	 *
+	 *  @author Steven Castro
+	 */
+	private void traceSpecificCaseMenu() {
+		// Frame Settings
+		frame = ComponentFactory.createFrame("Tracing Specific Case", 520, 280);
+
+		// Panel Settings
+		JPanel panel = ComponentFactory.createPanel(520, 280);
+
+		// Label Settings
+		// Labels
+		JLabel titleLabel = ComponentFactory.createTitleLabel("Trace Specific Case", 32);
+		JLabel codeLabel = ComponentFactory.createLabel("Assigned Case Number", 16);
+		titleLabel.setBounds(0, 32, 520, 80);
+		codeLabel.setBounds(64, 144, 200, 32);
+
+		// Colored Blocks
+		JLabel upperBlock = ComponentFactory.createColoredBlockLabel();
+		JLabel lowerBlock = ComponentFactory.createColoredBlockLabel();
+		upperBlock.setBounds(0, 0, 520, 32);
+		lowerBlock.setBounds(0, 264, 520, 16);
+
+		// Text Fields
+		textBoxA = ComponentFactory.createTextField(16);
+		textBoxA.setBounds(64, 176, 100, 40);
+
+		// Message 
+		messageBoxA = ComponentFactory.createLabel(" ", 14);
+		messageBoxA.setBounds(16, 216, 240, 40);
+
+		// Button Settings
+		buttonA = ComponentFactory.createButton("Trace Case", new TraceCaseEvents());
+		buttonB = ComponentFactory.createButton("Back", new TraceCaseEvents());
+		buttonA.setBounds(292, 144, 200, 48);
+		buttonB.setBounds(292, 208, 200, 48);
+
+		// Add Components
+		frame.add(panel);
+		panel.add(titleLabel);
+		panel.add(codeLabel);
+		panel.add(upperBlock);
+		panel.add(lowerBlock);
+		panel.add(buttonA);
+		panel.add(buttonB);
+		panel.add(textBoxA);
+		panel.add(messageBoxA);
+
+		// Display
+		frame.setVisible(true);
+	}
 
 	// Controller	// Event Handling	// Inner Classess	// ActionListener Classes 	::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -1403,28 +1575,7 @@ public class MachineProjectGUI {
 	private class GovernmentOfficialEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == buttonA) {								// Check In Button		
-				printConsoleMessage("Check In Menu GUI");
-				
-				frame.dispose();
-				checkInMenu();
-			} else if (e.getSource() == buttonB) {						// Report Positive Button
-				printConsoleMessage("Report Case Menu GUI");
-
-				frame.dispose();
-				reportCaseMenu();
-			} else if (e.getSource() == buttonC) {						// Change Profile Information Button
-				printConsoleMessage("Change Profile Menu GUI");
-
-				frame.dispose();
-				changeProfileMenu();
-
-			} else if (e.getSource() == buttonD) {						// Change Password Button
-				printConsoleMessage("Change Profile Menu GUI");
-
-				frame.dispose();
-				changeProfileMenu();
-			} else if (e.getSource() == buttonF) {						// Show Account Listings Button
+			if (e.getSource() == buttonF) {								// Show Account Listings Button
 				printConsoleMessage("Show Account Listings Menu GUI");	
 
 				frame.dispose();
@@ -1464,25 +1615,31 @@ public class MachineProjectGUI {
 
 				frame.dispose();
 				createTracerMenu();
-			} else if (e.getSource() == buttonL) {						// Terminate Account
+			} else {													// Terminate Account
 				printConsoleMessage("Terminate Account Menu GUI");
 
 				frame.dispose();
 				terminateAccountMenu();
-			} else {													// Log Out Button
-				printConsoleMessage("Login Menu GUI");
-
-				currentAccount.logOut();
-				frame.dispose();
-				loginMenu();
-			}
+			} 
 		}
 	}
 
 	private class ContactTracerEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			ContactTracer ct = new ContactTracer();
+			ct.copyAccountInfo(currentAccount);
 
+			if (e.getSource() == buttonF) {					// Show Unassigned Cases Button
+				frame.dispose();
+				showAssignedCases(ct.showCases());
+
+
+			} else {										// Trace Specific Case Button
+				frame.dispose();
+				traceSpecificCaseMenu();
+
+			}
 		}
 	}
 
@@ -1789,8 +1946,8 @@ public class MachineProjectGUI {
 					CaseList cases = new CaseList();
 
 					if (0 < caseNum && caseNum <= cases.getNumCases()) {
-						if (cases.assignTracer(caseNum, tracername)) {
-						messageBoxA.setText("> Tracer: " + tracername + " Assigned to Case No. " + caseNum);
+						if (cases.assignTracer(caseNum , tracername)) {
+							messageBoxA.setText("> Tracer: " + tracername + " Assigned to Case No. " + caseNum);
 					
 						} else {
 		
@@ -1813,6 +1970,58 @@ public class MachineProjectGUI {
 			}
 		}
 	}
+
+
+	// Contact Tracer Account Options
+	private class TraceCaseEvents implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) { 	
+			ContactTracer ct = new ContactTracer();
+			ct.copyAccountInfo(currentAccount);
+
+			if (e.getSource() == buttonA) {				// Trace Case
+				messageBoxA.setText("");
+				try {
+					int caseNum = Integer.parseInt(textBoxA.getText().trim());
+
+					String[][] names = ct.traceSpecificCase(caseNum - 1);
+
+					if (names != null) {
+						// Dislay on Console
+						for (String[] x: names) {
+							System.out.println(x[0] + " " + x[1]);
+						}
+
+						messageBoxA.setText("> Found " + names.length + " Possibly Infected");
+						printConsoleMessage("Found " + names.length + " Possibly Infected");
+
+
+					} else {
+						messageBoxA.setText("> Traced or Not Assgined");
+					}
+					
+
+				} catch (NumberFormatException ex) { 
+					// Error Messages
+					if (textBoxA.getText().length() == 0) {
+						messageBoxA.setText("> No Input!");	
+					} else {
+						messageBoxA.setText("> Invalid Input!");	
+					}
+				} catch (IndexOutOfBoundsException ex) {
+					messageBoxA.setText("> Case Num Not Issued!");	
+				}
+
+				// Clear Text Field
+				textBoxA.setText("");
+			} else {									// Back Button
+				frame.dispose();
+				returnToAccountMenu();
+
+			}
+		}
+	}
+
 
 
 

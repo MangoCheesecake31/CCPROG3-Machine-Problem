@@ -59,73 +59,81 @@ public class ContactTracer extends Citizen {
         ArrayList<String> possiblyInfectedCodes = new ArrayList<>();
 
         // Assigned
+        System.out.println(getUsername() + " " + cases.getTracerName(caseNum) + " " + cases.getUsername(caseNum));
         if (cases.getStatus(caseNum) == 'P' && cases.getTracerName(caseNum).equals(getUsername())) {
+
+            System.out.println("Being Traced");
             // Records of the Case Issuer
             Record caseHolderRecord = records.getUserRecord(cases.getUsername(caseNum));
 
+            // Check if Case Issuer has Records
+            if (caseHolderRecord != null) {
 
+                // Record Entries of the Case Issuer
+                for (int i = 0; i < caseHolderRecord.getNumEntry(); i++) {
 
-            // Record Entries of the Case Issuer
-            for (int i = 0; i < caseHolderRecord.getNumEntry(); i++) {
+                    // Number of Users with Records
+                    for (int j = 0; j < records.getNumRecord(); j++) {
+                        Record temp = records.getUserRecord(j);
 
-                // Number of Users with Records
-                for (int j = 0; j < records.getNumRecord(); j++) {
-                    Record temp = records.getUserRecord(j);
+                        // Check He or She is already Infected
+                        if (!(cases.hasReportedCase(temp.getUsername())) && checkFoundPossiblyInfected(temp.getUsername(), possiblyInfectedUsers)) {
 
-                    // Check He or She is already Infected
-                    if (!(cases.hasReportedCase(temp.getUsername())) && checkFoundPossiblyInfected(temp.getUsername(), possiblyInfectedUsers)) {
+                            // Comparing Temp Entries
+                            for (int k = 0; k < temp.getNumEntry(); k++) {
 
-                        // Comparing Temp Entries
-                        for (int k = 0; k < temp.getNumEntry(); k++) {
+                                // Same Establishment Code
+                                if (caseHolderRecord.getCodeEntry(i).equalsIgnoreCase(temp.getCodeEntry(k))) {
 
-                            // Same Establishment Code
-                            if (caseHolderRecord.getCodeEntry(i).equalsIgnoreCase(temp.getCodeEntry(k))) {
+                                    // Same Date
+                                    String dateTextC = sdf.format(caseHolderRecord.getCalendarEntry(i).getTime());
+                                    String dateTextT = sdf.format(temp.getCalendarEntry(k).getTime());
+                                    if (dateTextC.equals(dateTextT)) {
 
-                                // Same Date
-                                String dateTextC = sdf.format(caseHolderRecord.getCalendarEntry(i).getTime());
-                                String dateTextT = sdf.format(temp.getCalendarEntry(k).getTime());
-                                if (dateTextC.equals(dateTextT)) {
+                                        // Around the Same Tim
+                                        Date dateC1 = caseHolderRecord.getCalendarEntry(i).getTime();
+                                        Date dateT1 = temp.getCalendarEntry(k).getTime();
+                                        Date dateC2;
+                                        Date dateT2;
+                                        Calendar dump;
 
-                                    // Around the Same Tim
-                                    Date dateC1 = caseHolderRecord.getCalendarEntry(i).getTime();
-                                    Date dateT1 = temp.getCalendarEntry(k).getTime();
-                                    Date dateC2;
-                                    Date dateT2;
-                                    Calendar dump;
+                                        if (i + 1 < caseHolderRecord.getNumEntry()) {    // Next Entry
+                                            dateC2 = caseHolderRecord.getCalendarEntry(i + 1).getTime();
+                                        } else {                                         // Next Day
+                                            dump = (Calendar) caseHolderRecord.getCalendarEntry(i).clone();
+                                            dump.add(Calendar.DAY_OF_YEAR, 1);
+                                            dateC2 = dump.getTime();
+                                        }
 
-                                    if (i + 1 < caseHolderRecord.getNumEntry()) {    // Next Entry
-                                        dateC2 = caseHolderRecord.getCalendarEntry(i + 1).getTime();
-                                    } else {                                         // Next Day
-                                        dump = (Calendar) caseHolderRecord.getCalendarEntry(i).clone();
-                                        dump.add(Calendar.DAY_OF_YEAR, 1);
-                                        dateC2 = dump.getTime();
-                                    }
+                                        if (k + 1 < temp.getNumEntry()) {               // Next Entry
+                                            dateT2 = temp.getCalendarEntry(k + 1).getTime();
+                                        } else {
+                                            dump = (Calendar) temp.getCalendarEntry(k).clone();
+                                            dump.add(Calendar.DAY_OF_YEAR, 1);
+                                            dateT2 = dump.getTime();
+                                        }
 
-                                    if (k + 1 < temp.getNumEntry()) {               // Next Entry
-                                        dateT2 = temp.getCalendarEntry(k + 1).getTime();
-                                    } else {
-                                        dump = (Calendar) temp.getCalendarEntry(k).clone();
-                                        dump.add(Calendar.DAY_OF_YEAR, 1);
-                                        dateT2 = dump.getTime();
-                                    }
+                                        // Same Check In || Temp Check In within Span of Case Check In Time
+                                        if ((dateT1.after(dateC1) && dateT1.before(dateC2)) || dateT1.equals(dateC1)) {
+                                            possiblyInfectedUsers.add(temp.getUsername());
+                                            possiblyInfectedCodes.add(temp.getCodeEntry(k));
+                                            System.out.println("Found " + temp.getUsername());
+                                            break;
 
-                                    // Same Check In || Temp Check In within Span of Case Check In Time
-                                    if ((dateT1.after(dateC1) && dateT1.before(dateC2)) || dateT1.equals(dateC1)) {
-                                        possiblyInfectedUsers.add(temp.getUsername());
-                                        possiblyInfectedCodes.add(temp.getCodeEntry(k));
-                                        break;
+                                        // Same Check In / Check out || Temp Check In / Check Out within Span of Case Check In Time
+                                        } else if (((dateT2.after(dateC1) && dateT2.before(dateC2)) || dateT2.equals(dateC1))) {
+                                            possiblyInfectedUsers.add(temp.getUsername());
+                                            possiblyInfectedCodes.add(temp.getCodeEntry(k));
+                                             System.out.println("Found " + temp.getUsername());
+                                            break;
 
-                                    // Same Check In / Check out || Temp Check In / Check Out within Span of Case Check In Time
-                                    } else if (((dateT2.after(dateC1) && dateT2.before(dateC2)) || dateT2.equals(dateC1))) {
-                                        possiblyInfectedUsers.add(temp.getUsername());
-                                        possiblyInfectedCodes.add(temp.getCodeEntry(k));
-                                        break;
-
-                                    // Case Check In within Span of Temp Check In Time
-                                    } else if ((dateC1.after(dateT1) && dateC1.before(dateT2))) {
-                                        possiblyInfectedUsers.add(temp.getUsername());
-                                        possiblyInfectedCodes.add(temp.getCodeEntry(k));
-                                        break;
+                                        // Case Check In within Span of Temp Check In Time
+                                        } else if ((dateC1.after(dateT1) && dateC1.before(dateT2))) {
+                                            possiblyInfectedUsers.add(temp.getUsername());
+                                            possiblyInfectedCodes.add(temp.getCodeEntry(k));
+                                             System.out.println("Found " + temp.getUsername());
+                                            break;
+                                        }
                                     }
                                 }
                             }
@@ -133,7 +141,16 @@ public class ContactTracer extends Citizen {
                     }
                 }
             }
+            
+            // Change Status to Traced
+            cases.updateStatus(caseNum + 1, 'T');
         } else {
+            if (cases.getStatus(caseNum) == 'P') {
+                System.out.println("Not Your Case");
+            } else {
+                System.out.println("Already Traced");
+            }
+
             return null;
 
         }

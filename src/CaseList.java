@@ -140,13 +140,13 @@ public class CaseList {
 	 *	@param 	tracer 		tracer username
 	 *	@return boolean
 	 */
-	public boolean assignTracer(int caseNum, String tracer) {
+	public boolean assignTracer(int caseNum, String tracername) {
 		MasterList masters = new MasterList();
 
-		if(0 < caseNum && caseNum < numCases) {
+		if (0 < caseNum && caseNum < numCases) {
 			// Check tracer if it has a verified account
-			if(masters.checkMaster(tracer) && masters.getMasterRole(tracer).equals("tracer")) {
-				tracernames.set(caseNum - 1, tracer);
+			if (masters.checkMaster(tracername) && masters.getMasterRole(tracername).equals("tracer")) {
+				tracernames.set(caseNum - 1, tracername);
 				save();
 				return true;
 			}	
@@ -164,7 +164,7 @@ public class CaseList {
 	 */
 	public boolean updateStatus(int caseNum, char state) {
 
-		if(0 < caseNum && caseNum < numCases) {
+		if(0 < caseNum && caseNum <= numCases) {
 			// Valid States of a Case
 			switch(state) {
 				case'p':
