@@ -1374,6 +1374,11 @@ public class MachineProjectGUI {
 						// Proceed to Role Specific Menus
 						returnToAccountMenu();
 
+						NotificationList nfl = new NotificationList();
+						if (nfl.hasNotification(currentAccount.getUsername())) {
+							messageBoxA.setText("> Notice! You Might be Infected from " + nfl.getEstablishmentCode(currentAccount.getUsername()));
+						}
+
 					} else {
 						errorBoxA.setText("> Invalid Password!");
 						printConsoleMessage("Error > Invalid Password");
@@ -1685,6 +1690,10 @@ public class MachineProjectGUI {
 				if (cz.reportPositive(Calendar.getInstance())) {
 					printConsoleMessage("Reported Case");
 					messageBoxA.setText("> Case Reported!");
+
+					// Remove Notification
+					NotificationList nfl = new NotificationList();
+					nfl.deleteNotification(currentAccount.getUsername());
 				} else {
 					printConsoleMessage("Reporting Case Failed (Already Reported Before)");
 					messageBoxA.setText("> You Already Reported a Case!");
