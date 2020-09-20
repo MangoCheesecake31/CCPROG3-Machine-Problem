@@ -98,13 +98,13 @@ public class RecordList {
 	 *	@param username username of the Record holder
 	 *	@param code establishment code to be added in the new entry
 	 */
-	public void addRecordEntry(String username, String code) {
+	public void addRecordEntry(String username, String code, Calendar dateTime) {
 		if (getUserRecord(username) != null) {
-			getUserRecord(username).addEntry(code, Calendar.getInstance());
+			getUserRecord(username).addEntry(code, dateTime);
 
 		} else {
 			Record rc = new Record(username);
-			rc.addEntry(code, Calendar.getInstance());
+			rc.addEntry(code, dateTime);
 			addRecord(rc);
 
 		}

@@ -19,7 +19,8 @@ public class MachineProjectGUI {
 	// Constructors ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::	 
 	public MachineProjectGUI() {
 		// Start Program
-		//traceSpecificCaseMenu();
+		//reportCaseMenu();
+		//checkInMenu();
 		loginMenu();
 	}
 
@@ -569,43 +570,56 @@ public class MachineProjectGUI {
 	 */
 	private void checkInMenu() {
 		// Frame Settings
-		frame = ComponentFactory.createFrame("Checking In", 520, 280);
+		frame = ComponentFactory.createFrame("Checking In", 520, 400);
 
 		// Panel Settings
-		JPanel panel = ComponentFactory.createPanel(520, 280);
+		JPanel panel = ComponentFactory.createPanel(520, 400);
 
 		// Label Settings
 		// Labels
 		JLabel titleLabel = ComponentFactory.createTitleLabel("Checking In", 32);
 		JLabel codeLabel = ComponentFactory.createLabel("Establishment Code", 16);
+		JLabel dateLabel = ComponentFactory.createLabel("Date (MM,dd,yyyy)", 16);
+		JLabel timeLabel = ComponentFactory.createLabel("Time (hhmm)", 16);
 		titleLabel.setBounds(0, 32, 520, 80);
 		codeLabel.setBounds(64, 144, 200, 32);
+		dateLabel.setBounds(64, 216, 200, 32);
+		timeLabel.setBounds(64, 288, 200, 32);
+
 
 		// Colored Blocks
 		JLabel upperBlock = ComponentFactory.createColoredBlockLabel();
 		JLabel lowerBlock = ComponentFactory.createColoredBlockLabel();
 		upperBlock.setBounds(0, 0, 520, 32);
-		lowerBlock.setBounds(0, 264, 520, 16);
+		lowerBlock.setBounds(0, 384, 520, 16);
 
 		// Text Fields
 		textBoxA = ComponentFactory.createTextField(16);
+		textBoxB = ComponentFactory.createTextField(16);
+		textBoxC = ComponentFactory.createTextField(16);
 		textBoxA.setBounds(64, 176, 200, 40);
+		textBoxB.setBounds(64, 248, 200, 40);
+		textBoxC.setBounds(64, 320, 200, 40);
 
 		// Button Settings
 		buttonA = ComponentFactory.createButton("Check In", new CheckInEvents());
 		buttonB = ComponentFactory.createButton("Cancel", new CheckInEvents());
-		buttonA.setBounds(292, 144, 200, 48);
-		buttonB.setBounds(292, 208, 200, 48);
+		buttonA.setBounds(292, 176, 200, 48);
+		buttonB.setBounds(292, 248, 200, 48);
 
 		// Add Components
 		frame.add(panel);
 		panel.add(titleLabel);
 		panel.add(codeLabel);
+		panel.add(dateLabel);
+		panel.add(timeLabel);
 		panel.add(upperBlock);
 		panel.add(lowerBlock);
 		panel.add(buttonA);
 		panel.add(buttonB);
 		panel.add(textBoxA);
+		panel.add(textBoxB);
+		panel.add(textBoxC);
 
 		// Display
 		frame.setVisible(true);
@@ -626,28 +640,33 @@ public class MachineProjectGUI {
 		// Label Settings
 		// Labels
 		JLabel titleLabel = ComponentFactory.createTitleLabel("Report Case Positive", 32);
-		JLabel codeLabel = ComponentFactory.createLabel("Confirm?", 16);
+		JLabel dateLabel = ComponentFactory.createLabel("Date (MM,dd,yyyy)", 16);
 		titleLabel.setBounds(0, 32, 520, 80);
-		codeLabel.setBounds(64, 144, 200, 32);
+		dateLabel.setBounds(64, 144, 200, 32);
 
 		// Colored Blocks
 		JLabel upperBlock = ComponentFactory.createColoredBlockLabel();
 		JLabel lowerBlock = ComponentFactory.createColoredBlockLabel();
 		upperBlock.setBounds(0, 0, 520, 32);
-		lowerBlock.setBounds(0, 264, 520, 16);
+		lowerBlock.setBounds(0, 344, 520, 16);
 
 		// Button Settings
 		buttonA = ComponentFactory.createButton("Report", new ReportCaseEvents());
 		buttonB = ComponentFactory.createButton("Cancel", new ReportCaseEvents());
-		buttonA.setBounds(65, 144, 390, 48);
-		buttonB.setBounds(65, 208, 390, 48);
+		buttonA.setBounds(292, 144, 200, 48);
+		buttonB.setBounds(292, 216, 200, 48);
+
+		// Text Fields
+		textBoxA = ComponentFactory.createTextField(16);
+		textBoxA.setBounds(64, 176, 200, 40);
 
 		// Add Components
 		frame.add(panel);
 		panel.add(titleLabel);
-		panel.add(codeLabel);
+		panel.add(dateLabel);
 		panel.add(upperBlock);
 		panel.add(lowerBlock);
+		panel.add(textBoxA);
 		panel.add(buttonA);
 		panel.add(buttonB);
 
@@ -1655,17 +1674,26 @@ public class MachineProjectGUI {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == buttonA) {			// Check In Button
 				String code = textBoxA.getText().trim();
-				printConsoleMessage("Checking In > " + code);
+				String date = textBoxB.getText().trim();
+				String time = textBoxC.getText().trim();
+				printConsoleMessage("Checking In > " + code + " " + date + " " + time);
 
-				// Checking In
-				Citizen cz = new Citizen();
-				cz.copyAccountInfo(currentAccount);
-				cz.checkIn(code);
+				Calendar checkInDate = RecordList.buildCalendar(date, time);
 
 				frame.dispose();
 				returnToAccountMenu();
-				messageBoxA.setText("> Checked In - " + code);
 
+				// Checking In
+				if (checkInDate != null) {
+					// Checking In
+					Citizen cz = new Citizen();
+					cz.copyAccountInfo(currentAccount);
+					cz.checkIn(code, checkInDate);
+
+					messageBoxA.setText("> Checked In - " + code + date + " " + time);
+				} else {
+					messageBoxA.setText("> Check In Failed! Invalid Inputs");
+				}
 			} else {								// Cancel Button
 				printConsoleMessage("Checking In Canceled");
 
@@ -1679,15 +1707,18 @@ public class MachineProjectGUI {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == buttonA) {			// Report Case Button
-				
+				String date = textBoxA.getText().trim();
+
 				// Reporting Case
 				Citizen cz = new Citizen();
 				cz.copyAccountInfo(currentAccount);
+
+				Calendar reportDate = RecordList.buildCalendar(date, "0000");
 				
 				frame.dispose();
 				returnToAccountMenu();
 
-				if (cz.reportPositive(Calendar.getInstance())) {
+				if (cz.reportPositive(reportDate)) {
 					printConsoleMessage("Reported Case");
 					messageBoxA.setText("> Case Reported!");
 
@@ -1695,11 +1726,15 @@ public class MachineProjectGUI {
 					NotificationList nfl = new NotificationList();
 					nfl.deleteNotification(currentAccount.getUsername());
 				} else {
-					printConsoleMessage("Reporting Case Failed (Already Reported Before)");
-					messageBoxA.setText("> You Already Reported a Case!");
+					// Error Messages
+					if (reportDate == null) {
+						printConsoleMessage("Reporting Case Failed (Invalid Input)");
+						messageBoxA.setText("> Invalid Date Input!");
+					} else {
+						printConsoleMessage("Reporting Case Failed (Already Reported Before)");
+						messageBoxA.setText("> You Already Reported a Case!");
+					}
 				}
-				
-
 			} else {								// Cancel Button
 				printConsoleMessage("Reporting Case Canceled");
 

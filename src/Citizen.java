@@ -8,12 +8,14 @@ public class Citizen extends Account {
 	 *	asks the User to input the establishment code, date, and time of check in
 	 *	then adds it to the User's record.
 	 *	
-	 *	@author Roymaxson Li, Steven Castro
+	 *	@author Roymaxson Li
 	 *  @param code the establishment code
+	 *  @param dateTime Calendar object on when the user checked in
 	 */
-	public void checkIn(String code) {
+	public void checkIn(String code, Calendar dateTime) {
 		RecordList records = new RecordList();
-		records.addRecordEntry(getUsername(), code);
+		// Add the Check In Entry to User's Record
+		records.addRecordEntry(getUsername(), code, dateTime);
 		
 	}
 
