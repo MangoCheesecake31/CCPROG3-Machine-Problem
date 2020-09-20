@@ -10,9 +10,11 @@ public class MachineProjectGUI {
 
 	// Swing Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	private JFrame frame;
-	private JTextField textBoxA, textBoxB, textBoxC, textBoxD, textBoxE, textBoxF, textBoxG, textBoxH;
+	private JTextField[] textBoxes = new JTextField[8];
+	private JButton[] buttons = new JButton[12];
+
 	private JPasswordField passBoxA, passBoxB;
-	private JButton buttonA, buttonB, buttonC, buttonD, buttonE, buttonF, buttonG, buttonH, buttonI, buttonJ, buttonK, buttonL; 
+	
 	private JLabel errorBoxA, messageBoxA;
 
 
@@ -68,15 +70,15 @@ public class MachineProjectGUI {
 		lowerColorLabel.setBounds(0, 464, 520, 16);
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Login", new LoginEvents());
-		buttonB = ComponentFactory.createButton("Create An Account?", new LoginEvents());
-		buttonA.setBounds(65, 304, 390, 48);
-		buttonB.setBounds(65, 368, 390, 48);
+		buttons[0] = ComponentFactory.createButton("Login", new LoginEvents());
+		buttons[1] = ComponentFactory.createButton("Create An Account?", new LoginEvents());
+		buttons[0].setBounds(65, 304, 390, 48);
+		buttons[1].setBounds(65, 368, 390, 48);
 
 		// Text & Password Fields
-		textBoxA = ComponentFactory.createTextField(16);
+		textBoxes[0] = ComponentFactory.createTextField(16);
 		passBoxA = ComponentFactory.createPassField(16);
-		textBoxA.setBounds(64, 160, 280, 40);
+		textBoxes[0].setBounds(64, 160, 280, 40);
 		passBoxA.setBounds(64, 232, 280, 40);
 
 		// Add Components Together
@@ -84,11 +86,11 @@ public class MachineProjectGUI {
 		panel.add(titleLabel);
 		panel.add(usernameLabel);
 		panel.add(passwordLabel);
-		panel.add(buttonA);
-		panel.add(buttonB);
+		panel.add(buttons[0]);
+		panel.add(buttons[1]);
 		panel.add(upperColorLabel);
 		panel.add(lowerColorLabel);
-		panel.add(textBoxA);
+		panel.add(textBoxes[0]);
 		panel.add(passBoxA);
 		panel.add(userIconLabel);
 		panel.add(lockIconLabel);
@@ -142,16 +144,16 @@ public class MachineProjectGUI {
 		lowerColorLabel.setBounds(0, 464, 520, 16);
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Next", new RegisterEvents(accountType));
-		buttonB = ComponentFactory.createButton("Cancel", new RegisterEvents(accountType));
-		buttonA.setBounds(65, 376, 179, 48);
-		buttonB.setBounds(260, 376, 179, 48);
+		buttons[0] = ComponentFactory.createButton("Next", new RegisterEvents(accountType));
+		buttons[1] = ComponentFactory.createButton("Cancel", new RegisterEvents(accountType));
+		buttons[0].setBounds(65, 376, 179, 48);
+		buttons[1].setBounds(260, 376, 179, 48);
 
 		// Text & Password Fields
-		textBoxA = ComponentFactory.createTextField(16);
+		textBoxes[0] = ComponentFactory.createTextField(16);
 		passBoxA = ComponentFactory.createPassField(16);
 		passBoxB = ComponentFactory.createPassField(16);
-		textBoxA.setBounds(64, 160, 280, 40);
+		textBoxes[0].setBounds(64, 160, 280, 40);
 		passBoxA.setBounds(64, 232, 280, 40);
 		passBoxB.setBounds(64, 304, 280, 40);
 
@@ -161,11 +163,11 @@ public class MachineProjectGUI {
 		panel.add(usernameLabel);
 		panel.add(passwordLabel);
 		panel.add(confirmLabel);
-		panel.add(buttonA);
-		panel.add(buttonB);
+		panel.add(buttons[0]);
+		panel.add(buttons[1]);
 		panel.add(upperColorLabel);
 		panel.add(lowerColorLabel);
-		panel.add(textBoxA);
+		panel.add(textBoxes[0]);
 		panel.add(passBoxA);
 		panel.add(passBoxB);
 		panel.add(userIconLabel);
@@ -233,26 +235,26 @@ public class MachineProjectGUI {
 		lowerColorLabel.setBounds(0, 624, 616, 16);
 
 		// Text Field Settings
-		textBoxB = ComponentFactory.createTextField(14);
-		textBoxC = ComponentFactory.createTextField(14);
-		textBoxD = ComponentFactory.createTextField(14);
-		textBoxE = ComponentFactory.createTextField(14);
-		textBoxF = ComponentFactory.createTextField(14);
-		textBoxG = ComponentFactory.createTextField(14);
-		textBoxH = ComponentFactory.createTextField(14);
-		textBoxB.setBounds(32, 216, 200, 40);
-		textBoxC.setBounds(32, 288, 200, 40);
-		textBoxD.setBounds(32, 360, 200, 40);
-		textBoxE.setBounds(296, 216, 300, 40);
-		textBoxF.setBounds(296, 288, 300, 40);
-		textBoxG.setBounds(296, 360, 250, 40);
-		textBoxH.setBounds(296, 432, 150, 40); 
+		textBoxes[1] = ComponentFactory.createTextField(14);
+		textBoxes[2] = ComponentFactory.createTextField(14);
+		textBoxes[3] = ComponentFactory.createTextField(14);
+		textBoxes[4] = ComponentFactory.createTextField(14);
+		textBoxes[5] = ComponentFactory.createTextField(14);
+		textBoxes[6] = ComponentFactory.createTextField(14);
+		textBoxes[7] = ComponentFactory.createTextField(14);
+		textBoxes[1].setBounds(32, 216, 200, 40);
+		textBoxes[2].setBounds(32, 288, 200, 40);
+		textBoxes[3].setBounds(32, 360, 200, 40);
+		textBoxes[4].setBounds(296, 216, 300, 40);
+		textBoxes[5].setBounds(296, 288, 300, 40);
+		textBoxes[6].setBounds(296, 360, 250, 40);
+		textBoxes[7].setBounds(296, 432, 150, 40); 
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Confirm Register", new AccountFormEvents(role, username, password));
-		buttonB = ComponentFactory.createButton("Cancel Registry", new AccountFormEvents(role, username, password));
-		buttonA.setBounds(80, 496, 504, 48);
-		buttonB.setBounds(80, 560, 504, 48);
+		buttons[0] = ComponentFactory.createButton("Confirm Register", new AccountFormEvents(role, username, password));
+		buttons[1] = ComponentFactory.createButton("Cancel Registry", new AccountFormEvents(role, username, password));
+		buttons[0].setBounds(80, 496, 504, 48);
+		buttons[1].setBounds(80, 560, 504, 48);
 		
 		// Add Componenets
 		frame.add(panel);
@@ -268,15 +270,15 @@ public class MachineProjectGUI {
 		panel.add(phoneLabel);
 		panel.add(upperColorLabel);
 		panel.add(lowerColorLabel);
-		panel.add(textBoxB);
-		panel.add(textBoxC);
-		panel.add(textBoxD);
-		panel.add(textBoxE);
-		panel.add(textBoxF);
-		panel.add(textBoxG);
-		panel.add(textBoxH);
-		panel.add(buttonA);
-		panel.add(buttonB);
+		panel.add(textBoxes[1]);
+		panel.add(textBoxes[2]);
+		panel.add(textBoxes[3]);
+		panel.add(textBoxes[4]);
+		panel.add(textBoxes[5]);
+		panel.add(textBoxes[6]);
+		panel.add(textBoxes[7]);
+		panel.add(buttons[0]);
+		panel.add(buttons[1]);
 		panel.add(errorBoxA);
 		panel.add(confirmIconLabel);
 		panel.add(cancelIconLabel);
@@ -323,16 +325,16 @@ public class MachineProjectGUI {
 		upperBlock.setBounds(0, 0, 520, 32);
 		lowerBlock.setBounds(0, 504, 520, 16);
 
-		buttonA = ComponentFactory.createButton("Check In", new CitizenEvents());
-		buttonB = ComponentFactory.createButton("Report Positive Case", new CitizenEvents());
-		buttonC = ComponentFactory.createButton("Change Profile Information", new CitizenEvents());
-		buttonD = ComponentFactory.createButton("Change Password", new CitizenEvents());
-		buttonE = ComponentFactory.createButton("Log Out", new CitizenEvents());
-		buttonA.setBounds(65, 144, 390, 48);
-		buttonB.setBounds(65, 216, 390, 48);
-		buttonC.setBounds(65, 288, 390, 48);
-		buttonD.setBounds(65, 360, 390, 48);
-		buttonE.setBounds(65, 432, 390, 48);
+		buttons[0] = ComponentFactory.createButton("Check In", new CitizenEvents());
+		buttons[1] = ComponentFactory.createButton("Report Positive Case", new CitizenEvents());
+		buttons[2] = ComponentFactory.createButton("Change Profile Information", new CitizenEvents());
+		buttons[3] = ComponentFactory.createButton("Change Password", new CitizenEvents());
+		buttons[4] = ComponentFactory.createButton("Log Out", new CitizenEvents());
+		buttons[0].setBounds(65, 144, 390, 48);
+		buttons[1].setBounds(65, 216, 390, 48);
+		buttons[2].setBounds(65, 288, 390, 48);
+		buttons[3].setBounds(65, 360, 390, 48);
+		buttons[4].setBounds(65, 432, 390, 48);
 
 		// Add Compoenents	
 		frame.add(panel);
@@ -345,11 +347,11 @@ public class MachineProjectGUI {
 		panel.add(changeProfileIconLabel);
 		panel.add(changePasswordIconLabel);
 		panel.add(logOutIconLabel);
-		panel.add(buttonA);
-		panel.add(buttonB);
-		panel.add(buttonC);
-		panel.add(buttonD);
-		panel.add(buttonE);
+		panel.add(buttons[0]);
+		panel.add(buttons[1]);
+		panel.add(buttons[2]);
+		panel.add(buttons[3]);
+		panel.add(buttons[4]);
 
 		// Display
 		frame.setVisible(true); 
@@ -411,36 +413,36 @@ public class MachineProjectGUI {
 		lowerBlock.setBounds(0, 584, 1040, 16);
 
 		// Citizen & Account Methods
-		buttonA = ComponentFactory.createButton("Check In", new CitizenEvents());
-		buttonB = ComponentFactory.createButton("Report Positive Case", new CitizenEvents());
-		buttonC = ComponentFactory.createButton("Change Profile Information", new CitizenEvents());
-		buttonD = ComponentFactory.createButton("Change Password", new CitizenEvents());
-		buttonF = ComponentFactory.createButton("Show Account Listings", new GovernmentOfficialEvents());
-		buttonE = ComponentFactory.createButton("Log Out", new CitizenEvents());
+		buttons[0] = ComponentFactory.createButton("Check In", new CitizenEvents());
+		buttons[1] = ComponentFactory.createButton("Report Positive Case", new CitizenEvents());
+		buttons[2] = ComponentFactory.createButton("Change Profile Information", new CitizenEvents());
+		buttons[3] = ComponentFactory.createButton("Change Password", new CitizenEvents());
+		buttons[5] = ComponentFactory.createButton("Show Account Listings", new GovernmentOfficialEvents());
+		buttons[4] = ComponentFactory.createButton("Log Out", new CitizenEvents());
 
 		// Government Offical Methods
-		buttonG = ComponentFactory.createButton("Show Unassigned Cases", new GovernmentOfficialEvents());
-		buttonH = ComponentFactory.createButton("Show Contact Tracing Updates", new GovernmentOfficialEvents());
-		buttonI = ComponentFactory.createButton("Show Analytics", new GovernmentOfficialEvents());
-		buttonJ = ComponentFactory.createButton("Create Government Official Account", new GovernmentOfficialEvents());
-		buttonK = ComponentFactory.createButton("Create Contact Tracer Account", new GovernmentOfficialEvents());
-		buttonL = ComponentFactory.createButton("Terminate Account", new GovernmentOfficialEvents());
+		buttons[6] = ComponentFactory.createButton("Show Unassigned Cases", new GovernmentOfficialEvents());
+		buttons[7] = ComponentFactory.createButton("Show Contact Tracing Updates", new GovernmentOfficialEvents());
+		buttons[8] = ComponentFactory.createButton("Show Analytics", new GovernmentOfficialEvents());
+		buttons[9] = ComponentFactory.createButton("Create Government Official Account", new GovernmentOfficialEvents());
+		buttons[10] = ComponentFactory.createButton("Create Contact Tracer Account", new GovernmentOfficialEvents());
+		buttons[11] = ComponentFactory.createButton("Terminate Account", new GovernmentOfficialEvents());
 
 		// Left
-		buttonA.setBounds(65, 144, 390, 48);	// Check In
-		buttonB.setBounds(65, 216, 390, 48);	// Report Case
-		buttonC.setBounds(65, 288, 390, 48);	// Change Profile
-		buttonD.setBounds(65, 360, 390, 48);	// Change Password
-		buttonF.setBounds(65, 432, 390, 48);	// Account List
-		buttonE.setBounds(65, 504, 390, 48);	// Log Out
+		buttons[0].setBounds(65, 144, 390, 48);	// Check In
+		buttons[1].setBounds(65, 216, 390, 48);	// Report Case
+		buttons[2].setBounds(65, 288, 390, 48);	// Change Profile
+		buttons[3].setBounds(65, 360, 390, 48);	// Change Password
+		buttons[5].setBounds(65, 432, 390, 48);	// Account List
+		buttons[4].setBounds(65, 504, 390, 48);	// Log Out
 
 		// Right
-		buttonG.setBounds(585, 144, 390, 48);	// Show Unassigned Cases
-		buttonH.setBounds(585, 216, 390, 48);	// Show Contact Tracing Updates
-		buttonI.setBounds(585, 288, 390, 48);	// Show Analytics
-		buttonJ.setBounds(585, 360, 390, 48);	// Create Government Official
-		buttonK.setBounds(585, 432, 390, 48);	// Create Contact Tracer
-		buttonL.setBounds(585, 504, 390, 48);	// Terminate Account
+		buttons[6].setBounds(585, 144, 390, 48);	// Show Unassigned Cases
+		buttons[7].setBounds(585, 216, 390, 48);	// Show Contact Tracing Updates
+		buttons[8].setBounds(585, 288, 390, 48);	// Show Analytics
+		buttons[9].setBounds(585, 360, 390, 48);	// Create Government Official
+		buttons[10].setBounds(585, 432, 390, 48);	// Create Contact Tracer
+		buttons[11].setBounds(585, 504, 390, 48);	// Terminate Account
 
 		// Add Compoenents	
 		frame.add(panel);
@@ -463,18 +465,18 @@ public class MachineProjectGUI {
 		panel.add(createTracerIconLabel);
 		panel.add(terminateIconLabel);
 
-		panel.add(buttonA);
-		panel.add(buttonB);
-		panel.add(buttonC);
-		panel.add(buttonD);
-		panel.add(buttonE);
-		panel.add(buttonF);
-		panel.add(buttonG);
-		panel.add(buttonH);
-		panel.add(buttonI);
-		panel.add(buttonJ);
-		panel.add(buttonK);
-		panel.add(buttonL);
+		panel.add(buttons[0]);
+		panel.add(buttons[1]);
+		panel.add(buttons[2]);
+		panel.add(buttons[3]);
+		panel.add(buttons[4]);
+		panel.add(buttons[5]);
+		panel.add(buttons[6]);
+		panel.add(buttons[7]);
+		panel.add(buttons[8]);
+		panel.add(buttons[9]);
+		panel.add(buttons[10]);
+		panel.add(buttons[11]);
 
 		// Display
 		frame.setVisible(true); 
@@ -522,21 +524,21 @@ public class MachineProjectGUI {
 		upperBlock.setBounds(0, 0, 520, 32);
 		lowerBlock.setBounds(0, 640, 520, 16);
 
-		buttonA = ComponentFactory.createButton("Check In", new CitizenEvents());
-		buttonB = ComponentFactory.createButton("Report Positive Case", new CitizenEvents());
-		buttonC = ComponentFactory.createButton("Change Profile Information", new CitizenEvents());
-		buttonD = ComponentFactory.createButton("Change Password", new CitizenEvents());
-		buttonE = ComponentFactory.createButton("Log Out", new CitizenEvents());
+		buttons[0] = ComponentFactory.createButton("Check In", new CitizenEvents());
+		buttons[1] = ComponentFactory.createButton("Report Positive Case", new CitizenEvents());
+		buttons[2] = ComponentFactory.createButton("Change Profile Information", new CitizenEvents());
+		buttons[3] = ComponentFactory.createButton("Change Password", new CitizenEvents());
+		buttons[4] = ComponentFactory.createButton("Log Out", new CitizenEvents());
 
-		buttonF = ComponentFactory.createButton("Show Assigned Cases", new ContactTracerEvents());
-		buttonG = ComponentFactory.createButton("Trace Specific Case", new ContactTracerEvents());
-		buttonA.setBounds(65, 144, 390, 48);
-		buttonB.setBounds(65, 216, 390, 48);
-		buttonC.setBounds(65, 288, 390, 48);
-		buttonD.setBounds(65, 360, 390, 48);
-		buttonF.setBounds(65, 432, 390, 48);
-		buttonG.setBounds(65, 504, 390, 48);
-		buttonE.setBounds(65, 576, 390, 48);
+		buttons[5] = ComponentFactory.createButton("Show Assigned Cases", new ContactTracerEvents());
+		buttons[6] = ComponentFactory.createButton("Trace Specific Case", new ContactTracerEvents());
+		buttons[0].setBounds(65, 144, 390, 48);
+		buttons[1].setBounds(65, 216, 390, 48);
+		buttons[2].setBounds(65, 288, 390, 48);
+		buttons[3].setBounds(65, 360, 390, 48);
+		buttons[5].setBounds(65, 432, 390, 48);
+		buttons[6].setBounds(65, 504, 390, 48);
+		buttons[4].setBounds(65, 576, 390, 48);
 
 		// Add Compoenents	
 		frame.add(panel);
@@ -551,13 +553,13 @@ public class MachineProjectGUI {
 		panel.add(logOutIconLabel);
 		panel.add(showCaseIconLabel);
 		panel.add(traceCaseIconLabel);
-		panel.add(buttonA);
-		panel.add(buttonB);
-		panel.add(buttonC);
-		panel.add(buttonD);
-		panel.add(buttonE);
-		panel.add(buttonF);
-		panel.add(buttonG);
+		panel.add(buttons[0]);
+		panel.add(buttons[1]);
+		panel.add(buttons[2]);
+		panel.add(buttons[3]);
+		panel.add(buttons[4]);
+		panel.add(buttons[5]);
+		panel.add(buttons[6]);
 
 		// Display
 		frame.setVisible(true); 
@@ -594,18 +596,18 @@ public class MachineProjectGUI {
 		lowerBlock.setBounds(0, 384, 520, 16);
 
 		// Text Fields
-		textBoxA = ComponentFactory.createTextField(16);
-		textBoxB = ComponentFactory.createTextField(16);
-		textBoxC = ComponentFactory.createTextField(16);
-		textBoxA.setBounds(64, 176, 200, 40);
-		textBoxB.setBounds(64, 248, 200, 40);
-		textBoxC.setBounds(64, 320, 200, 40);
+		textBoxes[0] = ComponentFactory.createTextField(16);
+		textBoxes[1] = ComponentFactory.createTextField(16);
+		textBoxes[2] = ComponentFactory.createTextField(16);
+		textBoxes[0].setBounds(64, 176, 200, 40);
+		textBoxes[1].setBounds(64, 248, 200, 40);
+		textBoxes[2].setBounds(64, 320, 200, 40);
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Check In", new CheckInEvents());
-		buttonB = ComponentFactory.createButton("Cancel", new CheckInEvents());
-		buttonA.setBounds(292, 176, 200, 48);
-		buttonB.setBounds(292, 248, 200, 48);
+		buttons[0] = ComponentFactory.createButton("Check In", new CheckInEvents());
+		buttons[1] = ComponentFactory.createButton("Cancel", new CheckInEvents());
+		buttons[0].setBounds(292, 176, 200, 48);
+		buttons[1].setBounds(292, 248, 200, 48);
 
 		// Add Components
 		frame.add(panel);
@@ -615,11 +617,11 @@ public class MachineProjectGUI {
 		panel.add(timeLabel);
 		panel.add(upperBlock);
 		panel.add(lowerBlock);
-		panel.add(buttonA);
-		panel.add(buttonB);
-		panel.add(textBoxA);
-		panel.add(textBoxB);
-		panel.add(textBoxC);
+		panel.add(buttons[0]);
+		panel.add(buttons[1]);
+		panel.add(textBoxes[0]);
+		panel.add(textBoxes[1]);
+		panel.add(textBoxes[2]);
 
 		// Display
 		frame.setVisible(true);
@@ -651,14 +653,14 @@ public class MachineProjectGUI {
 		lowerBlock.setBounds(0, 344, 520, 16);
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Report", new ReportCaseEvents());
-		buttonB = ComponentFactory.createButton("Cancel", new ReportCaseEvents());
-		buttonA.setBounds(292, 144, 200, 48);
-		buttonB.setBounds(292, 216, 200, 48);
+		buttons[0] = ComponentFactory.createButton("Report", new ReportCaseEvents());
+		buttons[1] = ComponentFactory.createButton("Cancel", new ReportCaseEvents());
+		buttons[0].setBounds(292, 144, 200, 48);
+		buttons[1].setBounds(292, 216, 200, 48);
 
 		// Text Fields
-		textBoxA = ComponentFactory.createTextField(16);
-		textBoxA.setBounds(64, 176, 200, 40);
+		textBoxes[0] = ComponentFactory.createTextField(16);
+		textBoxes[0].setBounds(64, 176, 200, 40);
 
 		// Add Components
 		frame.add(panel);
@@ -666,9 +668,9 @@ public class MachineProjectGUI {
 		panel.add(dateLabel);
 		panel.add(upperBlock);
 		panel.add(lowerBlock);
-		panel.add(textBoxA);
-		panel.add(buttonA);
-		panel.add(buttonB);
+		panel.add(textBoxes[0]);
+		panel.add(buttons[0]);
+		panel.add(buttons[1]);
 
 		// Display
 		frame.setVisible(true);
@@ -728,26 +730,26 @@ public class MachineProjectGUI {
 		lowerColorLabel.setBounds(0, 624, 616, 16);
 
 		// Text Field Settings
-		textBoxB = ComponentFactory.createTextField(14);
-		textBoxC = ComponentFactory.createTextField(14);
-		textBoxD = ComponentFactory.createTextField(14);
-		textBoxE = ComponentFactory.createTextField(14);
-		textBoxF = ComponentFactory.createTextField(14);
-		textBoxG = ComponentFactory.createTextField(14);
-		textBoxH = ComponentFactory.createTextField(14);
-		textBoxB.setBounds(32, 216, 200, 40);
-		textBoxC.setBounds(32, 288, 200, 40);
-		textBoxD.setBounds(32, 360, 200, 40);
-		textBoxE.setBounds(296, 216, 300, 40);
-		textBoxF.setBounds(296, 288, 300, 40);
-		textBoxG.setBounds(296, 360, 250, 40);
-		textBoxH.setBounds(296, 432, 150, 40); 
+		textBoxes[1] = ComponentFactory.createTextField(14);
+		textBoxes[2] = ComponentFactory.createTextField(14);
+		textBoxes[3] = ComponentFactory.createTextField(14);
+		textBoxes[4] = ComponentFactory.createTextField(14);
+		textBoxes[5] = ComponentFactory.createTextField(14);
+		textBoxes[6] = ComponentFactory.createTextField(14);
+		textBoxes[7] = ComponentFactory.createTextField(14);
+		textBoxes[1].setBounds(32, 216, 200, 40);
+		textBoxes[2].setBounds(32, 288, 200, 40);
+		textBoxes[3].setBounds(32, 360, 200, 40);
+		textBoxes[4].setBounds(296, 216, 300, 40);
+		textBoxes[5].setBounds(296, 288, 300, 40);
+		textBoxes[6].setBounds(296, 360, 250, 40);
+		textBoxes[7].setBounds(296, 432, 150, 40); 
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Save Changes", new ChangeProfileEvents());
-		buttonB = ComponentFactory.createButton("Cancel", new ChangeProfileEvents());
-		buttonA.setBounds(80, 496, 504, 48);
-		buttonB.setBounds(80, 560, 504, 48);
+		buttons[0] = ComponentFactory.createButton("Save Changes", new ChangeProfileEvents());
+		buttons[1] = ComponentFactory.createButton("Cancel", new ChangeProfileEvents());
+		buttons[0].setBounds(80, 496, 504, 48);
+		buttons[1].setBounds(80, 560, 504, 48);
 		
 		// Add Componenets
 		frame.add(panel);
@@ -763,29 +765,29 @@ public class MachineProjectGUI {
 		panel.add(phoneLabel);
 		panel.add(upperColorLabel);
 		panel.add(lowerColorLabel);
-		panel.add(textBoxB);
-		panel.add(textBoxC);
-		panel.add(textBoxD);
-		panel.add(textBoxE);
-		panel.add(textBoxF);
-		panel.add(textBoxG);
-		panel.add(textBoxH);
-		panel.add(buttonA);
-		panel.add(buttonB);
+		panel.add(textBoxes[1]);
+		panel.add(textBoxes[2]);
+		panel.add(textBoxes[3]);
+		panel.add(textBoxes[4]);
+		panel.add(textBoxes[5]);
+		panel.add(textBoxes[6]);
+		panel.add(textBoxes[7]);
+		panel.add(buttons[0]);
+		panel.add(buttons[1]);
 		panel.add(errorBoxA);
 		panel.add(confirmIconLabel);
 		panel.add(cancelIconLabel);
 
 		// Set Texts
 		// Full Name
-		textBoxB.setText(currentAccount.fullName.getFirstName());
-		textBoxC.setText(currentAccount.fullName.getMiddleName());
-		textBoxD.setText(currentAccount.fullName.getLastName());
+		textBoxes[1].setText(currentAccount.fullName.getFirstName());
+		textBoxes[2].setText(currentAccount.fullName.getMiddleName());
+		textBoxes[3].setText(currentAccount.fullName.getLastName());
 		// Addresses
-		textBoxE.setText(currentAccount.addresses.getHomeAddress());
-		textBoxF.setText(currentAccount.addresses.getOfficeAddress());
-		textBoxG.setText(currentAccount.addresses.getEmailAddress());
-		textBoxH.setText(currentAccount.addresses.getPhoneNumber());
+		textBoxes[4].setText(currentAccount.addresses.getHomeAddress());
+		textBoxes[5].setText(currentAccount.addresses.getOfficeAddress());
+		textBoxes[6].setText(currentAccount.addresses.getEmailAddress());
+		textBoxes[7].setText(currentAccount.addresses.getPhoneNumber());
 
 		// Display Frame
 		frame.setVisible(true);	
@@ -821,14 +823,14 @@ public class MachineProjectGUI {
 		lowerBlock.setBounds(0, 264, 520, 16);
 
 		// Text Fields
-		textBoxA = ComponentFactory.createTextField(16);
-		textBoxA.setBounds(64, 176, 200, 40);
+		textBoxes[0] = ComponentFactory.createTextField(16);
+		textBoxes[0].setBounds(64, 176, 200, 40);
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Change Password", new ChangePasswordEvents());
-		buttonB = ComponentFactory.createButton("Back", new ChangePasswordEvents());
-		buttonA.setBounds(292, 144, 200, 48);
-		buttonB.setBounds(292, 208, 200, 48);
+		buttons[0] = ComponentFactory.createButton("Change Password", new ChangePasswordEvents());
+		buttons[1] = ComponentFactory.createButton("Back", new ChangePasswordEvents());
+		buttons[0].setBounds(292, 144, 200, 48);
+		buttons[1].setBounds(292, 208, 200, 48);
 
 		// Add Components
 		frame.add(panel);
@@ -836,9 +838,9 @@ public class MachineProjectGUI {
 		panel.add(codeLabel);
 		panel.add(upperBlock);
 		panel.add(lowerBlock);
-		panel.add(buttonA);
-		panel.add(buttonB);
-		panel.add(textBoxA);
+		panel.add(buttons[0]);
+		panel.add(buttons[1]);
+		panel.add(textBoxes[0]);
 		panel.add(errorBoxA);
 
 		// Display
@@ -868,8 +870,8 @@ public class MachineProjectGUI {
 		lowerBlock.setBounds(0, 504, 520, 16);
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Back", new DisplayTableEvents());
-		buttonA.setBounds(65, 424, 390, 48);
+		buttons[0] = ComponentFactory.createButton("Back", new DisplayTableEvents());
+		buttons[0].setBounds(65, 424, 390, 48);
 
 		// Table Settings
 		String[] col = {"Username", "Role"};
@@ -891,7 +893,7 @@ public class MachineProjectGUI {
 		panel.add(titleLabel);
 		panel.add(upperBlock);
 		panel.add(lowerBlock);
-		panel.add(buttonA);
+		panel.add(buttons[0]);
 		panel.add(table);
 		
 		// Display
@@ -922,8 +924,8 @@ public class MachineProjectGUI {
 		lowerBlock.setBounds(0, 504, 780, 16);
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Back", new DisplayTableEvents());
-		buttonA.setBounds(65, 424, 585, 48);
+		buttons[0] = ComponentFactory.createButton("Back", new DisplayTableEvents());
+		buttons[0].setBounds(65, 424, 585, 48);
 
 		// Table Settings
 		String[] col = {"Case No.", "Username", "Date", "Tracer", "Status"};
@@ -936,7 +938,7 @@ public class MachineProjectGUI {
 		panel.add(titleLabel);
 		panel.add(upperBlock);
 		panel.add(lowerBlock);
-		panel.add(buttonA);
+		panel.add(buttons[0]);
 		panel.add(table);
 		
 		// Display
@@ -980,25 +982,25 @@ public class MachineProjectGUI {
 		lowerBlock.setBounds(0, 664, 1040, 16);
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Display", new showContactTracingUpdatesEvents());
-		buttonB = ComponentFactory.createButton("Assign", new showContactTracingUpdatesEvents());
-		buttonC = ComponentFactory.createButton("Back", new showContactTracingUpdatesEvents());
-		buttonA.setBounds(780, 384, 196, 48);
-		buttonB.setBounds(780, 568, 196, 48);
-		buttonC.setBounds(552, 568, 196, 48);
+		buttons[0] = ComponentFactory.createButton("Display", new showContactTracingUpdatesEvents());
+		buttons[1] = ComponentFactory.createButton("Assign", new showContactTracingUpdatesEvents());
+		buttons[2] = ComponentFactory.createButton("Back", new showContactTracingUpdatesEvents());
+		buttons[0].setBounds(780, 384, 196, 48);
+		buttons[1].setBounds(780, 568, 196, 48);
+		buttons[2].setBounds(552, 568, 196, 48);
 		
 
 		// Text Fields
-		textBoxA = ComponentFactory.createTextField(16);	
-		textBoxB = ComponentFactory.createTextField(16);
-		textBoxC = ComponentFactory.createTextField(16);	
-		textBoxD = ComponentFactory.createTextField(16);	
-		textBoxE = ComponentFactory.createTextField(16);	
-		textBoxA.setBounds(780, 176, 196, 40);
-		textBoxB.setBounds(780, 248, 196, 40);
-		textBoxC.setBounds(780, 320, 196, 40);
-		textBoxD.setBounds(780, 504, 116, 40);	
-		textBoxE.setBounds(912, 504, 64, 40);
+		textBoxes[0] = ComponentFactory.createTextField(16);	
+		textBoxes[1] = ComponentFactory.createTextField(16);
+		textBoxes[2] = ComponentFactory.createTextField(16);	
+		textBoxes[3] = ComponentFactory.createTextField(16);	
+		textBoxes[4] = ComponentFactory.createTextField(16);	
+		textBoxes[0].setBounds(780, 176, 196, 40);
+		textBoxes[1].setBounds(780, 248, 196, 40);
+		textBoxes[2].setBounds(780, 320, 196, 40);
+		textBoxes[3].setBounds(780, 504, 116, 40);	
+		textBoxes[4].setBounds(912, 504, 64, 40);
 
 		// Table Settings
 		String[] col = {"Case No.", "Username", "Date", "Tracer", "Status"};
@@ -1016,14 +1018,14 @@ public class MachineProjectGUI {
 		panel.add(caseNumLabel);
 		panel.add(upperBlock);
 		panel.add(lowerBlock);
-		panel.add(buttonA);
-		panel.add(buttonB);
-		panel.add(buttonC);
-		panel.add(textBoxA);
-		panel.add(textBoxB);
-		panel.add(textBoxC);
-		panel.add(textBoxD);
-		panel.add(textBoxE);
+		panel.add(buttons[0]);
+		panel.add(buttons[1]);
+		panel.add(buttons[2]);
+		panel.add(textBoxes[0]);
+		panel.add(textBoxes[1]);
+		panel.add(textBoxes[2]);
+		panel.add(textBoxes[3]);
+		panel.add(textBoxes[4]);
 		panel.add(table);
 		panel.add(messageBoxA);
 		
@@ -1067,36 +1069,36 @@ public class MachineProjectGUI {
 		errorBoxA.setBounds(32, 352, 250, 40);
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Display", new ShowAnalyticEvents());
-		buttonB = ComponentFactory.createButton("Clear", new ShowAnalyticEvents());
-		buttonC = ComponentFactory.createButton("Back", new ShowAnalyticEvents());
-		buttonA.setBounds(260, 360, 200, 48);
-		buttonB.setBounds(32, 424, 200, 48);
-		buttonC.setBounds(260, 424, 200, 48);
+		buttons[0] = ComponentFactory.createButton("Display", new ShowAnalyticEvents());
+		buttons[1] = ComponentFactory.createButton("Clear", new ShowAnalyticEvents());
+		buttons[2] = ComponentFactory.createButton("Back", new ShowAnalyticEvents());
+		buttons[0].setBounds(260, 360, 200, 48);
+		buttons[1].setBounds(32, 424, 200, 48);
+		buttons[2].setBounds(260, 424, 200, 48);
 
 		// Text Fields
-		textBoxA = ComponentFactory.createTextField(16);	
-		textBoxB = ComponentFactory.createTextField(16);
-		textBoxC = ComponentFactory.createTextField(16);
-		textBoxA.setBounds(32, 176, 200, 40);
-		textBoxB.setBounds(32, 248, 120, 40);
-		textBoxC.setBounds(32, 320, 120, 40);
+		textBoxes[0] = ComponentFactory.createTextField(16);	
+		textBoxes[1] = ComponentFactory.createTextField(16);
+		textBoxes[2] = ComponentFactory.createTextField(16);
+		textBoxes[0].setBounds(32, 176, 200, 40);
+		textBoxes[1].setBounds(32, 248, 120, 40);
+		textBoxes[2].setBounds(32, 320, 120, 40);
 
 		// Add Components
 		frame.add(panel);
 		panel.add(titleLabel);
 		panel.add(upperBlock);
 		panel.add(lowerBlock);
-		panel.add(buttonA);
-		panel.add(buttonB);
-		panel.add(buttonC);
+		panel.add(buttons[0]);
+		panel.add(buttons[1]);
+		panel.add(buttons[2]);
 
 		panel.add(cityLabel);
 		panel.add(startDateLabel);
 		panel.add(endDateLabel);
-		panel.add(textBoxA);
-		panel.add(textBoxB);
-		panel.add(textBoxC);
+		panel.add(textBoxes[0]);
+		panel.add(textBoxes[1]);
+		panel.add(textBoxes[2]);
 		panel.add(messageBoxA);
 		panel.add(errorBoxA);
 
@@ -1134,14 +1136,14 @@ public class MachineProjectGUI {
 		lowerBlock.setBounds(0, 264, 520, 16);
 
 		// Text Fields
-		textBoxA = ComponentFactory.createTextField(16);
-		textBoxA.setBounds(64, 176, 200, 40);
+		textBoxes[0] = ComponentFactory.createTextField(16);
+		textBoxes[0].setBounds(64, 176, 200, 40);
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Create Official", new CreateTerminateAccountEvents());
-		buttonB = ComponentFactory.createButton("Back", new CreateTerminateAccountEvents());
-		buttonA.setBounds(292, 144, 200, 48);
-		buttonB.setBounds(292, 208, 200, 48);
+		buttons[0] = ComponentFactory.createButton("Create Official", new CreateTerminateAccountEvents());
+		buttons[1] = ComponentFactory.createButton("Back", new CreateTerminateAccountEvents());
+		buttons[0].setBounds(292, 144, 200, 48);
+		buttons[1].setBounds(292, 208, 200, 48);
 
 		// Add Components
 		frame.add(panel);
@@ -1149,9 +1151,9 @@ public class MachineProjectGUI {
 		panel.add(codeLabel);
 		panel.add(upperBlock);
 		panel.add(lowerBlock);
-		panel.add(buttonA);
-		panel.add(buttonB);
-		panel.add(textBoxA);
+		panel.add(buttons[0]);
+		panel.add(buttons[1]);
+		panel.add(textBoxes[0]);
 		panel.add(errorBoxA);
 
 		// Display
@@ -1188,14 +1190,14 @@ public class MachineProjectGUI {
 		lowerBlock.setBounds(0, 264, 520, 16);
 
 		// Text Fields
-		textBoxA = ComponentFactory.createTextField(16);
-		textBoxA.setBounds(64, 176, 200, 40);
+		textBoxes[0] = ComponentFactory.createTextField(16);
+		textBoxes[0].setBounds(64, 176, 200, 40);
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Create Tracer", new CreateTerminateAccountEvents());
-		buttonB = ComponentFactory.createButton("Back", new CreateTerminateAccountEvents());
-		buttonA.setBounds(292, 144, 200, 48);
-		buttonB.setBounds(292, 208, 200, 48);
+		buttons[0] = ComponentFactory.createButton("Create Tracer", new CreateTerminateAccountEvents());
+		buttons[1] = ComponentFactory.createButton("Back", new CreateTerminateAccountEvents());
+		buttons[0].setBounds(292, 144, 200, 48);
+		buttons[1].setBounds(292, 208, 200, 48);
 
 		// Add Components
 		frame.add(panel);
@@ -1203,9 +1205,9 @@ public class MachineProjectGUI {
 		panel.add(codeLabel);
 		panel.add(upperBlock);
 		panel.add(lowerBlock);
-		panel.add(buttonA);
-		panel.add(buttonB);
-		panel.add(textBoxA);
+		panel.add(buttons[0]);
+		panel.add(buttons[1]);
+		panel.add(textBoxes[0]);
 		panel.add(errorBoxA);
 
 		// Display
@@ -1242,14 +1244,14 @@ public class MachineProjectGUI {
 		lowerBlock.setBounds(0, 264, 520, 16);
 
 		// Text Fields
-		textBoxA = ComponentFactory.createTextField(16);
-		textBoxA.setBounds(64, 176, 200, 40);
+		textBoxes[0] = ComponentFactory.createTextField(16);
+		textBoxes[0].setBounds(64, 176, 200, 40);
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Terminate", new CreateTerminateAccountEvents());
-		buttonB = ComponentFactory.createButton("Back", new CreateTerminateAccountEvents());
-		buttonA.setBounds(292, 144, 200, 48);
-		buttonB.setBounds(292, 208, 200, 48);
+		buttons[0] = ComponentFactory.createButton("Terminate", new CreateTerminateAccountEvents());
+		buttons[1] = ComponentFactory.createButton("Back", new CreateTerminateAccountEvents());
+		buttons[0].setBounds(292, 144, 200, 48);
+		buttons[1].setBounds(292, 208, 200, 48);
 
 		// Add Components
 		frame.add(panel);
@@ -1257,9 +1259,9 @@ public class MachineProjectGUI {
 		panel.add(codeLabel);
 		panel.add(upperBlock);
 		panel.add(lowerBlock);
-		panel.add(buttonA);
-		panel.add(buttonB);
-		panel.add(textBoxA);
+		panel.add(buttons[0]);
+		panel.add(buttons[1]);
+		panel.add(textBoxes[0]);
 		panel.add(errorBoxA);
 
 		// Display
@@ -1289,8 +1291,8 @@ public class MachineProjectGUI {
 		lowerBlock.setBounds(0, 504, 520, 16);
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Back", new DisplayTableEvents());
-		buttonA.setBounds(65, 424, 390, 48);
+		buttons[0] = ComponentFactory.createButton("Back", new DisplayTableEvents());
+		buttons[0].setBounds(65, 424, 390, 48);
 
 		// Table Settings
 		String[] col = {"Case No.", "Date", "Status"};
@@ -1303,7 +1305,7 @@ public class MachineProjectGUI {
 		panel.add(titleLabel);
 		panel.add(upperBlock);
 		panel.add(lowerBlock);
-		panel.add(buttonA);
+		panel.add(buttons[0]);
 		panel.add(table);
 		
 		// Display
@@ -1336,18 +1338,18 @@ public class MachineProjectGUI {
 		lowerBlock.setBounds(0, 264, 520, 16);
 
 		// Text Fields
-		textBoxA = ComponentFactory.createTextField(16);
-		textBoxA.setBounds(64, 176, 100, 40);
+		textBoxes[0] = ComponentFactory.createTextField(16);
+		textBoxes[0].setBounds(64, 176, 100, 40);
 
 		// Message 
 		messageBoxA = ComponentFactory.createLabel(" ", 14);
 		messageBoxA.setBounds(16, 216, 240, 40);
 
 		// Button Settings
-		buttonA = ComponentFactory.createButton("Trace Case", new TraceCaseEvents());
-		buttonB = ComponentFactory.createButton("Back", new TraceCaseEvents());
-		buttonA.setBounds(292, 144, 200, 48);
-		buttonB.setBounds(292, 208, 200, 48);
+		buttons[0] = ComponentFactory.createButton("Trace Case", new TraceCaseEvents());
+		buttons[1] = ComponentFactory.createButton("Back", new TraceCaseEvents());
+		buttons[0].setBounds(292, 144, 200, 48);
+		buttons[1].setBounds(292, 208, 200, 48);
 
 		// Add Components
 		frame.add(panel);
@@ -1355,9 +1357,9 @@ public class MachineProjectGUI {
 		panel.add(codeLabel);
 		panel.add(upperBlock);
 		panel.add(lowerBlock);
-		panel.add(buttonA);
-		panel.add(buttonB);
-		panel.add(textBoxA);
+		panel.add(buttons[0]);
+		panel.add(buttons[1]);
+		panel.add(textBoxes[0]);
 		panel.add(messageBoxA);
 
 		// Display
@@ -1370,10 +1372,10 @@ public class MachineProjectGUI {
 	private class LoginEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == buttonA) {						// Login Button	
+			if (e.getSource() == buttons[0]) {						// Login Button	
 
 				// Get currentAccount Text Field Inputs
-				String inputUsername = textBoxA.getText().trim();
+				String inputUsername = textBoxes[0].getText().trim();
 				String inputPassword = String.valueOf((passBoxA.getPassword())).trim();
 				MasterList masters = new MasterList();
 
@@ -1410,7 +1412,7 @@ public class MachineProjectGUI {
 				}
 
 				// Clear Text Fields
-				textBoxA.setText("");
+				textBoxes[0].setText("");
 				passBoxA.setText("");
 
 			} else {											// Create An Account Button
@@ -1431,12 +1433,12 @@ public class MachineProjectGUI {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {	
-			if (e.getSource() == buttonA) {				// Next Button (Confirm Username & Password Validity)
+			if (e.getSource() == buttons[0]) {				// Next Button (Confirm Username & Password Validity)
 
 				MasterList masters = new MasterList();
 
 				// Get currentAccount Text Field Inputs
-				String inputUsername = textBoxA.getText().trim();
+				String inputUsername = textBoxes[0].getText().trim();
 				String inputPassword = String.valueOf(passBoxA.getPassword()).trim();
 				String confirmPassword = String.valueOf(passBoxB.getPassword()).trim();
 
@@ -1510,16 +1512,16 @@ public class MachineProjectGUI {
 			boolean missing = false;
 			String[] userInputs = new String[7];
 			
-			if (e.getSource() == buttonA) {			// Register Button
+			if (e.getSource() == buttons[0]) {			// Register Button
 
 				// Get Form's Inputs
-				userInputs[0] = textBoxB.getText().trim();	// First Name
-				userInputs[1] = textBoxC.getText().trim();	// Middle Name
-				userInputs[2] = textBoxD.getText().trim();	// Last name
-				userInputs[3] = textBoxE.getText().trim();	// Home Address
-				userInputs[4] = textBoxF.getText().trim();	// Office Address
-				userInputs[5] = textBoxG.getText().trim();	// Phone Address
-				userInputs[6] = textBoxH.getText().trim();	// Email Addresse
+				userInputs[0] = textBoxes[1].getText().trim();	// First Name
+				userInputs[1] = textBoxes[2].getText().trim();	// Middle Name
+				userInputs[2] = textBoxes[3].getText().trim();	// Last name
+				userInputs[3] = textBoxes[4].getText().trim();	// Home Address
+				userInputs[4] = textBoxes[5].getText().trim();	// Office Address
+				userInputs[5] = textBoxes[6].getText().trim();	// Phone Address
+				userInputs[6] = textBoxes[7].getText().trim();	// Email Addresse
 				
 				// Check for Missing Inputs
 				for (String x: userInputs) {
@@ -1566,22 +1568,22 @@ public class MachineProjectGUI {
 	private class CitizenEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == buttonA) {						// Check In Button		
+			if (e.getSource() == buttons[0]) {						// Check In Button		
 				printConsoleMessage("Check In Menu GUI");
 				
 				frame.dispose();
 				checkInMenu();
-			} else if (e.getSource() == buttonB) {				// Report Positive Button
+			} else if (e.getSource() == buttons[1]) {				// Report Positive Button
 				printConsoleMessage("Report Case Menu GUI");
 
 				frame.dispose();
 				reportCaseMenu();
-			} else if (e.getSource() == buttonC) {				// Change Profile Information Button
+			} else if (e.getSource() == buttons[2]) {				// Change Profile Information Button
 				printConsoleMessage("Change Profile Menu GUI");
 
 				frame.dispose();
 				changeProfileMenu();
-			} else if (e.getSource() == buttonD) {				// Change Password Button
+			} else if (e.getSource() == buttons[3]) {				// Change Password Button
 				printConsoleMessage("Change Password Menu GUI");
 
 				frame.dispose();
@@ -1599,12 +1601,12 @@ public class MachineProjectGUI {
 	private class GovernmentOfficialEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == buttonF) {								// Show Account Listings Button
+			if (e.getSource() == buttons[5]) {								// Show Account Listings Button
 				printConsoleMessage("Show Account Listings Menu GUI");	
 
 				frame.dispose();
 				showAccountListMenu();
-			} else if (e.getSource() == buttonG) {						// Show Unassigned Cases Button
+			} else if (e.getSource() == buttons[6]) {						// Show Unassigned Cases Button
 				printConsoleMessage("Show Unassigned Menu GUI");
 
 				frame.dispose();
@@ -1612,7 +1614,7 @@ public class MachineProjectGUI {
 				gv.copyAccountInfo(currentAccount);
 
 				showUnassignedCasesMenu(gv.showUnassignedCases());
-			} else if (e.getSource() == buttonH){						// Show Contact Tracing Updates Button
+			} else if (e.getSource() == buttons[7]){						// Show Contact Tracing Updates Button
 				GovernmentOfficial gv = new GovernmentOfficial();
 				gv.copyAccountInfo(currentAccount);
 
@@ -1624,17 +1626,17 @@ public class MachineProjectGUI {
 				showContactTracingUpdatesMenu(gv.showContactTracingUpdates(startDate, endDate, 'P'));
 				messageBoxA.setText("> Displaying Cases from " + "01,01,2000" + " -> Today");
 
-			} else if (e.getSource() == buttonI) {						// Show Analytics
+			} else if (e.getSource() == buttons[8]) {						// Show Analytics
 				printConsoleMessage("Show Analytics Menu GUI");
 
 				frame.dispose();
 				showAnalyticsMenu();
-			} else if (e.getSource() == buttonJ) {						// Create Government Official Account
+			} else if (e.getSource() == buttons[9]) {						// Create Government Official Account
 				printConsoleMessage("Create Government Official Menu GUI");
 
 				frame.dispose();
 				createOfficialMenu();
-			} else if (e.getSource() == buttonK) {						// Create Contact Tracer Account
+			} else if (e.getSource() == buttons[10]) {						// Create Contact Tracer Account
 				printConsoleMessage("Create Contact Tracer Menu GUI");
 
 				frame.dispose();
@@ -1654,7 +1656,7 @@ public class MachineProjectGUI {
 			ContactTracer ct = new ContactTracer();
 			ct.copyAccountInfo(currentAccount);
 
-			if (e.getSource() == buttonF) {					// Show Unassigned Cases Button
+			if (e.getSource() == buttons[5]) {					// Show Unassigned Cases Button
 				frame.dispose();
 				showAssignedCases(ct.showCases());
 
@@ -1672,10 +1674,10 @@ public class MachineProjectGUI {
 	private class CheckInEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == buttonA) {			// Check In Button
-				String code = textBoxA.getText().trim();
-				String date = textBoxB.getText().trim();
-				String time = textBoxC.getText().trim();
+			if (e.getSource() == buttons[0]) {			// Check In Button
+				String code = textBoxes[0].getText().trim();
+				String date = textBoxes[1].getText().trim();
+				String time = textBoxes[2].getText().trim();
 				printConsoleMessage("Checking In > " + code + " " + date + " " + time);
 
 				Calendar checkInDate = RecordList.buildCalendar(date, time);
@@ -1706,8 +1708,8 @@ public class MachineProjectGUI {
 	private class ReportCaseEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == buttonA) {			// Report Case Button
-				String date = textBoxA.getText().trim();
+			if (e.getSource() == buttons[0]) {			// Report Case Button
+				String date = textBoxes[0].getText().trim();
 
 				// Reporting Case
 				Citizen cz = new Citizen();
@@ -1747,17 +1749,17 @@ public class MachineProjectGUI {
 	private class ChangeProfileEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == buttonA) {			// Save Changes Button
+			if (e.getSource() == buttons[0]) {			// Save Changes Button
 				// TODO Check currentAccount inptus
 				
 				printConsoleMessage("Saving New Profile Changes");
 
 				// Set Changes
-				currentAccount.fullName = new Name(textBoxB.getText(), textBoxC.getText(), textBoxD.getText());
-				currentAccount.addresses.setHomeAddress(textBoxE.getText()); 
-				currentAccount.addresses.setOfficeAddress(textBoxF.getText()); 
-				currentAccount.addresses.setEmailAddress(textBoxG.getText()); 
-				currentAccount.addresses.setPhoneNumber(textBoxH.getText()); 
+				currentAccount.fullName = new Name(textBoxes[1].getText(), textBoxes[2].getText(), textBoxes[3].getText());
+				currentAccount.addresses.setHomeAddress(textBoxes[4].getText()); 
+				currentAccount.addresses.setOfficeAddress(textBoxes[5].getText()); 
+				currentAccount.addresses.setEmailAddress(textBoxes[6].getText()); 
+				currentAccount.addresses.setPhoneNumber(textBoxes[7].getText()); 
 				
 				// Save
 				currentAccount.saveUserInfo(currentAccount.getUsername());
@@ -1776,8 +1778,8 @@ public class MachineProjectGUI {
 	private class ChangePasswordEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == buttonA) {						// Change Password Button
-				String password = textBoxA.getText().trim();
+			if (e.getSource() == buttons[0]) {						// Change Password Button
+				String password = textBoxes[0].getText().trim();
 
 				if (currentAccount.changePassword(password)) {
 					errorBoxA.setText("> Password Chnaged!");
@@ -1812,14 +1814,14 @@ public class MachineProjectGUI {
 	private class ShowAnalyticEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == buttonA) {			// Display Button
+			if (e.getSource() == buttons[0]) {			// Display Button
 				GovernmentOfficial gv = new GovernmentOfficial();
 				gv.copyAccountInfo(currentAccount);
 
 				int numCases = -1;
-				String city = textBoxA.getText().trim();
-				String start = textBoxB.getText().trim();
-				String end = textBoxC.getText().trim();
+				String city = textBoxes[0].getText().trim();
+				String start = textBoxes[1].getText().trim();
+				String end = textBoxes[2].getText().trim();
 
 				Calendar startDate = RecordList.buildCalendar(start, "0000");
 				Calendar endDate = RecordList.buildCalendar(end, "0000");
@@ -1861,10 +1863,10 @@ public class MachineProjectGUI {
 						}
 					}
 				}
-			} else if (e.getSource() == buttonB) {		// Clear Button
-				textBoxA.setText("");
-				textBoxB.setText("");
-				textBoxC.setText("");
+			} else if (e.getSource() == buttons[1]) {		// Clear Button
+				textBoxes[0].setText("");
+				textBoxes[1].setText("");
+				textBoxes[2].setText("");
 
 			} else {									// Back Button
 				frame.dispose();
@@ -1876,9 +1878,9 @@ public class MachineProjectGUI {
 	private class CreateTerminateAccountEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == buttonA) {							// Create & Terminate Buttons
+			if (e.getSource() == buttons[0]) {							// Create & Terminate Buttons
 				MasterList masters = new MasterList();
-				String username = textBoxA.getText().trim();
+				String username = textBoxes[0].getText().trim();
 				errorBoxA.setText("");
 
 				GovernmentOfficial gv = new GovernmentOfficial();
@@ -1886,7 +1888,7 @@ public class MachineProjectGUI {
 				
 				// Check Unique Username
 				if (username.length() != 0) {
-					if (buttonA.getText().equals("Create Official")) {					// Create Offical Button
+					if (buttons[0].getText().equals("Create Official")) {					// Create Offical Button
 
 						// Create Government Official by Updating
 					 	if (gv.createGovernmentOfficial(username)) {
@@ -1901,7 +1903,7 @@ public class MachineProjectGUI {
 							errorBoxA.setText("> Username Already has This Role!!");
 						}
 
-					} else if (buttonA.getText().equals("Create Tracer")) {				// Create Tracer Button
+					} else if (buttons[0].getText().equals("Create Tracer")) {				// Create Tracer Button
 
 						// Create Contact Tracer by Updating
 						if (gv.createContactTracer(username)) {
@@ -1946,10 +1948,10 @@ public class MachineProjectGUI {
 	private class showContactTracingUpdatesEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == buttonA) {				// Display Button
-				String start = textBoxA.getText().trim();
-				String end = textBoxB.getText().trim();
-				String state = textBoxC.getText().trim();
+			if (e.getSource() == buttons[0]) {				// Display Button
+				String start = textBoxes[0].getText().trim();
+				String end = textBoxes[1].getText().trim();
+				String state = textBoxes[2].getText().trim();
 
 				Calendar startDate = RecordList.buildCalendar(start, "0000");
 				Calendar endDate = RecordList.buildCalendar(end, "0000	");
@@ -1981,10 +1983,10 @@ public class MachineProjectGUI {
 						messageBoxA.setText("> Invalid Date Input!");
 					}
 				}
-			} else if (e.getSource() == buttonB) {		// Assign Button
+			} else if (e.getSource() == buttons[1]) {		// Assign Button
 				try {
-					int caseNum = Integer.parseInt(textBoxE.getText().trim());
-					String tracername = textBoxD.getText().trim();
+					int caseNum = Integer.parseInt(textBoxes[4].getText().trim());
+					String tracername = textBoxes[3].getText().trim();
 
 					MasterList masters = new MasterList();
 					CaseList cases = new CaseList();
@@ -2023,10 +2025,10 @@ public class MachineProjectGUI {
 			ContactTracer ct = new ContactTracer();
 			ct.copyAccountInfo(currentAccount);
 
-			if (e.getSource() == buttonA) {				// Trace Case
+			if (e.getSource() == buttons[0]) {				// Trace Case
 				messageBoxA.setText("");
 				try {
-					int caseNum = Integer.parseInt(textBoxA.getText().trim());
+					int caseNum = Integer.parseInt(textBoxes[0].getText().trim());
 
 					String[][] names = ct.traceSpecificCase(caseNum - 1);
 
@@ -2047,7 +2049,7 @@ public class MachineProjectGUI {
 
 				} catch (NumberFormatException ex) { 
 					// Error Messages
-					if (textBoxA.getText().length() == 0) {
+					if (textBoxes[0].getText().length() == 0) {
 						messageBoxA.setText("> No Input!");	
 					} else {
 						messageBoxA.setText("> Invalid Input!");	
@@ -2057,7 +2059,7 @@ public class MachineProjectGUI {
 				}
 
 				// Clear Text Field
-				textBoxA.setText("");
+				textBoxes[0].setText("");
 			} else {									// Back Button
 				frame.dispose();
 				returnToAccountMenu();
