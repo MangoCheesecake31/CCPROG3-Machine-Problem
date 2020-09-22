@@ -1,4 +1,4 @@
 :: BATCH CODE
 @ECHO OFF
 :: RUN 
-java -cp ../out MachineProject
+java -cp ../out Testing

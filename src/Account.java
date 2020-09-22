@@ -36,7 +36,7 @@ public class Account {
 	public Account(String username) {
 		MasterList list = new MasterList();
 
-		if(list.checkMaster(username)) {
+		if (list.checkMaster(username)) {
 			loadUserInfo(username);
 		}
 	}
@@ -68,8 +68,6 @@ public class Account {
 		this.addresses = addresses;
 
 		// Checking Validity of Account Information ::::::::::::::::::::
-		MasterList list = new MasterList();
-
 		// Account Type Checking
 		for(String x: VALIDTYPES) {
 			if(x.equalsIgnoreCase(accountType)) {
@@ -78,11 +76,13 @@ public class Account {
 			}
 		}
 
-		if(!valid)
+		if(!valid) {		
 			return false;
+		}
 
 		// Account Username Checking (If Unique)
-		if(list.checkMaster(username)) {
+		MasterList masters = new MasterList();
+		if(masters.checkMaster(username)) {
 			return false;
 		}
 
@@ -94,7 +94,7 @@ public class Account {
 
 		// Saving User Information ::::::::::::::::::::::::::::::::::::::::
 		// Add Registered User to MasterList.txt
-		list.addMaster(username, accountType);
+		masters.addMaster(username, accountType);
 
 		// Create & Save File for User Personal and Account Information
 		saveUserInfo(username);
@@ -109,26 +109,43 @@ public class Account {
 	 *	@param 	password 	inputted password
 	 *	@return boolean
 	 */
-	public boolean logIn(String username, String password) {
+	public static Account logIn(String username, String password) {
+		MasterList masters = new MasterList();
 
 		try {
 			File fp = new File("./Accounts/" + username + ".act");
 			Scanner sc =  new Scanner(fp);
 
-			// Get Account Password
-			this.password = sc.next();
+			String accountPassword = sc.next();
 
-			return verifyPassword(password);
+			// Verify Password
+			if (accountPassword.equals(password)) {
 
-		} catch (IOException e) {
-			System.out.println("|ERROR: Account File Not Found...");
+				// return Role Specific Account Objects
+				switch (masters.getMasterRole(username)) {
+					case"customer":
+						Citizen cz = new Citizen();
+						cz.loadUserInfo(username);
+						return cz;
+					case"official":
+						GovernmentOfficial gv = new GovernmentOfficial();
+						gv.loadUserInfo(username);
+						return gv;
+					case"tracer":
+						ContactTracer ct = new ContactTracer();
+						ct.loadUserInfo(username);
+						return ct;
+					default:
+						System.out.println("Account Type is Not Found in Login Process");
+				}
+			} 
+
+		} catch (FileNotFoundException e) {
+			System.out.println("Account File Not Found!");
+			System.out.println("Username is not Verified!");
 		}
 
-		// Login Process Failure Reset
-		username = null;
-		role = null;
-
-		return false;
+		return null;
 	}
 
 	/** 
@@ -174,16 +191,6 @@ public class Account {
 	}
 
 	/** 
-	 *	returns password field/attribute
-	 *	
-     *	@author Steven Castro
-	 *	@return String
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/** 
 	 *	returns role field/attribute
 	 *	
 	 *	@author Steven Castro
@@ -205,50 +212,6 @@ public class Account {
 
 
 	// Data Validity ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	/**
-	 *	returns true if username exists in the MasterList.txt
-	 *	sets the fields username and role of Class Account when true
-	 *	
-	 *	@author Steven Castro
-	 *	@param username 	current user's inputted username
-	 *	@return boolean
-	 */
-	public boolean verifyUsername(String username) {
-
-		// Master List
-		MasterList list = new MasterList();
-
-		// Search Username in MasterList
-		// when true update Account Class username and role
-		if(list.checkMaster(username)) {
-			this.username = username;
-			return true;
-		}
-
-		return false;	
-	}
-
-	/**
-	 *	returns true if parameter password is equivalent to account password
-	 *	sets the field online of Account Class to true when true
-	 *	
-	 *	@author Steven Castro
-	 *	@param 	password 	current user's inputted password
-	 *	@return boolean
-	 */
-	private boolean verifyPassword(String password) {
-
-		try {
-			if(password.equals(this.password)) {
-				online = true;
-				return true;
-			}
-		} catch (NullPointerException e) {
-			System.out.println("|ERROR: Account Password Not Loaded...");
-		}
-		return false;
-	}
-
 	/**
 	 *	returns true if parameter password is in valid format
 	 *	(Minimum of 6 characters, Includes at least 1 special character)
@@ -286,8 +249,7 @@ public class Account {
 	 *	@param 	username 	current user's username
 	 */
 	public void loadUserInfo(String username) {
-
-		MasterList list = new MasterList();
+		MasterList masters = new MasterList();
 		
 		try {
 			File fp = new File("./Accounts/" + username + ".act");
@@ -300,8 +262,11 @@ public class Account {
 			// Scan Password
 			password = sc.next();
 
-			// Scan Role
-			role = list.getMasterRole(username);
+			// Get Role from Masters.txt
+			role = masters.getMasterRole(username);
+
+			// Account is Loaded & Online
+			online = true;
 
 			// Flsuh
 			dump = sc.nextLine();
@@ -318,8 +283,8 @@ public class Account {
 			addresses.setEmailAddress((sc.nextLine()).substring(7));
 			sc.close();
 
-		} catch (IOException e) {
-			System.out.println("|ERROR: Account File Not Found...");
+		} catch (FileNotFoundException e) {
+			System.out.println("Account File Not Found!");
 		}
 	}
 
@@ -349,27 +314,8 @@ public class Account {
 			ps.close();
 			return true;
 
-		} catch (IOException e) {
+		} catch (FileNotFoundException e) {
 			return false;
 		}	
-	}
-
-	/**
-	 *	copies all fields of paramter newUser to Account class fields
-	 *	
-	 *	@author Steven Castro
-	 *	@param newUser Account object to be copied parameter
-	 */
-	public void copyAccountInfo(Account newUser) {
-
-		// Account Information
-		username = newUser.getUsername();
-		password = newUser.getPassword();
-		role = newUser.getRole();
-		online = newUser.getOnline();
-
-		// Personal Information
-		fullName = newUser.fullName;
-		addresses = newUser.addresses;
 	}
 }

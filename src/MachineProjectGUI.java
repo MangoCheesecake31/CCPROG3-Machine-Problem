@@ -106,9 +106,8 @@ public class MachineProjectGUI {
 	 * 	Register Menu GUI (Username & Password)
 	 * 	
 	 * 	@author Steven Castro
-	 * 	@param 	accountType	desired Account Type to be registered (customer, official, tracer)
 	 */
-	public void registerMenu(String accountType) {
+	public void registerMenu() {
 		// Frame Settings
 		frame = ComponentFactory.createFrame("Registry Menu", 520, 480);
 
@@ -144,8 +143,8 @@ public class MachineProjectGUI {
 		lowerColorLabel.setBounds(0, 464, 520, 16);
 
 		// Button Settings
-		buttons[0] = ComponentFactory.createButton("Next", new RegisterEvents(accountType));
-		buttons[1] = ComponentFactory.createButton("Cancel", new RegisterEvents(accountType));
+		buttons[0] = ComponentFactory.createButton("Next", new RegisterEvents());
+		buttons[1] = ComponentFactory.createButton("Cancel", new RegisterEvents());
 		buttons[0].setBounds(65, 376, 179, 48);
 		buttons[1].setBounds(260, 376, 179, 48);
 
@@ -182,11 +181,10 @@ public class MachineProjectGUI {
 	 * 	Account Information Form GUI
 	 * 	
 	 * 	@author Steven Castro
-	 * 	@param 	role 		desired Account type to be registered
 	 * 	@param 	username 	desired unique username to be registered
 	 * 	@param 	password 	desired valid password to be registered
 	 */
-	public void accountFormMenu(String role, String username, String password) {
+	public void accountFormMenu(String username, String password) {
 		// Frame Settings
 		frame = ComponentFactory.createFrame("Account Information Form", 616, 640);
 
@@ -251,8 +249,8 @@ public class MachineProjectGUI {
 		textBoxes[7].setBounds(296, 432, 150, 40); 
 
 		// Button Settings
-		buttons[0] = ComponentFactory.createButton("Confirm Register", new AccountFormEvents(role, username, password));
-		buttons[1] = ComponentFactory.createButton("Cancel Registry", new AccountFormEvents(role, username, password));
+		buttons[0] = ComponentFactory.createButton("Confirm Register", new AccountFormEvents(username, password));
+		buttons[1] = ComponentFactory.createButton("Cancel Registry", new AccountFormEvents(username, password));
 		buttons[0].setBounds(80, 496, 504, 48);
 		buttons[1].setBounds(80, 560, 504, 48);
 		
@@ -1381,25 +1379,27 @@ public class MachineProjectGUI {
 
 				// Search Username in Masters.txt
 				if (masters.checkMaster(inputUsername)) {
-					if (currentAccount.logIn(inputUsername, inputPassword)) {
+
+					// Log In Account
+					currentAccount = Account.logIn(inputUsername, inputPassword);
+
+					if (currentAccount != null) {
 						printConsoleMessage("Loading User Information");
 
 						currentAccount.loadUserInfo(inputUsername);
-
 						printConsoleMessage("Fullname: " + currentAccount.fullName);
-						printConsoleMessage("Role: " + currentAccount.getRole());
-						printConsoleMessage("Online: " + currentAccount.getOnline());
-
-						frame.dispose();
+						printConsoleMessage("Role:     " + currentAccount.getRole());
+						printConsoleMessage("Online:   " + currentAccount.getOnline());
 
 						// Proceed to Role Specific Menus
+						frame.dispose();
 						returnToAccountMenu();
 
+						// Notify User If He/She has a Pending Notification
 						NotificationList nfl = new NotificationList();
 						if (nfl.hasNotification(currentAccount.getUsername())) {
 							messageBoxA.setText("> Notice! You Might be Infected from " + nfl.getEstablishmentCode(currentAccount.getUsername()));
-						}
-
+						}					
 					} else {
 						errorBoxA.setText("> Invalid Password!");
 						printConsoleMessage("Error > Invalid Password");
@@ -1419,18 +1419,12 @@ public class MachineProjectGUI {
 				printConsoleMessage("Register Menu GUI");
 
 				frame.dispose();
-				registerMenu("customer");
+				registerMenu();
 			}
 		}
 	}
 
 	private class RegisterEvents implements ActionListener {
-		private String inputRole;
-
-		public RegisterEvents(String role) {
-			inputRole = role;
-		}
-
 		@Override
 		public void actionPerformed(ActionEvent e) {	
 			if (e.getSource() == buttons[0]) {				// Next Button (Confirm Username & Password Validity)
@@ -1452,7 +1446,7 @@ public class MachineProjectGUI {
 							printConsoleMessage("Account Info Forms GUI");
 
 							frame.dispose();
-							accountFormMenu(inputRole, inputUsername, inputPassword);
+							accountFormMenu(inputUsername, inputPassword);
 
 						} else {
 							// Error Messages
@@ -1496,12 +1490,10 @@ public class MachineProjectGUI {
 	}
 
 	private class AccountFormEvents implements ActionListener {
-		private String inputRole;
 		private String inputUsername;
 		private String inputPassword;
 
-		public AccountFormEvents(String role, String username, String password) {
-			inputRole = role;
+		public AccountFormEvents(String username, String password) {
 			inputUsername = username;
 			inputPassword = password;
 		}
@@ -1537,8 +1529,8 @@ public class MachineProjectGUI {
 					Name fullName = new Name(userInputs[0], userInputs[1], userInputs[2]);
 					Address addresses = new Address(userInputs[3], userInputs[4], userInputs[6], userInputs[5]);
 
-					// Register currentAccount
-					if (currentAccount.register(inputRole, inputUsername, inputPassword, fullName, addresses)) {
+					// Register a Citizen Account (Customer Role)
+					if (currentAccount.register("customer", inputUsername, inputPassword, fullName, addresses)) {
 						printConsoleMessage("Registry Success");
 						printConsoleMessage("Main Menu GUI");
 
@@ -1602,47 +1594,50 @@ public class MachineProjectGUI {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == buttons[5]) {								// Show Account Listings Button
-				printConsoleMessage("Show Account Listings Menu GUI");	
+				printConsoleMessage("Displaying Account Listings (gv)");	
 
 				frame.dispose();
 				showAccountListMenu();
 			} else if (e.getSource() == buttons[6]) {						// Show Unassigned Cases Button
-				printConsoleMessage("Show Unassigned Menu GUI");
+				printConsoleMessage("Displaying Unassigned Cases (gv)");
 
 				frame.dispose();
-				GovernmentOfficial gv = new GovernmentOfficial();
-				gv.copyAccountInfo(currentAccount);
-
+				GovernmentOfficial gv = (GovernmentOfficial) currentAccount;
 				showUnassignedCasesMenu(gv.showUnassignedCases());
+
 			} else if (e.getSource() == buttons[7]){						// Show Contact Tracing Updates Button
-				GovernmentOfficial gv = new GovernmentOfficial();
-				gv.copyAccountInfo(currentAccount);
+				printConsoleMessage("Displaying Contact Tracing Updates (gv)");
 
 				frame.dispose();
+				GovernmentOfficial gv = (GovernmentOfficial) currentAccount;
 
 				// Default Duration
 				Calendar startDate = RecordList.buildCalendar("01,01,2000", "0000");
 				Calendar endDate = Calendar.getInstance();
-				showContactTracingUpdatesMenu(gv.showContactTracingUpdates(startDate, endDate, 'P'));
 				messageBoxA.setText("> Displaying Cases from " + "01,01,2000" + " -> Today");
 
+				showContactTracingUpdatesMenu(gv.showContactTracingUpdates(startDate, endDate, 'P'));
+
 			} else if (e.getSource() == buttons[8]) {						// Show Analytics
-				printConsoleMessage("Show Analytics Menu GUI");
+				printConsoleMessage("Displaying Analytics (gv)");
 
 				frame.dispose();
 				showAnalyticsMenu();
+
 			} else if (e.getSource() == buttons[9]) {						// Create Government Official Account
-				printConsoleMessage("Create Government Official Menu GUI");
+				printConsoleMessage("Creating or Employing Government Official Account");
 
 				frame.dispose();
 				createOfficialMenu();
+
 			} else if (e.getSource() == buttons[10]) {						// Create Contact Tracer Account
-				printConsoleMessage("Create Contact Tracer Menu GUI");
+				printConsoleMessage("Creating or Employing Contact Tracer Account");
 
 				frame.dispose();
 				createTracerMenu();
-			} else {													// Terminate Account
-				printConsoleMessage("Terminate Account Menu GUI");
+
+			} else {														// Terminate Account
+				printConsoleMessage("Terminating Account");
 
 				frame.dispose();
 				terminateAccountMenu();
@@ -1653,15 +1648,17 @@ public class MachineProjectGUI {
 	private class ContactTracerEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ContactTracer ct = new ContactTracer();
-			ct.copyAccountInfo(currentAccount);
-
 			if (e.getSource() == buttons[5]) {					// Show Unassigned Cases Button
+				printConsoleMessage("Displaying Assigned Cases (ct)");
+				
+				ContactTracer ct = (ContactTracer) currentAccount;
 				frame.dispose();
+
 				showAssignedCases(ct.showCases());
 
+			} else {											// Trace Specific Case Button
+				printConsoleMessage("Tracing Specific Case (ct)");
 
-			} else {										// Trace Specific Case Button
 				frame.dispose();
 				traceSpecificCaseMenu();
 
@@ -1688,10 +1685,9 @@ public class MachineProjectGUI {
 				// Checking In
 				if (checkInDate != null) {
 					// Checking In
-					Citizen cz = new Citizen();
-					cz.copyAccountInfo(currentAccount);
-					cz.checkIn(code, checkInDate);
+					Citizen cz = (Citizen) currentAccount;
 
+					cz.checkIn(code, checkInDate);
 					messageBoxA.setText("> Checked In - " + code + date + " " + time);
 				} else {
 					messageBoxA.setText("> Check In Failed! Invalid Inputs");
@@ -1712,11 +1708,9 @@ public class MachineProjectGUI {
 				String date = textBoxes[0].getText().trim();
 
 				// Reporting Case
-				Citizen cz = new Citizen();
-				cz.copyAccountInfo(currentAccount);
-
+				Citizen cz = (Citizen) currentAccount;
 				Calendar reportDate = RecordList.buildCalendar(date, "0000");
-				
+
 				frame.dispose();
 				returnToAccountMenu();
 
@@ -1815,8 +1809,7 @@ public class MachineProjectGUI {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == buttons[0]) {			// Display Button
-				GovernmentOfficial gv = new GovernmentOfficial();
-				gv.copyAccountInfo(currentAccount);
+				GovernmentOfficial gv = (GovernmentOfficial) currentAccount;
 
 				int numCases = -1;
 				String city = textBoxes[0].getText().trim();
@@ -1883,8 +1876,7 @@ public class MachineProjectGUI {
 				String username = textBoxes[0].getText().trim();
 				errorBoxA.setText("");
 
-				GovernmentOfficial gv = new GovernmentOfficial();
-				gv.copyAccountInfo(currentAccount);
+				GovernmentOfficial gv = (GovernmentOfficial) currentAccount;
 				
 				// Check Unique Username
 				if (username.length() != 0) {
@@ -1960,8 +1952,7 @@ public class MachineProjectGUI {
 					if (state.length() != 0) {
 						switch (state.charAt(0)) {
 							case 'P','p','T','t':
-								GovernmentOfficial gv = new GovernmentOfficial();
-								gv.copyAccountInfo(currentAccount);
+								GovernmentOfficial gv = (GovernmentOfficial) currentAccount;
 
 								frame.dispose();
 								showContactTracingUpdatesMenu(gv.showContactTracingUpdates(startDate, endDate, state.charAt(0)));
@@ -2022,8 +2013,7 @@ public class MachineProjectGUI {
 	private class TraceCaseEvents implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) { 	
-			ContactTracer ct = new ContactTracer();
-			ct.copyAccountInfo(currentAccount);
+			ContactTracer ct = (ContactTracer) currentAccount;
 
 			if (e.getSource() == buttons[0]) {				// Trace Case
 				messageBoxA.setText("");
@@ -2090,15 +2080,15 @@ public class MachineProjectGUI {
 	 */
 	private void returnToAccountMenu() {
 		if(currentAccount.getRole().equals("customer")) {
-			printConsoleMessage("Customer Menu GUI");
+			printConsoleMessage("Displaying Customer Menu");
 			customerMenu();
 
 		} else if (currentAccount.getRole().equals("official")) {
-			printConsoleMessage("Government Official Menu GUI");
+			printConsoleMessage("Displaying Government Official Menu");
 			governmentOfficialMenu();
 
 		} else {
-			printConsoleMessage("Contact Tracer Menu GUI");
+			printConsoleMessage("Displaying Contact Tracer Menu");
 			contactTracerMenu(); 
 		}
 	}
