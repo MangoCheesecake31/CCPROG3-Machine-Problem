@@ -2037,7 +2037,8 @@ public class MachineProjectGUI {
 						messageBoxA.setText("> Found " + names.length + " Possibly Infected");
 						printConsoleMessage("Found " + names.length + " Possibly Infected");
 
-
+						ct.informCitizens(names);
+						
 					} else {
 						messageBoxA.setText("> Traced or Not Assgined");
 					}
