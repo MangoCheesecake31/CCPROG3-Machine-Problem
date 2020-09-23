@@ -57,11 +57,16 @@ public class RecordList {
 	 *	@param username username of the Record holder
 	 */
 	public Record getUserRecord(String username) {
-		for(Record x: records) {
-			if(x.getUsername().equalsIgnoreCase(username)) {
-				return x;
+		try {
+			for(Record x: records) {
+				if(x.getUsername().equalsIgnoreCase(username)) {
+					return x;
 
+				}
 			}
+		} catch (NullPointerException e) {
+			System.out.println("There are Still No Entered Records");
+		
 		}
 		return null;
 	}

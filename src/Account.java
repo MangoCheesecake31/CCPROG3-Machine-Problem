@@ -93,8 +93,12 @@ public class Account {
 
 
 		// Saving User Information ::::::::::::::::::::::::::::::::::::::::
-		// Add Registered User to MasterList.txt
+		// Add Registered User to Masters.txt
 		masters.addMaster(username, accountType);
+
+		// Add Registered User to Records.txt
+		RecordList records = new RecordList();
+		records.addRecord(new Record(username));
 
 		// Create & Save File for User Personal and Account Information
 		saveUserInfo(username);
