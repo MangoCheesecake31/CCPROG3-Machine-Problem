@@ -1,20 +1,15 @@
 Admin2020
-cksc 05,31,2020 1212
-wakanda 05,31,2020 1520
 
 asdasd1
-cksc 05,31,2020 1220
-mcdo 05,30,2020 0120
+mcdo 05,31,2020 0600
+jollibee 05,31,2020 0800
+sm 06,02,2020 0800
 
-jared
+customertest
+jollibee 05,31,2020 0830
+shakeys 05,31,2020 1000
+sm 06,02,2020 1200
 
-martin
-
-maxson
-
-asdasdasdzxczxc
-
-thejared126
-
-asdasd3
+contactboi
+sm 06,02,2020 1300
 

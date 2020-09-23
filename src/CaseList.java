@@ -137,7 +137,7 @@ public class CaseList {
 	 *	
 	 *	@author Steven Castro
 	 *	@param 	caseNum 	case number
-	 *	@param 	tracer 		tracer username
+	 *	@param 	tracername 		tracer username
 	 *	@return boolean
 	 */
 	public boolean assignTracer(int caseNum, String tracername) {
@@ -159,7 +159,7 @@ public class CaseList {
 	 *	
 	 *	@author Steven Castro
 	 *	@param caseNum case number
-	 *	@param status tracing status
+	 *	@param state tracing status
 	 *	@return boolean
 	 */
 	public boolean updateStatus(int caseNum, char state) {
@@ -197,22 +197,6 @@ public class CaseList {
 
 
 	// File Handling ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	/**
-	 *	Reloads the contents of this Object's Arrays by scanning the text file again
-	 *	
-	 *	@author Steven Castro
-	 */
-	public void refresh() {
-		numCases = 0;
-		caseNo = new ArrayList<>();
-		usernames = new ArrayList<>();
-		reportDates = new ArrayList<>();
-		tracernames = new ArrayList<>();
-		statuses = new ArrayList<>();
-
-		load();
-	}
-
 	/**
 	 *	Opens the text file then scan and loads the contents onto this Object's Arrays 
 	 *	

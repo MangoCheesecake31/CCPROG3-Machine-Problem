@@ -38,9 +38,9 @@ public class NotificationList {
 
     // Getter ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     /**
-     * 	returns the establishtment code of where the use is possibly infected given by the parameter username
+     * 	returns the establishment code of where the use is possibly infected given by the parameter username
      *
-     *  @param  username 	username of the reciepient of a pending notfication
+     *  @param  username 	username of the recipient of a pending notification
      *  @return String
      */
     public String getEstablishmentCode(String username) {
@@ -80,7 +80,7 @@ public class NotificationList {
     /**
      * 	removes a pending notification from this Object's arrays
      *
-     *  @param  username receipient of the notification to be deleted
+     *  @param  username recipient of the notification to be deleted
      *  @return boolean
      */
     public boolean deleteNotification(String username) {

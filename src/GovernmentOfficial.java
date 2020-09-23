@@ -1,7 +1,5 @@
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Scanner;
-import java.io.*;
 
 public class GovernmentOfficial extends Citizen {
 	// Methods ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -131,9 +129,7 @@ public class GovernmentOfficial extends Citizen {
 	 */
 	public int analytics(Calendar start, Calendar end) {
 		int numCases = 0;
-		MasterList masters = new MasterList();
 		CaseList cases = new CaseList();
-		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
 
 		// Search & Count Cases
 		for (int i = 0; i < cases.getNumCases(); i++) {
@@ -161,7 +157,6 @@ public class GovernmentOfficial extends Citizen {
 		int numCases = 0;
 		MasterList masters = new MasterList();
 		CaseList cases = new CaseList();
-		SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
 		Account ac;
 
 		// Search & Count

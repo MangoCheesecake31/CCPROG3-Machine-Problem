@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.Scanner;
 import java.io.*;
@@ -111,7 +110,7 @@ public class Account {
 	 *	@author Steven Castro
 	 *	@param 	username 	Account username
 	 *	@param 	password 	inputted password
-	 *	@return boolean
+	 *	@return Account
 	 */
 	public static Account logIn(String username, String password) {
 		MasterList masters = new MasterList();
@@ -182,7 +181,7 @@ public class Account {
 	 * 	set the account's password field
 	 *
 	 * 	@author Steven Castro
-	 * 	@param 	newPass 	new desired password
+	 * 	@param 	newPass new desired password
 	 * 	@return boolean
 	 */
 	public boolean setPassword(String newPass) {
@@ -198,7 +197,7 @@ public class Account {
 	 * 	set the account's role field
 	 *
 	 * 	@author Steven Castro
-	 * 	@param 	newRole 	new desired role
+	 * 	@param 	newRole new desired role
 	 */
 	public void setRole(String newRole) {
 		role = newRole;
@@ -254,7 +253,7 @@ public class Account {
 		// checks password length (minimum of 6 characters)
 		if(5 < password.length()) {
 
-			// check if password contains atleast 1 special character or digit
+			// check if password contains at least 1 special character or digit
 			for(int i = 0; i < password.length(); i++) {
 				for(int j = 0; j < special.length(); j++) {
 					if(password.charAt(i) == special.charAt(j)) {
@@ -269,10 +268,10 @@ public class Account {
 
 	// File Handling ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-	 *	scans and loads user's personnal and account information onto Account Class fields
+	 *	scans and loads user's personal and account information onto Account Class fields
 	 *	
 	 *	@author Steven Castro
-	 *	@param 	username 	current user's username
+	 *	@param 	username current user's username
 	 */
 	public void loadUserInfo(String username) {
 		MasterList masters = new MasterList();
@@ -294,10 +293,10 @@ public class Account {
 			// Account is Loaded & Online
 			online = true;
 
-			// Flsuh
+			// Flush
 			dump = sc.nextLine();
 
-			// Scan Fullname
+			// Scan Full name
 			StringTokenizer st = new StringTokenizer(sc.nextLine(), ",");
 			fullName = new Name(st.nextToken().trim(), st.nextToken().trim(), st.nextToken().trim());
 
@@ -318,7 +317,7 @@ public class Account {
 	 *	returns true when writing user's personal and account information to respective files is successful
 	 *
 	 *	@author Steven Castro
-	 *	@param 	username 	current user's username
+	 *	@param 	username current user's username
 	 *	@return boolean
 	 */
 	public boolean saveUserInfo(String username) {
@@ -327,7 +326,7 @@ public class Account {
 			File file = new File("./Accounts/" + username + ".act");
 			PrintStream ps = new PrintStream(file);
 
-			// Password & Fullname
+			// Password & Full name
 			ps.println(password);
 			ps.println(fullName.getFirstName() + ", " + fullName.getMiddleName() + ", " + fullName.getLastName());
 

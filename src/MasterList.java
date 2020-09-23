@@ -12,8 +12,8 @@ public class MasterList {
 	// Attributes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	private final File FILE;
 	private int numAcc;
-	private ArrayList<String> masters = new ArrayList<String>();
-	private ArrayList<String> roles = new ArrayList<String>();
+	private ArrayList<String> masters = new ArrayList<>();
+	private ArrayList<String> roles = new ArrayList<>();
 
 
 	// Constructors ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -41,7 +41,7 @@ public class MasterList {
 
 	// Data Manipulation ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/** 
-	 *	returns true if appending a new user on the MasterList arrays is sucessful
+	 *	returns true if appending a new user on the MasterList arrays is successful
 	 *	 
 	 *	@author Steven Castro 
 	 *	@param username new user's username
@@ -74,7 +74,7 @@ public class MasterList {
 	}
 
 	/**
-	 *	returns true if updating the role of an existing username in the Master List is sucessful
+	 *	returns true if updating the role of an existing username in the Master List is successful
 	 *	
 	 *	@author Steven Castro
 	 *	@param username username of the user
@@ -138,18 +138,6 @@ public class MasterList {
 	}
 
 	// File Handling ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-	/**
-	 *	Reloads the contents of this Object's Arrays by scanning the text file again
-	 *	@author Steven Castro
-	 */
-	public void refresh() {
-		numAcc = 0;
-		masters = new ArrayList<String>();
-		roles = new ArrayList<String>();
-
-		load();
-	}
-
 	/**
 	 *	Opens the text file then scan and loads the contents onto this Object's Arrays 
 	 *	

@@ -7,7 +7,7 @@ public class Record {
     private int numEntries = 0;
     private String username;
     private ArrayList<Calendar> dateList = new ArrayList<>();
-    private ArrayList<String> codeList = new ArrayList<String>();
+    private ArrayList<String> codeList = new ArrayList<>();
 
 
      // Constructors :::::::::::::::::::::::::::::::::::::::::::::::::::::::

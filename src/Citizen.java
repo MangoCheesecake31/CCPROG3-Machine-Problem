@@ -1,6 +1,4 @@
 import java.util.Calendar;
-import java.util.Scanner;
-import java.io.*;
 
 public class Citizen extends Account {
 	// Methods ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -29,11 +27,7 @@ public class Citizen extends Account {
 	 */
 	public boolean reportPositive(Calendar cal) {
 		CaseList caseList = new CaseList();
-		
-		if (caseList.addCase(getUsername(), cal)) {
-			return true;
-		}
 
-		return false;
+		return caseList.addCase(getUsername(), cal);
 	}
 }

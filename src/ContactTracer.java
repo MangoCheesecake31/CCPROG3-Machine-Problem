@@ -10,7 +10,7 @@ public class ContactTracer extends Citizen {
      * Shows the list of case numbers assigned to this contact tracer that have
      * not undergone contact tracing yet
      *
-     * @return the list of case numbers
+     * @return String[][]
      */
     public String[][] showCases() {
         CaseList cases = new CaseList();
@@ -46,13 +46,12 @@ public class ContactTracer extends Citizen {
      *
      *  @author Roymaxson Li, Steven Castro
      *  @param  caseNum     specific case number to be traced
-     *  @return boolean
+     *  @return String[][]
      */
     public String[][] traceSpecificCase(int caseNum) {
         CaseList cases = new CaseList();
         RecordList records = new RecordList();
         SimpleDateFormat sdf = new SimpleDateFormat("MM,dd,yyyy");
-        ArrayList<Integer> tracerCaseNum = new ArrayList<>();
 
         // List
         ArrayList<String> possiblyInfectedUsers = new ArrayList<>();
@@ -167,8 +166,8 @@ public class ContactTracer extends Citizen {
 
     /**
      * Sends a notification to a citizen stating that he/she is advised to get tested
-     * as he/she may have been in contact with a positive patie
-     * @param lists
+     * as he/she may have been in contact with a positive patient
+     * @param lists the list of citizens to inform
      */
     public void informCitizens(String[][] lists) {
         NotificationList nfl = new NotificationList();

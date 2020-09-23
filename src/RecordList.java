@@ -1,5 +1,4 @@
 import java.io.*;
-import java.text.*;
 import java.util.*;
 
 /*
@@ -119,18 +118,6 @@ public class RecordList {
 
 	// File Handling ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-	 *	Reloads the contents of this Object's Arrays by scanning the text file again
-	 * 
-	 *	@author Steven Castro
-	 */
-	public void refresh() {
-		numRecords = 0;
-		records = new ArrayList<>();
-
-		load();
-	}
-
-	/**
 	 * 	Opens the text file then scan and loads the contents onto this Object's Arrays
 	 * 	
 	 *	@author Roymaxson Li
@@ -234,8 +221,8 @@ public class RecordList {
 	 * 	builds and return a Calendar Object based on the String parameters
 	 *
 	 * 	@author Steven Castro
-	 * 	@param date String represendation of a date (MM,dd,yyyy)
-	 * 	@param time String represendation of a military time (hhmm)
+	 * 	@param date String representation of a date (MM,dd,yyyy)
+	 * 	@param time String representation of a military time (hhmm)
 	 */
 	public static Calendar buildCalendar(String date, String time) {
 		try {
