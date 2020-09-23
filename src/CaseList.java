@@ -143,7 +143,7 @@ public class CaseList {
 	public boolean assignTracer(int caseNum, String tracername) {
 		MasterList masters = new MasterList();
 
-		if (0 < caseNum && caseNum < numCases) {
+		if (0 < caseNum && caseNum <= numCases) {
 			// Check tracer if it has a verified account
 			if (masters.checkMaster(tracername) && masters.getMasterRole(tracername).equals("tracer")) {
 				tracernames.set(caseNum - 1, tracername);

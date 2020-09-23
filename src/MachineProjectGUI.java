@@ -1614,9 +1614,9 @@ public class MachineProjectGUI {
 				// Default Duration
 				Calendar startDate = RecordList.buildCalendar("01,01,2000", "0000");
 				Calendar endDate = Calendar.getInstance();
-				messageBoxA.setText("> Displaying Cases from " + "01,01,2000" + " -> Today");
 
 				showContactTracingUpdatesMenu(gv.showContactTracingUpdates(startDate, endDate, 'P'));
+				messageBoxA.setText("> Displaying Cases from " + "01,01,2000" + " -> Today");
 
 			} else if (e.getSource() == buttons[8]) {						// Show Analytics
 				printConsoleMessage("Displaying Analytics (gv)");
@@ -1775,7 +1775,8 @@ public class MachineProjectGUI {
 			if (e.getSource() == buttons[0]) {						// Change Password Button
 				String password = textBoxes[0].getText().trim();
 
-				if (currentAccount.changePassword(password)) {
+				if (currentAccount.setPassword(password)) {
+					currentAccount.saveUserInfo(currentAccount.getUsername());
 					errorBoxA.setText("> Password Chnaged!");
 
 				} else {										
@@ -1876,6 +1877,7 @@ public class MachineProjectGUI {
 				String username = textBoxes[0].getText().trim();
 				errorBoxA.setText("");
 
+				System.out.println("pre" + currentAccount.fullName + " " + username);
 				GovernmentOfficial gv = (GovernmentOfficial) currentAccount;
 				
 				// Check Unique Username
@@ -1896,10 +1898,10 @@ public class MachineProjectGUI {
 						}
 
 					} else if (buttons[0].getText().equals("Create Tracer")) {				// Create Tracer Button
-
+						System.out.println("pre2" + currentAccount.fullName + " " + username);
 						// Create Contact Tracer by Updating
 						if (gv.createContactTracer(username)) {
-
+							System.out.println("pre3" + currentAccount.fullName + " " + username);
 							// Messages
 							if (masters.checkMaster(username)) {
 								errorBoxA.setText("> Username is now a Contact Tracer!");
@@ -1924,6 +1926,8 @@ public class MachineProjectGUI {
 							errorBoxA.setText("> You Cannot Terminate Yourself");
 						}
 					}
+
+					System.out.println("post" + currentAccount.fullName + " " + username);
 				} else {
 					
 					// Error Message
@@ -1931,6 +1935,8 @@ public class MachineProjectGUI {
 				}
 			} else {												// Back Buttons		
 
+				System.out.println(currentAccount.fullName);
+				System.out.println("Returning Back");
 				frame.dispose();
 				returnToAccountMenu();
 			}
@@ -2079,7 +2085,8 @@ public class MachineProjectGUI {
 	 * 	@author Steven Castro
 	 */
 	private void returnToAccountMenu() {
-		if(currentAccount.getRole().equals("customer")) {
+		System.out.println(currentAccount.fullName);
+		if (currentAccount.getRole().equals("customer")) {
 			printConsoleMessage("Displaying Customer Menu");
 			customerMenu();
 
@@ -2092,4 +2099,4 @@ public class MachineProjectGUI {
 			contactTracerMenu(); 
 		}
 	}
-}
+}	

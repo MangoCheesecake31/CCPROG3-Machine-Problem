@@ -60,13 +60,6 @@ public class Account {
 		final String[] VALIDTYPES = {"customer", "tracer", "official"};
 		boolean valid = false;
 
-		// Load to Account Object Fields
-		this.username = username;
-		this.password = password;
-		this.role = accountType;
-		this.fullName = fullName;
-		this.addresses = addresses;
-
 		// Checking Validity of Account Information ::::::::::::::::::::
 		// Account Type Checking
 		for(String x: VALIDTYPES) {
@@ -91,6 +84,13 @@ public class Account {
 			return false;
 		}
 
+		// Create new Account Object & Fields
+		Account newAccount = new Account();
+		newAccount.setUsername(username);
+		newAccount.setPassword(password);
+		newAccount.setRole(accountType);
+		newAccount.fullName = fullName;
+		newAccount.addresses = addresses;
 
 		// Saving User Information ::::::::::::::::::::::::::::::::::::::::
 		// Add Registered User to Masters.txt
@@ -101,7 +101,7 @@ public class Account {
 		records.addRecord(new Record(username));
 
 		// Create & Save File for User Personal and Account Information
-		saveUserInfo(username);
+		newAccount.saveUserInfo(username);
 		return true;
 	}
 
@@ -166,20 +166,42 @@ public class Account {
 		online = false;
 	}
 
+
+	// Setter ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 	/**
-	 * 	changes the account's password
+	 * 	set the account's username field
+	 *
+	 * 	@author Steven Castro
+	 * 	@param 	newUser 	new desired username
+	 */
+	public void setUsername(String newUser) {
+		username = newUser;
+	}
+
+	/**
+	 * 	set the account's password field
 	 *
 	 * 	@author Steven Castro
 	 * 	@param 	newPass 	new desired password
 	 * 	@return boolean
 	 */
-	public boolean changePassword(String newPass) {
+	public boolean setPassword(String newPass) {
 		if (validPassword(newPass)) {
 			password = newPass;
-			saveUserInfo(username);
+			//saveUserInfo(username);
 			return true;
 		} 
 		return false;
+	}
+
+	/**
+	 * 	set the account's role field
+	 *
+	 * 	@author Steven Castro
+	 * 	@param 	newRole 	new desired role
+	 */
+	public void setRole(String newRole) {
+		role = newRole;
 	}
 
 
